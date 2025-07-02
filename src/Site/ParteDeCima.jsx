@@ -1,5 +1,5 @@
 import React from 'react';
-import FundoPNGclaro from '../Img/FundoPNGclaro.png';
+import FundoPNGclaro from '../Img/FundoPNGclaroGirar.png';
 import Imagem1 from '../Img/account_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png';
 import Imagem2 from '../Img/dark_mode_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png';
 
@@ -8,11 +8,11 @@ export function ParteDeCima() {
     <div className="relative min-h-screen bg-gray-100">
 
       {/* TOPO FIXO */}
-      <div className="fixed top-0 left-0 w-full h-[150px] overflow-hidden z-50 relative">
+      <div className="fixed top-0 left-0 w-full h-[120px] overflow-hidden z-50 relative">
         <img
           src={FundoPNGclaro}
           alt="Fundo girado"
-          className="w-full h-full object-cover transform rotate-180"
+          className="w-full h-full "
         />
 
         {/* Container principal */}

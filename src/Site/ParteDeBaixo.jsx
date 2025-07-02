@@ -7,7 +7,7 @@ export function ParteDeBaixo() {
       <img
         src={ImagemDaHome}
         alt="Imagem inferior"
-        className="w-480 h-180 object-cover mx-auto"
+        className="w-450 h-190 object-cover mx-auto"
       />
     </div>
   );
