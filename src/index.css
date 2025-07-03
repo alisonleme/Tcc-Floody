@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+:root {
+    --cor-principal: #00BCF2;
+  }
+  
