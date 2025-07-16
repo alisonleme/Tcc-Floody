@@ -2,5 +2,6 @@
 
 :root {
     --cor-principal: #00BCF2;
+    --cor-secundaria-transparente: rgba(3, 99, 167, 0.2); /* azul #0363A7 com 60% de opacidade */
   }
   
