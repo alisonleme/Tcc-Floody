@@ -82,10 +82,10 @@ export function App() {
             Trata-se de um ralo inteligente, instalado em áreas externas da casa. Quando identifica acúmulo de água, ele se eleva automaticamente, permitindo que a água escoe para seu interior. O sistema realiza duas etapas de filtragem: uma inicial e outra mais densa. Após o tratamento, a água é armazenada em um reservatório interno e enviada para uma caixa d’água auxiliar, podendo ser reutilizada em tarefas como lavar o quintal, regar plantas e dar descarga.
           </p>
           <p className="text-2xl font-semibold">
-            👥 Público-alvo:  Moradores de áreas urbanas com histórico de alagamentos.
+            👥 Público-alvo: Moradores de áreas urbanas com histórico de alagamentos.
           </p>
           <p className="text-2xl font-semibold">
-            🎯 Objetivo do Projeto:  Reduzir os impactos das enchentes e promover práticas sustentáveis dentro das residências.
+            🎯 Objetivo do Projeto: Reduzir os impactos das enchentes e promover práticas sustentáveis dentro das residências.
           </p>
           <p className="text-2xl font-semibold">
             🌟 Diferenciais do Floody:
@@ -96,7 +96,7 @@ export function App() {
             Contribuição direta com o meio ambiente
           </p>
           <p className="text-2xl font-semibold">
-            📲 Baixe o app do Floody:  Botão de download para acesso ao aplicativo.
+            📲 Baixe o app do Floody: Botão de download para acesso ao aplicativo.
           </p>
 
           {/* Botão Download app */}
