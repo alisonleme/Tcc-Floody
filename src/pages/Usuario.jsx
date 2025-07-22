@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react";
 export default function Usuario({ user, onLogout, onUserUpdate }) {
   const [email, setEmail] = useState(user.email);
   const [senha, setSenha] = useState(user.senha);
-  const [username, setUsername] = useState(user.username || ""); // nome de usuário
+  const [username, setUsername] = useState(user.username || "");
   const [editandoEmail, setEditandoEmail] = useState(false);
   const [editandoSenha, setEditandoSenha] = useState(false);
   const [editandoUsername, setEditandoUsername] = useState(false);
   const [emailTemp, setEmailTemp] = useState(email);
   const [senhaTemp, setSenhaTemp] = useState(senha);
   const [usernameTemp, setUsernameTemp] = useState(username);
-  const [mostrarSenha, setMostrarSenha] = useState(false); // controla se a senha fica visível
+  const [mostrarSenha, setMostrarSenha] = useState(false);
 
   useEffect(() => {
     setEmailTemp(email);
@@ -62,6 +62,17 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
     localStorage.setItem("user", JSON.stringify(novoUser));
   };
 
+  const excluirConta = () => {
+    if (window.confirm("Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita.")) {
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      users = users.filter((u) => u.email !== user.email); // Remove o usuário
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.removeItem("user"); // Remove usuário logado
+      alert("Conta excluída com sucesso!");
+      onLogout(); // Faz logout automático
+    }
+  };
+
   const esconderSenha = (senha) => senha.replace(/./g, "*");
 
   return (
@@ -69,12 +80,21 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold text-center mb-6">Área do Usuário</h1>
 
-        <button
-          onClick={onLogout}
-          className="mb-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-        >
-          Sair
-        </button>
+        <div className="flex justify-between mb-4">
+          <button
+            onClick={onLogout}
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          >
+            Sair
+          </button>
+
+          <button
+            onClick={excluirConta}
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Excluir Conta
+          </button>
+        </div>
 
         <div className="mb-6 p-4 bg-gray-200 rounded">
           <p>
