@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Auth({ onLogin }) {
   const [users, setUsers] = useState([]);
@@ -7,24 +7,11 @@ export default function Auth({ onLogin }) {
   const [username, setUsername] = useState("");
   const [senha, setSenha] = useState("");
   const [isLogin, setIsLogin] = useState(true);
-  const [error, setError] = useState("");
-  const loginInputRef = useRef(null);
 
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
     setUsers(storedUsers);
   }, []);
-
-  useEffect(() => {
-    setError("");
-    setLoginId("");
-    setEmail("");
-    setUsername("");
-    setSenha("");
-    setTimeout(() => {
-      loginInputRef.current?.focus();
-    }, 0);
-  }, [isLogin]);
 
   const saveUsers = (newUsers) => {
     localStorage.setItem("users", JSON.stringify(newUsers));
@@ -33,51 +20,50 @@ export default function Auth({ onLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
 
     if (isLogin) {
-      if (!loginId.trim()) {
-        setError("Preencha o email ou nome de usuário");
+      if (!loginId) {
+        alert("Preencha o email ou nome de usuário");
         return;
       }
       if (!senha || senha.length < 6) {
-        setError("A senha deve ter pelo menos 6 caracteres");
+        alert("A senha deve ter pelo menos 6 caracteres");
         return;
       }
 
       const user = users.find(
         (u) =>
-          (u.email.toLowerCase() === loginId.trim().toLowerCase() ||
-            u.username.toLowerCase() === loginId.trim().toLowerCase()) &&
-          u.senha === senha
+          (u.email === loginId || u.username === loginId) && u.senha === senha
       );
 
       if (user) {
+        alert("Login realizado com sucesso!");
         onLogin(user);
       } else {
-        setError("Usuário ou senha incorretos.");
+        alert("Usuário ou senha incorretos.");
       }
     } else {
-      if (!email.trim() || !username.trim() || !senha) {
-        setError("Preencha todos os campos");
+      if (!email || !username || !senha) {
+        alert("Preencha todos os campos");
         return;
       }
       if (senha.length < 6) {
-        setError("A senha deve ter pelo menos 6 caracteres");
+        alert("A senha deve ter pelo menos 6 caracteres");
         return;
       }
-      if (users.some((u) => u.email.toLowerCase() === email.trim().toLowerCase())) {
-        setError("Email já cadastrado.");
+      if (users.some((u) => u.email === email)) {
+        alert("Email já cadastrado.");
         return;
       }
-      if (users.some((u) => u.username.toLowerCase() === username.trim().toLowerCase())) {
-        setError("Nome de usuário já cadastrado.");
+      if (users.some((u) => u.username === username)) {
+        alert("Nome de usuário já cadastrado.");
         return;
       }
 
-      const newUser = { email: email.trim(), username: username.trim(), senha };
+      const newUser = { email, username, senha };
       const newUsers = [...users, newUser];
       saveUsers(newUsers);
+      alert("Cadastro realizado com sucesso!");
       onLogin(newUser);
     }
   };
@@ -95,10 +81,6 @@ export default function Auth({ onLogin }) {
             : "Preencha todos os campos para criar sua conta. Certifique-se de usar um email válido e uma senha com pelo menos 6 caracteres."}
         </p>
 
-        {error && (
-          <div className="mb-4 text-red-600 font-semibold text-center">{error}</div>
-        )}
-
         <form onSubmit={handleSubmit} className="space-y-4">
           {isLogin ? (
             <>
@@ -109,7 +91,6 @@ export default function Auth({ onLogin }) {
                 <input
                   type="text"
                   value={loginId}
-                  ref={loginInputRef}
                   onChange={(e) => setLoginId(e.target.value)}
                   placeholder="Digite seu email ou nome de usuário"
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
@@ -118,7 +99,9 @@ export default function Auth({ onLogin }) {
               </div>
 
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Senha:</label>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Senha:
+                </label>
                 <input
                   type="password"
                   value={senha}
@@ -132,11 +115,12 @@ export default function Auth({ onLogin }) {
           ) : (
             <>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Email:</label>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Email:
+                </label>
                 <input
                   type="email"
                   value={email}
-                  ref={loginInputRef}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Digite seu email"
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
@@ -159,7 +143,9 @@ export default function Auth({ onLogin }) {
               </div>
 
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Senha:</label>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Senha:
+                </label>
                 <input
                   type="password"
                   value={senha}
@@ -183,9 +169,14 @@ export default function Auth({ onLogin }) {
         <p className="mt-4 text-center text-gray-600">
           {isLogin ? "Não tem conta?" : "Já tem conta?"}{" "}
           <button
-            onClick={() => setIsLogin((prev) => !prev)}
+            onClick={() => {
+              setIsLogin(!isLogin);
+              setEmail("");
+              setUsername("");
+              setSenha("");
+              setLoginId("");
+            }}
             className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
-            type="button"
           >
             {isLogin ? "Crie uma aqui" : "Faça login"}
           </button>
