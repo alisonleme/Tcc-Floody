@@ -83,6 +83,22 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen overflow-hidden" style={{ backgroundColor: 'var(--cor-principal)' }}>
+      <style>
+        {`
+          @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .animated-button {
+            background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+            background-size: 400% 400%;
+            animation: shimmer 6s ease infinite;
+          }
+        `}
+      </style>
+
+      {/* Cabeçalho */}
       <div className="relative w-full h-[900px] flex justify-center items-center overflow-hidden">
         <img src={ImagemDaHome} alt="Imagem Home" className="w-[2350px] h-full object-cover max-w-none" />
         <img
@@ -92,29 +108,33 @@ export default function Home() {
         />
         <div
           ref={titleRef}
-          className={`absolute p-20 text-white text-center max-w-xl z-20 transition-all duration-1000 ease-out ${
+          className={`absolute p-20 text-center max-w-xl z-20 transition-all duration-1000 ease-out drop-shadow-lg ${
             titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <p className="text-5xl font-bold drop-shadow-lg">Floody</p>
+          <p className="text-5xl font-extrabold text-white drop-shadow-[0_0_15px_rgba(0,0,0,0.7)]">Floody</p>
         </div>
       </div>
 
+      {/* Faixa intermediária */}
       <div className="w-full h-[400px] relative z-10 -mt-16">
         <img src={FundoPNGclaro} alt="Imagem Ciano" className="w-full h-full object-cover" />
       </div>
 
+      {/* Conteúdo principal */}
       <div className="-mt-40 flex flex-col justify-center items-center relative z-20 px-4">
         <div
           ref={mainRef}
-          className={`p-16 rounded-lg text-gray-900 text-center max-w-7xl w-full space-y-6 shadow-lg transition-all duration-1000 transform ${
+          className={`p-16 rounded-2xl text-gray-900 text-center max-w-7xl w-full space-y-6 shadow-lg transition-all duration-1000 transform ${
             mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
-          style={{ backgroundColor: '#E0E7F3' }}
+          style={{
+            background: 'linear-gradient(135deg, #b3ddfe, #71b7e6)',
+          }}
         >
-          <h1 className="text-5xl font-bold">O que é o Floody?</h1>
+          <h1 className="text-5xl font-extrabold text-gray-900">O que é o Floody?</h1>
 
-          <div className="text-left text-lg font-medium space-y-4 leading-relaxed text-justify">
+          <div className="text-left text-lg font-medium space-y-4 leading-relaxed text-gray-900">
             <p>
               🌧️ O Floody foi desenvolvido como um dispositivo doméstico inovador que visa auxiliar no combate
               às enchentes e promover o reaproveitamento da água da chuva. Seu funcionamento simula um{' '}
@@ -145,26 +165,31 @@ export default function Home() {
             <p>📲 Baixe o app do Floody:</p>
           </div>
 
+          {/* Botão com gradiente animado */}
           <button
-            className="mt-6 px-10 py-4 rounded-md font-semibold text-black shadow-lg transition-all duration-500 hover:text-white hover:bg-blue-500 hover:shadow-blue-500"
-            style={{ backgroundColor: '#B3E1FB', cursor: 'pointer' }}
+            className="mt-6 px-10 py-4 rounded-md font-semibold text-gray-900 shadow-lg transition-all duration-500 hover:scale-105 hover:text-white hover:shadow-2xl animated-button"
           >
             📥 Download app
           </button>
 
+          {/* Cards */}
           <div className="mt-10 flex flex-col space-y-6 max-w-screen-2xl w-full items-center sm:items-start px-2 sm:px-0">
             {sections.map((item, i) => (
               <div
                 key={i}
                 ref={(el) => (blocksRef.current[i] = el)}
-                className={`flex flex-col sm:flex-row rounded-lg p-4 sm:p-6 items-center sm:items-start w-full max-w-5xl transform transition-all duration-1000 ease-in-out ${
-                  visibleBlocks.includes(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                } hover:scale-[1.02]`}
-                style={{ backgroundColor: '#AED2E6' }}
+                className={`flex flex-col sm:flex-row rounded-xl p-6 sm:p-8 items-center sm:items-start w-full max-w-5xl shadow-xl hover:shadow-2xl transform transition-all duration-1000 ease-in-out cursor-pointer hover:scale-[1.03] ${
+                  visibleBlocks.includes(i)
+                    ? 'opacity-100 translate-y-0 scale-100'
+                    : 'opacity-0 translate-y-10 scale-95'
+                }`}
+                style={{
+                  background: 'linear-gradient(135deg, #b3ddfe, #71b7e6)',
+                }}
               >
                 <Link
                   to={item.link}
-                  className="mb-3 sm:mb-0 sm:mr-6 rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-300 hover:scale-105 cursor-pointer"
+                  className="mb-4 sm:mb-0 sm:mr-8 rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-white transition-transform duration-300 hover:scale-105"
                   style={{ minWidth: '250px' }}
                 >
                   <img
@@ -174,7 +199,7 @@ export default function Home() {
                   />
                 </Link>
                 <div className="text-gray-900 text-center sm:text-left text-base lg:text-lg font-semibold text-justify">
-                  <p className="mb-1 text-2xl font-bold">{item.title}</p>
+                  <p className="mb-2 text-2xl font-bold">{item.title}</p>
                   <p>{item.text}</p>
                 </div>
               </div>

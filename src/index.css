@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 :root {
-    --cor-principal: #00BCF2;
+    --cor-principal: #06baf9;
+    --cor-secundaria: #20225d;
     --cor-secundaria-transparente: rgba(3, 99, 167, 0.2); 
   }
   
