@@ -75,6 +75,12 @@ export default function Auth({ onLogin }) {
           {isLogin ? "Login" : "Cadastro"}
         </h1>
 
+        <p className="mb-6 text-justify text-gray-700">
+          {isLogin
+            ? "Por favor, faça login utilizando seu email ou nome de usuário e senha. Sua senha deve conter pelo menos 6 caracteres."
+            : "Preencha todos os campos para criar sua conta. Certifique-se de usar um email válido e uma senha com pelo menos 6 caracteres."}
+        </p>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {isLogin ? (
             <>
@@ -154,7 +160,7 @@ export default function Auth({ onLogin }) {
 
           <button
             type="submit"
-            className="w-full px-4 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            className="w-full px-4 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition cursor-pointer"
           >
             {isLogin ? "Entrar" : "Cadastrar"}
           </button>
@@ -170,7 +176,7 @@ export default function Auth({ onLogin }) {
               setSenha("");
               setLoginId("");
             }}
-            className="text-blue-600 underline hover:text-blue-800"
+            className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
           >
             {isLogin ? "Crie uma aqui" : "Faça login"}
           </button>

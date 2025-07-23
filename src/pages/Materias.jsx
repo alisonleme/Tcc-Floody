@@ -45,9 +45,8 @@ export default function Material({ user }) {
       style={{ backgroundColor: "#d8e7f5" }}
     >
       <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-5xl text-gray-900">
-        <h1 className="text-4xl font-bold text-center mb-8">Materiais</h1>
+        <h1 className="text-5xl font-bold text-center mb-8">Materiais</h1>
 
-        {/* Lista com scroll interno */}
         <div
           className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 overflow-y-auto pr-2"
           style={{ maxHeight: "400px" }}
@@ -55,19 +54,21 @@ export default function Material({ user }) {
           {materiais.map((item) => (
             <div
               key={item.id}
-              className="bg-gray-100 p-6 rounded-2xl shadow-md flex flex-col items-center hover:shadow-xl transition"
+              className="bg-gray-100 p-6 rounded-2xl shadow-md flex flex-col items-center hover:shadow-xl transition cursor-default"
             >
               <img
                 src={item.imagem}
                 alt={item.nome}
                 className="w-32 h-32 object-cover rounded-xl mb-4"
               />
-              <h2 className="text-xl font-semibold">{item.nome}</h2>
-              <p className="text-gray-600">R$ {item.preco.toFixed(2)}</p>
+              <h2 className="text-2xl font-semibold mb-1">{item.nome}</h2>
+              <p className="text-gray-600 mb-4 text-justify text-lg">
+                R$ {item.preco.toFixed(2)}
+              </p>
               {user?.isAdmin && (
                 <button
                   onClick={() => excluirMaterial(item.id)}
-                  className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                  className="mt-2 px-5 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 cursor-pointer transition"
                 >
                   Excluir
                 </button>
@@ -78,16 +79,14 @@ export default function Material({ user }) {
 
         {user?.isAdmin && (
           <div className="bg-blue-50 p-6 rounded-2xl shadow-md">
-            <h2 className="text-2xl font-bold mb-4 text-center">
-              Adicionar Material
-            </h2>
+            <h2 className="text-3xl font-bold mb-6 text-center">Adicionar Material</h2>
             <div className="flex flex-col md:flex-row gap-4">
               <input
                 type="text"
                 placeholder="Nome do material"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
-                className="flex-1 p-3 border rounded-xl"
+                className="flex-1 p-4 border rounded-xl text-lg"
               />
               <input
                 type="number"
@@ -95,18 +94,18 @@ export default function Material({ user }) {
                 placeholder="Preço"
                 value={preco}
                 onChange={(e) => setPreco(e.target.value)}
-                className="w-32 p-3 border rounded-xl"
+                className="w-40 p-4 border rounded-xl text-lg"
               />
               <input
                 type="text"
                 placeholder="URL da imagem"
                 value={imagem}
                 onChange={(e) => setImagem(e.target.value)}
-                className="flex-1 p-3 border rounded-xl"
+                className="flex-1 p-4 border rounded-xl text-lg"
               />
               <button
                 onClick={adicionarMaterial}
-                className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700"
+                className="px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 cursor-pointer transition"
               >
                 Adicionar
               </button>

@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 
 import FundoPNGclaro from "./Img/FundoPNGclaroGirar.png";
 import Imagem2 from "./Img/dark_mode_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
@@ -11,7 +11,8 @@ import SobreNos from "./pages/SobreNos";
 import Artigo from "./pages/Artigo";
 import Usuario from "./pages/Usuario";
 import Auth from "./pages/Auth";
-import ComoFunciona from "./pages/ComoFunciona"; // <-- Adicionada aqui
+import ComoFunciona from "./pages/ComoFunciona";
+import Resumo from "./pages/Resumo";  // <-- Importação adicionada
 
 export function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -68,6 +69,12 @@ export function App() {
             <Link to="/materias" className="text-white hover:text-blue-500 text-xl font-bold px-6 py-2 whitespace-nowrap">
               Matérias
             </Link>
+            <Link to="/artigo" className="text-white hover:text-blue-500 text-xl font-bold px-6 py-2 whitespace-nowrap">
+              Artigo
+            </Link>
+            <Link to="/comofunciona" className="text-white hover:text-blue-500 text-xl font-bold px-6 py-2 whitespace-nowrap">
+              Dispositivo
+            </Link>
             <Link to="/sobre-nos" className="text-white hover:text-blue-500 text-xl font-bold px-6 py-2 whitespace-nowrap">
               Sobre Nós
             </Link>
@@ -93,8 +100,9 @@ export function App() {
         <Route path="/materias" element={<Materias />} />
         <Route path="/sobre-nos" element={<SobreNos />} />
         <Route path="/artigo" element={<Artigo />} />
-        <Route path="/comofunciona" element={<ComoFunciona />} /> {/* <-- Rota adicionada */}
+        <Route path="/comofunciona" element={<ComoFunciona />} />
         <Route path="/usuario" element={<Usuario user={user} onLogout={handleLogout} onUserUpdate={handleUserUpdate} />} />
+        <Route path="/resumo" element={<Resumo />} /> {/* <-- Rota do resumo adicionada */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

@@ -63,13 +63,17 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
   };
 
   const excluirConta = () => {
-    if (window.confirm("Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita.")) {
+    if (
+      window.confirm(
+        "Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita."
+      )
+    ) {
       let users = JSON.parse(localStorage.getItem("users")) || [];
-      users = users.filter((u) => u.email !== user.email); // Remove o usuário
+      users = users.filter((u) => u.email !== user.email);
       localStorage.setItem("users", JSON.stringify(users));
-      localStorage.removeItem("user"); // Remove usuário logado
+      localStorage.removeItem("user");
       alert("Conta excluída com sucesso!");
-      onLogout(); // Faz logout automático
+      onLogout();
     }
   };
 
@@ -77,37 +81,44 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-blue-100 p-6">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6">Área do Usuário</h1>
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-xl md:text-2xl font-bold text-center mb-6">
+          Área do Usuário
+        </h1>
 
         <div className="flex justify-between mb-4">
           <button
             onClick={onLogout}
-            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 cursor-pointer transition"
           >
             Sair
           </button>
 
           <button
             onClick={excluirConta}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer transition"
           >
             Excluir Conta
           </button>
         </div>
 
-        <div className="mb-6 p-4 bg-gray-200 rounded">
-          <p>
-            <strong>Conta atual:</strong>
+        <div
+          className="mb-6 p-4 bg-gray-200 rounded text-justify"
+          style={{ lineHeight: "1.5" }}
+        >
+          <p className="mb-2 font-semibold">Conta atual:</p>
+          <p className="mb-1">Nome de usuário: {username || "(não informado)"}</p>
+          <p className="mb-1">Email: {email}</p>
+          <p className="mb-0">
+            Senha: {senha ? esconderSenha(senha) : "(não informada)"}
           </p>
-          <p>Nome de usuário: {username || "(não informado)"}</p>
-          <p>Email: {email}</p>
-          <p>Senha: {senha ? esconderSenha(senha) : "(não informada)"}</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">Nome de Usuário:</label>
+            <label className="block text-gray-700 font-semibold mb-2 text-base">
+              Nome de Usuário:
+            </label>
             <input
               type="text"
               value={editandoUsername ? usernameTemp : username}
@@ -118,7 +129,7 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
             {editandoUsername && (
               <button
                 onClick={confirmarAlteracaoUsername}
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer transition"
               >
                 Alterar Nome de Usuário
               </button>
@@ -126,7 +137,9 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
           </div>
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">Email:</label>
+            <label className="block text-gray-700 font-semibold mb-2 text-base">
+              Email:
+            </label>
             <input
               type="email"
               value={editandoEmail ? emailTemp : email}
@@ -137,7 +150,7 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
             {editandoEmail && (
               <button
                 onClick={confirmarAlteracaoEmail}
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer transition"
               >
                 Alterar Email
               </button>
@@ -145,7 +158,9 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
           </div>
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">Senha:</label>
+            <label className="block text-gray-700 font-semibold mb-2 text-base">
+              Senha:
+            </label>
             <div className="relative">
               <input
                 type={mostrarSenha ? "text" : "password"}
@@ -159,7 +174,7 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
                 onMouseDown={() => setMostrarSenha(true)}
                 onMouseUp={() => setMostrarSenha(false)}
                 onMouseLeave={() => setMostrarSenha(false)}
-                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 hover:text-gray-900"
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 hover:text-gray-900 cursor-pointer transition"
                 aria-label="Mostrar senha"
               >
                 {mostrarSenha ? "🙈" : "👁️"}
@@ -168,7 +183,7 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
             {editandoSenha && (
               <button
                 onClick={confirmarAlteracaoSenha}
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer transition"
               >
                 Alterar Senha
               </button>

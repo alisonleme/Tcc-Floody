@@ -4,7 +4,6 @@ import AlisonFoto from "../Img/AlisonFoto.png";
 import GabrielFoto from "../Img/GabrielFoto.png";
 import ThiagoFoto from "../Img/ThiagoFoto.png";
 
-// Ícone com hover animado (cor e zoom)
 function IconHover({ icon, hoverColor, link, tamanhoIcon }) {
   const [hover, setHover] = useState(false);
 
@@ -78,78 +77,124 @@ export default function SobreNos() {
   );
 
   return (
-    <div className="flex flex-col items-center min-h-screen pt-40 pb-20 px-6 space-y-16" style={{ backgroundColor: "#d8e7f5" }}>
-      <h1 className="text-5xl font-bold text-gray-900">Sobre Nós</h1>
+    <div
+      className="flex flex-col items-center min-h-screen pt-40 pb-20 px-6 space-y-16"
+      style={{ backgroundColor: "#d8e7f5" }}
+    >
+      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center">Sobre Nós</h1>
 
-      {/* Cards dos membros */}
       <div className="flex flex-wrap justify-center gap-8">
-        {/* Alison */}
-        <div className="bg-white p-4 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
-          <img src={AlisonFoto} alt="Alison Lemes Gomes Pereira" className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`} />
+        <div className="bg-white p-6 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
+          <img
+            src={AlisonFoto}
+            alt="Alison Lemes Gomes Pereira"
+            className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`}
+          />
           <div className="flex justify-center gap-6 mb-4">
             <IconHover icon={instagramIcon} hoverColor="#8e3e9f" link="https://www.instagram.com/off._alisu/" tamanhoIcon={tamanhoIcon} />
             <IconHover icon={linkedinIcon} hoverColor="#004182" link="https://www.linkedin.com/in/alison-lemes-gomes-pereira-358949337/" tamanhoIcon={tamanhoIcon} />
             <IconHover icon={githubIcon} hoverColor="purple" link="https://github.com/alisonleme" tamanhoIcon={tamanhoIcon} />
           </div>
           <h2 className="text-lg font-bold text-blue-600">Alison Lemes Gomes Pereira</h2>
-          <p className="text-gray-600 mt-1">Dev do <strong>site</strong>, <strong>game</strong>, <strong>back-end</strong> e <strong>dispositivo</strong>.</p>
+          <p className="text-gray-600 mt-1 text-justify px-4">
+            Dev do <strong>site</strong>, <strong>game</strong>, <strong>back-end</strong> e <strong>dispositivo</strong>.
+          </p>
         </div>
 
-        {/* Gabriel */}
-        <div className="bg-white p-4 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
-          <img src={GabrielFoto} alt="Gabriel Santos Sales" className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`} />
+        <div className="bg-white p-6 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
+          <img
+            src={GabrielFoto}
+            alt="Gabriel Santos Sales"
+            className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`}
+          />
           <div className="flex justify-center gap-6 mb-4">
             <IconHover icon={linkedinIcon} hoverColor="#004182" link="https://www.linkedin.com/in/gabriel-santos-sales-68ab41290/" tamanhoIcon={tamanhoIcon} />
             <IconHover icon={githubIcon} hoverColor="purple" link="https://github.com/GabrielSantosSales" tamanhoIcon={tamanhoIcon} />
           </div>
           <h2 className="text-lg font-bold text-blue-600">Gabriel Santos Sales</h2>
-          <p className="text-gray-600 mt-1">Dev do <strong>back-end</strong>, <strong>dispositivo</strong> e <strong>game</strong>.</p>
+          <p className="text-gray-600 mt-1 text-justify px-4">
+            Dev do <strong>back-end</strong>, <strong>dispositivo</strong> e <strong>game</strong>.
+          </p>
         </div>
 
-        {/* Thiago */}
-        <div className="bg-white p-4 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
-          <img src={ThiagoFoto} alt="Thiago Modesto Santos" className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`} />
+        <div className="bg-white p-6 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
+          <img
+            src={ThiagoFoto}
+            alt="Thiago Modesto Santos"
+            className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`}
+          />
           <div className="flex justify-center gap-6 mb-4">
             <IconHover icon={linkedinIcon} hoverColor="#004182" link="https://www.linkedin.com/in/thiago-modesto-santos-21ab64306/" tamanhoIcon={tamanhoIcon} />
             <IconHover icon={githubIcon} hoverColor="purple" link="https://github.com/ThiagoWebsites" tamanhoIcon={tamanhoIcon} />
           </div>
           <h2 className="text-lg font-bold text-blue-600">Thiago Modesto Santos</h2>
-          <p className="text-gray-600 mt-1">Dev do <strong>back-end</strong>, <strong>game</strong> e <strong>dispositivo</strong>.</p>
+          <p className="text-gray-600 mt-1 text-justify px-4">
+            Dev do <strong>back-end</strong>, <strong>game</strong> e <strong>dispositivo</strong>.
+          </p>
         </div>
       </div>
 
-      {/* Texto de apresentação */}
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl text-gray-900 text-center">
-        <p className="text-lg text-gray-700 leading-relaxed">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl text-gray-900 text-justify leading-relaxed text-lg">
+        <p>
           Somos estudantes do UNASP São Paulo e estamos finalizando nosso curso após três anos de muito aprendizado.
           O projeto Floody é fruto de todo o conhecimento, esforço e dedicação que adquirimos ao longo dessa jornada.
         </p>
-        <p className="text-lg mt-4 text-gray-700 leading-relaxed">
+        <p className="mt-4">
           Criamos essa solução para ajudar pessoas e contribuir com a sustentabilidade.
           Se tiver dúvidas, sugestões ou quiser parceria, fale com a gente:
         </p>
-        <p className="mt-3 text-xl font-semibold text-blue-700">📧 grupo.floody@gmail.com</p>
+        <a
+          href="mailto:grupo.floody@gmail.com"
+          className="mt-3 inline-block text-xl font-semibold text-blue-700 hover:text-blue-900 hover:underline transition-all duration-300 cursor-pointer"
+        >
+          📧 grupo.floody@gmail.com
+        </a>
       </div>
 
-      {/* Fórum */}
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
-        <h2 className="text-2xl font-bold text-blue-600 mb-4">Fórum</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6 text-center">Fórum</h2>
         <form onSubmit={handleForumSubmit} className="space-y-4">
-          <textarea value={forumMessage} onChange={(e) => setForumMessage(e.target.value)} placeholder="Deixe sua pergunta ou comentário" className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none" rows="4" required />
-          <button type="submit" className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition">Enviar Pergunta</button>
+          <textarea
+            value={forumMessage}
+            onChange={(e) => setForumMessage(e.target.value)}
+            placeholder="Deixe sua pergunta ou comentário"
+            className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none resize-none"
+            rows="4"
+            required
+          />
+          <button
+            type="submit"
+            className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer transition"
+          >
+            Enviar Pergunta
+          </button>
         </form>
       </div>
 
-      {/* Ajuda */}
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
-        <h2 className="text-2xl font-bold text-blue-600 mb-4">Ajuda</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6 text-center">Ajuda</h2>
         <form onSubmit={handleHelpSubmit} className="space-y-4">
-          <textarea value={helpMessage} onChange={(e) => setHelpMessage(e.target.value)} placeholder="Descreva seu problema ou dúvida" className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none" rows="4" required />
-          <button type="submit" className="px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 transition">Solicitar Ajuda</button>
+          <textarea
+            value={helpMessage}
+            onChange={(e) => setHelpMessage(e.target.value)}
+            placeholder="Descreva seu problema ou dúvida"
+            className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none resize-none"
+            rows="4"
+            required
+          />
+          <button
+            type="submit"
+            className="px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer transition"
+          >
+            Solicitar Ajuda
+          </button>
         </form>
       </div>
 
-      <Link to="/" className="px-8 py-4 bg-purple-500 text-white rounded-lg hover:bg-purple-700 transition mt-6">
+      <Link
+        to="/"
+        className="px-8 py-4 bg-purple-500 text-white rounded-lg hover:bg-purple-700 cursor-pointer transition mt-6 text-center text-lg font-semibold"
+      >
         Voltar para Home
       </Link>
     </div>
