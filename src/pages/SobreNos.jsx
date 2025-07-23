@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import AlisonFoto from "../Img/AlisonFoto.png";
 import GabrielFoto from "../Img/GabrielFoto.png";
@@ -35,6 +35,8 @@ function IconHover({ icon, hoverColor, link, tamanhoIcon }) {
 export default function SobreNos() {
   const [forumMessage, setForumMessage] = useState("");
   const [helpMessage, setHelpMessage] = useState("");
+  const [visibleSections, setVisibleSections] = useState({});
+  const sectionsRef = useRef({});
 
   const enviarMensagem = (mensagem, tipo) => {
     const mailtoLink = `mailto:grupo.floody@gmail.com?subject=${encodeURIComponent(
@@ -53,6 +55,32 @@ export default function SobreNos() {
     e.preventDefault();
     enviarMensagem(helpMessage, "Mensagem de Ajuda");
     setHelpMessage("");
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => ({
+              ...prev,
+              [entry.target.dataset.section]: true,
+            }));
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    Object.values(sectionsRef.current).forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const setRef = (key) => (el) => {
+    sectionsRef.current[key] = el;
   };
 
   const tamanhoFoto = "w-32 h-32";
@@ -78,63 +106,61 @@ export default function SobreNos() {
 
   return (
     <div
-      className="flex flex-col items-center min-h-screen pt-40 pb-20 px-6 space-y-16"
-      style={{ backgroundColor: "#d8e7f5" }}
+      className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-all duration-700 ease-in-out bg-gradient-to-b from-blue-100 to-blue-200"
     >
-      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center">Sobre Nós</h1>
+      <h1 className="text-5xl font-extrabold text-gray-900 text-center mt-20 animate-fadeIn">
+        Sobre Nós
+      </h1>
 
-      <div className="flex flex-wrap justify-center gap-8">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
-          <img
-            src={AlisonFoto}
-            alt="Alison Lemes Gomes Pereira"
-            className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`}
-          />
-          <div className="flex justify-center gap-6 mb-4">
-            <IconHover icon={instagramIcon} hoverColor="#8e3e9f" link="https://www.instagram.com/off._alisu/" tamanhoIcon={tamanhoIcon} />
-            <IconHover icon={linkedinIcon} hoverColor="#004182" link="https://www.linkedin.com/in/alison-lemes-gomes-pereira-358949337/" tamanhoIcon={tamanhoIcon} />
-            <IconHover icon={githubIcon} hoverColor="purple" link="https://github.com/alisonleme" tamanhoIcon={tamanhoIcon} />
+      <div
+        ref={setRef("integrantes")}
+        data-section="integrantes"
+        className={`flex flex-wrap justify-center gap-8 transition-all duration-1000 transform ${
+          visibleSections.integrantes ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        {[ 
+          { nome: "Alison Lemes Gomes Pereira", foto: AlisonFoto, descricao: "Dev do site, game, back-end e dispositivo.", links: [
+              { icon: instagramIcon, hover: "#8e3e9f", url: "https://www.instagram.com/off._alisu/" },
+              { icon: linkedinIcon, hover: "#004182", url: "https://www.linkedin.com/in/alison-lemes-gomes-pereira-358949337/" },
+              { icon: githubIcon, hover: "purple", url: "https://github.com/alisonleme" }
+            ]
+          },
+          { nome: "Gabriel Santos Sales", foto: GabrielFoto, descricao: "Dev do back-end, dispositivo e game.", links: [
+              { icon: linkedinIcon, hover: "#004182", url: "https://www.linkedin.com/in/gabriel-santos-sales-68ab41290/" },
+              { icon: githubIcon, hover: "purple", url: "https://github.com/GabrielSantosSales" }
+            ]
+          },
+          { nome: "Thiago Modesto Santos", foto: ThiagoFoto, descricao: "Dev do back-end, game e dispositivo.", links: [
+              { icon: linkedinIcon, hover: "#004182", url: "https://www.linkedin.com/in/thiago-modesto-santos-21ab64306/" },
+              { icon: githubIcon, hover: "purple", url: "https://github.com/ThiagoWebsites" }
+            ]
+          }
+        ].map((dev, i) => (
+          <div key={i} className="bg-white p-6 rounded-lg shadow-lg w-64 text-center flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl">
+            <img
+              src={dev.foto}
+              alt={dev.nome}
+              className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300 transform transition duration-500 hover:scale-110`}
+            />
+            <div className="flex justify-center gap-6 mb-4">
+              {dev.links.map((l, j) => (
+                <IconHover key={j} icon={l.icon} hoverColor={l.hover} link={l.url} tamanhoIcon={tamanhoIcon} />
+              ))}
+            </div>
+            <h2 className="text-lg font-bold text-blue-600">{dev.nome}</h2>
+            <p className="text-gray-600 mt-1 text-justify px-4">{dev.descricao}</p>
           </div>
-          <h2 className="text-lg font-bold text-blue-600">Alison Lemes Gomes Pereira</h2>
-          <p className="text-gray-600 mt-1 text-justify px-4">
-            Dev do <strong>site</strong>, <strong>game</strong>, <strong>back-end</strong> e <strong>dispositivo</strong>.
-          </p>
-        </div>
-
-        <div className="bg-white p-6 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
-          <img
-            src={GabrielFoto}
-            alt="Gabriel Santos Sales"
-            className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`}
-          />
-          <div className="flex justify-center gap-6 mb-4">
-            <IconHover icon={linkedinIcon} hoverColor="#004182" link="https://www.linkedin.com/in/gabriel-santos-sales-68ab41290/" tamanhoIcon={tamanhoIcon} />
-            <IconHover icon={githubIcon} hoverColor="purple" link="https://github.com/GabrielSantosSales" tamanhoIcon={tamanhoIcon} />
-          </div>
-          <h2 className="text-lg font-bold text-blue-600">Gabriel Santos Sales</h2>
-          <p className="text-gray-600 mt-1 text-justify px-4">
-            Dev do <strong>back-end</strong>, <strong>dispositivo</strong> e <strong>game</strong>.
-          </p>
-        </div>
-
-        <div className="bg-white p-6 rounded-lg shadow-lg w-64 text-center flex flex-col items-center">
-          <img
-            src={ThiagoFoto}
-            alt="Thiago Modesto Santos"
-            className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300`}
-          />
-          <div className="flex justify-center gap-6 mb-4">
-            <IconHover icon={linkedinIcon} hoverColor="#004182" link="https://www.linkedin.com/in/thiago-modesto-santos-21ab64306/" tamanhoIcon={tamanhoIcon} />
-            <IconHover icon={githubIcon} hoverColor="purple" link="https://github.com/ThiagoWebsites" tamanhoIcon={tamanhoIcon} />
-          </div>
-          <h2 className="text-lg font-bold text-blue-600">Thiago Modesto Santos</h2>
-          <p className="text-gray-600 mt-1 text-justify px-4">
-            Dev do <strong>back-end</strong>, <strong>game</strong> e <strong>dispositivo</strong>.
-          </p>
-        </div>
+        ))}
       </div>
 
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl text-gray-900 text-justify leading-relaxed text-lg">
+      <div
+        ref={setRef("sobre")}
+        data-section="sobre"
+        className={`bg-white p-8 rounded-lg shadow-xl max-w-3xl text-gray-900 text-justify leading-relaxed text-lg transition-all duration-1000 transform ${
+          visibleSections.sobre ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <p>
           Somos estudantes do UNASP São Paulo e estamos finalizando nosso curso após três anos de muito aprendizado.
           O projeto Floody é fruto de todo o conhecimento, esforço e dedicação que adquirimos ao longo dessa jornada.
@@ -145,46 +171,58 @@ export default function SobreNos() {
         </p>
         <a
           href="mailto:grupo.floody@gmail.com"
-          className="mt-3 inline-block text-xl font-semibold text-blue-700 hover:text-blue-900 hover:underline transition-all duration-300 cursor-pointer"
+          className="mt-3 inline-block text-xl font-semibold text-blue-700 hover:text-blue-900 hover:underline transform transition duration-300 hover:scale-105"
         >
           📧 grupo.floody@gmail.com
         </a>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
+      <div
+        ref={setRef("forum")}
+        data-section="forum"
+        className={`bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl transition-all duration-1000 transform ${
+          visibleSections.forum ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6 text-center">Fórum</h2>
         <form onSubmit={handleForumSubmit} className="space-y-4">
           <textarea
             value={forumMessage}
             onChange={(e) => setForumMessage(e.target.value)}
             placeholder="Deixe sua pergunta ou comentário"
-            className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none resize-none"
+            className="w-full p-4 border rounded-lg focus:ring-4 focus:ring-blue-400 outline-none resize-none transition-all duration-300"
             rows="4"
             required
           />
           <button
             type="submit"
-            className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer transition"
+            className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transform hover:scale-105 shadow-md hover:shadow-xl transition"
           >
             Enviar Pergunta
           </button>
         </form>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6 text-center">Ajuda</h2>
+      <div
+        ref={setRef("ajuda")}
+        data-section="ajuda"
+        className={`bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl transition-all duration-1000 transform ${
+          visibleSections.ajuda ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        <h2 className="text-3xl md:text-4xl font-bold text-green-600 mb-6 text-center">Ajuda</h2>
         <form onSubmit={handleHelpSubmit} className="space-y-4">
           <textarea
             value={helpMessage}
             onChange={(e) => setHelpMessage(e.target.value)}
             placeholder="Descreva seu problema ou dúvida"
-            className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none resize-none"
+            className="w-full p-4 border rounded-lg focus:ring-4 focus:ring-green-400 outline-none resize-none transition-all duration-300"
             rows="4"
             required
           />
           <button
             type="submit"
-            className="px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer transition"
+            className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transform hover:scale-105 shadow-md hover:shadow-xl transition"
           >
             Solicitar Ajuda
           </button>
@@ -193,7 +231,7 @@ export default function SobreNos() {
 
       <Link
         to="/"
-        className="px-8 py-4 bg-purple-500 text-white rounded-lg hover:bg-purple-700 cursor-pointer transition mt-6 text-center text-lg font-semibold"
+        className="px-8 py-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transform hover:scale-105 shadow-md hover:shadow-xl transition text-lg font-semibold"
       >
         Voltar para Home
       </Link>

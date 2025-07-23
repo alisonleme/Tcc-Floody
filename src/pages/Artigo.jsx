@@ -4,28 +4,28 @@ import Artigo2 from '../Img/image copy.png';
 import Artigo3 from '../Img/image copy 2.png';
 import { Link } from 'react-router-dom';
 
-export default function Artigo() {
-  const artigos = [
-    {
-      img: Artigo1,
-      titulo:
-        '1. Impactos da inserção dos piscinões na escala local: o caso do Reservatório de Contenção RC5 - Taboão',
-      download: '/downloads/artigo1.pdf',
-    },
-    {
-      img: Artigo2,
-      titulo:
-        '2. Alagamentos em áreas Urbanas: O caso da Av. Amazilio Lino de Souza com Av. Pedro Ludovico em Anápolis -GO',
-      download: '/downloads/artigo2.pdf',
-    },
-    {
-      img: Artigo3,
-      titulo:
-        '3. Análise do efeito dos reservatórios de detenção domiciliares no escoamento superficial urbano, com inserção parcial da água precipitada, pela estimativa de vazões geradas em uma área urbanizada hipotética',
-      download: '/downloads/artigo3.pdf',
-    },
-  ];
+const artigos = [
+  {
+    img: Artigo1,
+    titulo:
+      '1. Impactos da inserção dos piscinões na escala local: o caso do Reservatório de Contenção RC5 - Taboão',
+    download: '/downloads/artigo1.pdf',
+  },
+  {
+    img: Artigo2,
+    titulo:
+      '2. Alagamentos em áreas Urbanas: O caso da Av. Amazilio Lino de Souza com Av. Pedro Ludovico em Anápolis -GO',
+    download: '/downloads/artigo2.pdf',
+  },
+  {
+    img: Artigo3,
+    titulo:
+      '3. Análise do efeito dos reservatórios de detenção domiciliares no escoamento superficial urbano, com inserção parcial da água precipitada, pela estimativa de vazões geradas em uma área urbanizada hipotética',
+    download: '/downloads/artigo3.pdf',
+  },
+];
 
+export default function Artigo() {
   const containerRef = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -43,12 +43,14 @@ export default function Artigo() {
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-all duration-700 ease-in-out ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
+      className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16"
       style={{ backgroundColor: '#E0E7F3' }}
     >
-      <h1 className="text-5xl font-extrabold text-gray-900 text-center mt-20">
+      <h1
+        className={`text-5xl font-extrabold text-gray-900 text-center mt-20 transform transition-all duration-700 ease-in-out ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         Artigos Utilizados
       </h1>
 
@@ -56,12 +58,18 @@ export default function Artigo() {
         {artigos.map((artigo, index) => (
           <div
             key={index}
-            className="flex flex-col md:flex-row items-center justify-between bg-[#AED2E6] rounded-lg shadow-lg p-6"
+            className={`flex flex-col md:flex-row items-center justify-between bg-[#AED2E6] rounded-lg shadow-lg p-6 transform transition-all duration-300 ease-in-out hover:scale-[1.03] hover:shadow-xl cursor-pointer`}
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(20px)',
+              transitionDelay: visible ? `${index * 150}ms` : '0ms',
+            }}
           >
             <div className="flex items-center gap-6">
               <img
                 src={artigo.img}
                 alt={artigo.titulo}
+                loading="lazy"
                 className="w-48 h-32 object-cover rounded-md shadow-md"
               />
               <p
@@ -74,7 +82,8 @@ export default function Artigo() {
             <a
               href={artigo.download}
               download
-              className="mt-6 md:mt-0 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 font-semibold shadow-md cursor-pointer"
+              aria-label={`Baixar o artigo: ${artigo.titulo}`}
+              className="mt-6 md:mt-0 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 font-semibold shadow-md hover:shadow-xl cursor-pointer transform hover:scale-105"
             >
               Fazer Download
             </a>
@@ -83,8 +92,13 @@ export default function Artigo() {
       </div>
 
       <div
-        className="bg-white rounded-lg shadow-xl p-8 max-w-5xl text-gray-900 space-y-6 leading-relaxed"
-        style={{ textAlign: 'justify' }}
+        className={`bg-white rounded-lg shadow-xl p-8 max-w-5xl text-gray-900 space-y-6 leading-relaxed transform transition-all duration-700 ease-in-out`}
+        style={{
+          textAlign: 'justify',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0)' : 'translateY(20px)',
+          transitionDelay: visible ? `${artigos.length * 150}ms` : '0ms',
+        }}
       >
         <p className="text-lg md:text-xl">
           As imagens acima representam três artigos que foram pesquisados e utilizados como base teórica e de dados para o desenvolvimento do projeto Floody. Cada um traz informações relevantes sobre sustentabilidade, reaproveitamento da água e tecnologias aplicadas em soluções urbanas.
@@ -97,17 +111,24 @@ export default function Artigo() {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center gap-8 mt-8">
+      <div
+        className={`flex flex-col md:flex-row items-center gap-8 mt-8 transform transition-all duration-700 ease-in-out`}
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0)' : 'translateY(20px)',
+          transitionDelay: visible ? `${(artigos.length + 1) * 150}ms` : '0ms',
+        }}
+      >
         <a
           href="/downloads/todos-artigos.zip"
           download
-          className="px-8 py-4 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300 shadow-md cursor-pointer"
+          className="px-8 py-4 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300 shadow-md cursor-pointer transform hover:scale-105 hover:shadow-xl"
         >
           Baixar Todos os Artigos
         </a>
         <Link
           to="/resumo"
-          className="px-8 py-4 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 transition duration-300 shadow-md cursor-pointer"
+          className="px-8 py-4 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 transition duration-300 shadow-md cursor-pointer transform hover:scale-105 hover:shadow-xl"
         >
           Ver Página de Resumo
         </Link>

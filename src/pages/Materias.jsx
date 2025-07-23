@@ -67,15 +67,18 @@ export default function Material({ user }) {
           className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 overflow-y-auto pr-2"
           style={{ maxHeight: "400px" }}
         >
-          {materiais.map((item) => (
+          {materiais.map((item, index) => (
             <div
               key={item.id}
-              className="bg-gray-100 p-6 rounded-2xl shadow-md flex flex-col items-center hover:shadow-xl transition cursor-default"
+              style={{
+                animationDelay: `${index * 150}ms`,
+              }}
+              className="animate-fadeSlide bg-gray-100 p-6 rounded-2xl shadow-md flex flex-col items-center hover:scale-105 hover:shadow-2xl transition transform duration-300 cursor-default"
             >
               <img
                 src={item.imagem}
                 alt={item.nome}
-                className="w-32 h-32 object-cover rounded-xl mb-4"
+                className="w-32 h-32 object-cover rounded-xl mb-4 transition transform hover:scale-110"
               />
               <h2 className="text-2xl font-semibold mb-1">{item.nome}</h2>
               <p className="text-gray-600 mb-4 text-justify text-lg">
@@ -84,7 +87,7 @@ export default function Material({ user }) {
               {user?.isAdmin && (
                 <button
                   onClick={() => excluirMaterial(item.id)}
-                  className="mt-2 px-5 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 cursor-pointer transition"
+                  className="mt-2 px-5 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 hover:scale-105 hover:shadow-lg cursor-pointer transition transform duration-300"
                 >
                   Excluir
                 </button>
@@ -94,7 +97,7 @@ export default function Material({ user }) {
         </div>
 
         {user?.isAdmin && (
-          <div className="bg-blue-50 p-6 rounded-2xl shadow-md">
+          <div className="bg-blue-50 p-6 rounded-2xl shadow-md animate-pulse-slow">
             <h2 className="text-3xl font-bold mb-6 text-center">Adicionar Material</h2>
             <div className="flex flex-col md:flex-row gap-4">
               <input
@@ -102,7 +105,7 @@ export default function Material({ user }) {
                 placeholder="Nome do material"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
-                className="flex-1 p-4 border rounded-xl text-lg"
+                className="flex-1 p-4 border rounded-xl text-lg focus:ring-2 focus:ring-blue-300 transition"
               />
               <input
                 type="number"
@@ -110,18 +113,18 @@ export default function Material({ user }) {
                 placeholder="Preço"
                 value={preco}
                 onChange={(e) => setPreco(e.target.value)}
-                className="w-40 p-4 border rounded-xl text-lg"
+                className="w-40 p-4 border rounded-xl text-lg focus:ring-2 focus:ring-blue-300 transition"
               />
               <input
                 type="text"
                 placeholder="URL da imagem"
                 value={imagem}
                 onChange={(e) => setImagem(e.target.value)}
-                className="flex-1 p-4 border rounded-xl text-lg"
+                className="flex-1 p-4 border rounded-xl text-lg focus:ring-2 focus:ring-blue-300 transition"
               />
               <button
                 onClick={adicionarMaterial}
-                className="px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 cursor-pointer transition"
+                className="px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 hover:scale-105 hover:shadow-lg cursor-pointer transition transform duration-300"
               >
                 Adicionar
               </button>
@@ -129,6 +132,33 @@ export default function Material({ user }) {
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        @keyframes fadeSlide {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fadeSlide {
+          animation: fadeSlide 0.8s ease forwards;
+        }
+        @keyframes pulseSlow {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.02);
+          }
+        }
+        .animate-pulse-slow {
+          animation: pulseSlow 3s infinite;
+        }
+      `}</style>
     </div>
   );
 }
