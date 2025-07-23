@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Jogo() {
+  const [visibleSections, setVisibleSections] = useState([]);
+  const sectionsRef = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = sectionsRef.current.indexOf(entry.target);
+          if (entry.isIntersecting && index !== -1) {
+            setVisibleSections((prev) => [...new Set([...prev, index])]);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    sectionsRef.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       className="flex flex-col items-center justify-start min-h-screen p-6"
@@ -9,16 +28,30 @@ export default function Jogo() {
       <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-5xl text-gray-900 text-center mt-20 space-y-10">
         <h1 className="text-5xl font-bold">Jogo Floody</h1>
 
-        <div className="bg-gray-100 p-6 rounded-2xl shadow-md">
+        <section
+          ref={(el) => (sectionsRef.current[0] = el)}
+          className={`bg-gray-100 p-6 rounded-2xl shadow-md transition-all duration-700 ease-in-out ${
+            visibleSections.includes(0)
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
           <h2 className="text-3xl font-bold mb-4">Nossa História</h2>
           <p className="text-lg text-gray-700 text-justify">
             Nosso jogo conta a história de 3 sobreviventes de enchentes que ocorreram em uma cidade antiga.
             Eles se encontram diante de diversos puzzles que precisam resolver para ativar as válvulas de drenagem
             e ajudar a cidade a brilhar novamente.
           </p>
-        </div>
+        </section>
 
-        <div className="bg-gray-100 p-6 rounded-2xl shadow-md space-y-4">
+        <section
+          ref={(el) => (sectionsRef.current[1] = el)}
+          className={`bg-gray-100 p-6 rounded-2xl shadow-md space-y-4 transition-all duration-700 ease-in-out ${
+            visibleSections.includes(1)
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
           <h2 className="text-3xl font-bold">Gameplay</h2>
           <div className="aspect-w-16 aspect-h-9">
             <iframe
@@ -37,20 +70,27 @@ export default function Jogo() {
               href="https://www.youtube.com/@ManoelGomesOfficial"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer transition"
+              className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer transition-colors duration-300 shadow"
             >
               Nosso Canal
             </a>
             <a
               href="#testar-jogo"
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer transition"
+              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer transition-colors duration-300 shadow"
             >
               Testar o Jogo
             </a>
           </div>
-        </div>
+        </section>
 
-        <div className="bg-gray-100 p-6 rounded-2xl shadow-md">
+        <section
+          ref={(el) => (sectionsRef.current[2] = el)}
+          className={`bg-gray-100 p-6 rounded-2xl shadow-md transition-all duration-700 ease-in-out ${
+            visibleSections.includes(2)
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
           <h2 className="text-3xl font-bold mb-4">Trailer do Jogo</h2>
           <div className="aspect-w-16 aspect-h-9">
             <iframe
@@ -64,7 +104,7 @@ export default function Jogo() {
               className="rounded-xl"
             ></iframe>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

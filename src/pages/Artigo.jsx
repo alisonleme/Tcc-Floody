@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Artigo1 from '../Img/image.png';
 import Artigo2 from '../Img/image copy.png';
 import Artigo3 from '../Img/image copy 2.png';
@@ -8,24 +8,44 @@ export default function Artigo() {
   const artigos = [
     {
       img: Artigo1,
-      titulo: '1. Impactos da inserção dos piscinões na escala local: o caso do Reservatório de Contenção RC5 - Taboão',
+      titulo:
+        '1. Impactos da inserção dos piscinões na escala local: o caso do Reservatório de Contenção RC5 - Taboão',
       download: '/downloads/artigo1.pdf',
     },
     {
       img: Artigo2,
-      titulo: '2. Alagamentos em áreas Urbanas: O caso da Av. Amazilio Lino de Souza com Av. Pedro Ludovico em Anápolis -GO',
+      titulo:
+        '2. Alagamentos em áreas Urbanas: O caso da Av. Amazilio Lino de Souza com Av. Pedro Ludovico em Anápolis -GO',
       download: '/downloads/artigo2.pdf',
     },
     {
       img: Artigo3,
-      titulo: '3. Análise do efeito dos reservatórios de detenção domiciliares no escoamento superficial urbano, com inserção parcial da água precipitada, pela estimativa de vazões geradas em uma área urbanizada hipotética',
+      titulo:
+        '3. Análise do efeito dos reservatórios de detenção domiciliares no escoamento superficial urbano, com inserção parcial da água precipitada, pela estimativa de vazões geradas em uma área urbanizada hipotética',
       download: '/downloads/artigo3.pdf',
     },
   ];
 
+  const containerRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.3 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16"
+      ref={containerRef}
+      className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-all duration-700 ease-in-out ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
       style={{ backgroundColor: '#E0E7F3' }}
     >
       <h1 className="text-5xl font-extrabold text-gray-900 text-center mt-20">

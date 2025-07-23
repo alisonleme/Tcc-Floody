@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function Material({ user }) {
   const [materiais, setMateriais] = useState([]);
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
   const [imagem, setImagem] = useState("");
+  const [visible, setVisible] = useState(false);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const itensMock = [
@@ -15,6 +17,17 @@ export default function Material({ user }) {
       { id: 5, nome: "Borracha", preco: 1.5, imagem: "https://via.placeholder.com/150" },
     ];
     setMateriais(itensMock);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.3 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
   }, []);
 
   const adicionarMaterial = () => {
@@ -28,7 +41,7 @@ export default function Material({ user }) {
       preco: parseFloat(preco),
       imagem,
     };
-    setMateriais([...materiais, novo]);
+    setMateriais((prev) => [...prev, novo]);
     setNome("");
     setPreco("");
     setImagem("");
@@ -36,12 +49,15 @@ export default function Material({ user }) {
 
   const excluirMaterial = (id) => {
     if (!window.confirm("Tem certeza que deseja excluir?")) return;
-    setMateriais(materiais.filter((m) => m.id !== id));
+    setMateriais((prev) => prev.filter((m) => m.id !== id));
   };
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen p-6"
+      ref={containerRef}
+      className={`flex flex-col items-center justify-center min-h-screen p-6 transition-all duration-700 ease-in-out ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      }`}
       style={{ backgroundColor: "#d8e7f5" }}
     >
       <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-5xl text-gray-900">
