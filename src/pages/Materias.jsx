@@ -60,8 +60,11 @@ export default function Material({ user }) {
       }`}
       style={{ backgroundColor: "#d8e7f5" }}
     >
-      <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-5xl text-gray-900">
-        <h1 className="text-5xl font-bold text-center mb-8">Materiais</h1>
+      <div
+        className="p-8 rounded-3xl shadow-xl w-full max-w-5xl text-gray-900"
+        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
+      >
+        <h1 className="text-5xl font-bold text-center mb-8 text-gray-900">Materiais</h1>
 
         <div
           className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 overflow-y-auto pr-2"
@@ -72,22 +75,28 @@ export default function Material({ user }) {
               key={item.id}
               style={{
                 animationDelay: `${index * 150}ms`,
+                background: "linear-gradient(135deg, #d0e6f8, #a3cbee)",
               }}
-              className="animate-fadeSlide bg-gray-100 p-6 rounded-2xl shadow-md flex flex-col items-center hover:scale-105 hover:shadow-2xl transition transform duration-300 cursor-default"
+              className="animate-fadeSlide p-6 rounded-2xl shadow-md flex flex-col items-center hover:scale-105 hover:shadow-2xl transition transform duration-300 cursor-default"
             >
               <img
                 src={item.imagem}
                 alt={item.nome}
                 className="w-32 h-32 object-cover rounded-xl mb-4 transition transform hover:scale-110"
               />
-              <h2 className="text-2xl font-semibold mb-1">{item.nome}</h2>
-              <p className="text-gray-600 mb-4 text-justify text-lg">
+              <h2 className="text-2xl font-semibold mb-1 text-gray-900">{item.nome}</h2>
+              <p className="text-gray-800 mb-4 text-justify text-lg">
                 R$ {item.preco.toFixed(2)}
               </p>
               {user?.isAdmin && (
                 <button
                   onClick={() => excluirMaterial(item.id)}
-                  className="mt-2 px-5 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 hover:scale-105 hover:shadow-lg cursor-pointer transition transform duration-300"
+                  className="mt-2 px-5 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 hover:scale-105 hover:shadow-lg cursor-pointer transition transform duration-300 animated-button"
+                  style={{
+                    background: "linear-gradient(270deg, #f87171, #ef4444, #b91c1c)",
+                    backgroundSize: "400% 400%",
+                    animation: "shimmer 6s ease infinite",
+                  }}
                 >
                   Excluir
                 </button>
@@ -97,8 +106,11 @@ export default function Material({ user }) {
         </div>
 
         {user?.isAdmin && (
-          <div className="bg-blue-50 p-6 rounded-2xl shadow-md animate-pulse-slow">
-            <h2 className="text-3xl font-bold mb-6 text-center">Adicionar Material</h2>
+          <div
+            className="p-6 rounded-2xl shadow-md animate-pulse-slow"
+            style={{ background: "linear-gradient(135deg, #d0e6f8, #a3cbee)" }}
+          >
+            <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">Adicionar Material</h2>
             <div className="flex flex-col md:flex-row gap-4">
               <input
                 type="text"
@@ -124,7 +136,12 @@ export default function Material({ user }) {
               />
               <button
                 onClick={adicionarMaterial}
-                className="px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 hover:scale-105 hover:shadow-lg cursor-pointer transition transform duration-300"
+                className="px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 hover:scale-105 hover:shadow-lg cursor-pointer transition transform duration-300 animated-button"
+                style={{
+                  background: "linear-gradient(270deg, #4ade80, #22c55e, #16a34a)",
+                  backgroundSize: "400% 400%",
+                  animation: "shimmer 6s ease infinite",
+                }}
               >
                 Adicionar
               </button>
@@ -157,6 +174,11 @@ export default function Material({ user }) {
         }
         .animate-pulse-slow {
           animation: pulseSlow 3s infinite;
+        }
+        @keyframes shimmer {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
       `}</style>
     </div>

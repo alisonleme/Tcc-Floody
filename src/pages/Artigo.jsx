@@ -44,8 +44,23 @@ export default function Artigo() {
     <div
       ref={containerRef}
       className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16"
-      style={{ backgroundColor: '#E0E7F3' }}
+      style={{ backgroundColor: '#d8e7f5' }}
     >
+      <style>
+        {`
+          @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .animated-button {
+            background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+            background-size: 400% 400%;
+            animation: shimmer 6s ease infinite;
+          }
+        `}
+      </style>
+
       <h1
         className={`text-5xl font-extrabold text-gray-900 text-center mt-20 transform transition-all duration-700 ease-in-out ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -58,7 +73,7 @@ export default function Artigo() {
         {artigos.map((artigo, index) => (
           <div
             key={index}
-            className={`flex flex-col md:flex-row items-center justify-between bg-[#AED2E6] rounded-lg shadow-lg p-6 transform transition-all duration-300 ease-in-out hover:scale-[1.03] hover:shadow-xl cursor-pointer`}
+            className={`flex flex-col md:flex-row items-center justify-between rounded-3xl p-6 shadow-xl transition-transform duration-300 ease-in-out hover:scale-[1.03] hover:shadow-2xl cursor-pointer bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6]`}
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? 'translateY(0)' : 'translateY(20px)',
@@ -70,7 +85,7 @@ export default function Artigo() {
                 src={artigo.img}
                 alt={artigo.titulo}
                 loading="lazy"
-                className="w-48 h-32 object-cover rounded-md shadow-md"
+                className="w-48 h-32 object-cover rounded-3xl shadow-md transition-transform duration-300 ease-in-out hover:scale-110"
               />
               <p
                 className="text-gray-900 font-semibold text-lg md:text-xl leading-relaxed max-w-xl"
@@ -83,7 +98,7 @@ export default function Artigo() {
               href={artigo.download}
               download
               aria-label={`Baixar o artigo: ${artigo.titulo}`}
-              className="mt-6 md:mt-0 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 font-semibold shadow-md hover:shadow-xl cursor-pointer transform hover:scale-105"
+              className="mt-6 md:mt-0 px-6 py-3 rounded-xl text-gray-900 shadow-lg transition-all duration-500 hover:text-white hover:shadow-2xl animated-button cursor-pointer transform hover:scale-105"
             >
               Fazer Download
             </a>
@@ -91,8 +106,9 @@ export default function Artigo() {
         ))}
       </div>
 
+      {/* Card explicativo no mesmo estilo com gradiente */}
       <div
-        className={`bg-white rounded-lg shadow-xl p-8 max-w-5xl text-gray-900 space-y-6 leading-relaxed transform transition-all duration-700 ease-in-out`}
+        className={`rounded-3xl shadow-xl p-8 max-w-5xl text-gray-900 space-y-6 leading-relaxed transform transition-all duration-700 ease-in-out bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6]`}
         style={{
           textAlign: 'justify',
           opacity: visible ? 1 : 0,
@@ -122,13 +138,13 @@ export default function Artigo() {
         <a
           href="/downloads/todos-artigos.zip"
           download
-          className="px-8 py-4 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300 shadow-md cursor-pointer transform hover:scale-105 hover:shadow-xl"
+          className="px-6 py-3 rounded-xl text-gray-900 shadow-lg transition-all duration-500 hover:text-white hover:shadow-2xl animated-button cursor-pointer transform hover:scale-105"
         >
           Baixar Todos os Artigos
         </a>
         <Link
           to="/resumo"
-          className="px-8 py-4 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 transition duration-300 shadow-md cursor-pointer transform hover:scale-105 hover:shadow-xl"
+          className="px-6 py-3 rounded-xl text-gray-900 shadow-lg transition-all duration-500 hover:text-white hover:shadow-2xl animated-button cursor-pointer transform hover:scale-105"
         >
           Ver Página de Resumo
         </Link>
