@@ -80,97 +80,110 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 p-6 transition-all duration-1000 transform ${
+      className={`flex flex-col items-center justify-center min-h-screen p-6 transition-all duration-1000 transform ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}
+      style={{ backgroundColor: "#d8e7f5" }}
     >
+      <style>
+        {`
+          @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .animated-button {
+            background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+            background-size: 400% 400%;
+            animation: shimmer 6s ease infinite;
+            color: #2c3e50;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(70,130,180,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+          }
+          .animated-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(70,130,180,0.6);
+            color: white;
+          }
+        `}
+      </style>
+
       <div
-        className={`bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transition-all duration-1000 transform ${
-          visible ? "scale-100" : "scale-90"
+        className={`p-8 rounded-3xl shadow-xl w-full max-w-md text-gray-900 transition-all duration-1000 transform ${
+          visible ? "scale-100 opacity-100" : "scale-90 opacity-0"
         }`}
+        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
       >
-        <h1
-          className={`text-3xl font-extrabold text-center mb-8 text-gray-900 transition-all duration-1000 ${
-            visible ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          Área do Usuário
-        </h1>
+        <h1 className="text-3xl font-extrabold text-center mb-8 text-gray-900">Área do Usuário</h1>
 
         <div className="flex justify-between mb-6">
-          <button
-            onClick={onLogout}
-            className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transform hover:scale-105 shadow-md hover:shadow-lg transition"
-          >
-            Sair
-          </button>
-          <button
-            onClick={excluirConta}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transform hover:scale-105 shadow-md hover:shadow-lg transition"
-          >
-            Excluir Conta
-          </button>
+          <button onClick={onLogout} className="animated-button">Sair</button>
+          <button onClick={excluirConta} className="animated-button">Excluir Conta</button>
         </div>
 
-        <div
-          className={`mb-6 p-4 bg-gray-100 rounded-lg text-justify shadow-inner transition-all duration-1000 ${
-            visible ? "opacity-100 animate-pulse" : "opacity-0"
-          }`}
-        >
+        <div className="mb-6 p-4 bg-white bg-opacity-70 rounded-lg text-gray-900 shadow-inner">
           <p className="mb-2 font-semibold">Conta atual:</p>
           <p className="mb-1">Nome de usuário: {username || "(não informado)"}</p>
           <p className="mb-1">Email: {email}</p>
           <p className="mb-0">Senha: {senha ? esconderSenha(senha) : "(não informada)"}</p>
         </div>
 
+        {/* Inputs */}
         <div className="space-y-6">
+          {/* Nome de usuário */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-2 text-base">Nome de Usuário:</label>
+            <label className="block text-gray-900 font-semibold mb-2">Nome de Usuário:</label>
             <input
               type="text"
               value={editandoUsername ? usernameTemp : username}
               onChange={(e) => setUsernameTemp(e.target.value)}
               onFocus={() => !editandoUsername && setEditandoUsername(true)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300"
+              className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300"
             />
             {editandoUsername && (
               <button
                 onClick={() => confirmarAlteracao("username", usernameTemp, setUsername, setEditandoUsername)}
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transform hover:scale-105 shadow-md hover:shadow-xl transition"
+                className="mt-2 animated-button"
               >
                 Alterar Nome de Usuário
               </button>
             )}
           </div>
 
+          {/* Email */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-2 text-base">Email:</label>
+            <label className="block text-gray-900 font-semibold mb-2">Email:</label>
             <input
               type="email"
               value={editandoEmail ? emailTemp : email}
               onChange={(e) => setEmailTemp(e.target.value)}
               onFocus={() => !editandoEmail && setEditandoEmail(true)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300"
+              className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300"
             />
             {editandoEmail && (
               <button
                 onClick={() => confirmarAlteracao("email", emailTemp, setEmail, setEditandoEmail)}
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transform hover:scale-105 shadow-md hover:shadow-xl transition"
+                className="mt-2 animated-button"
               >
                 Alterar Email
               </button>
             )}
           </div>
 
+          {/* Senha */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-2 text-base">Senha:</label>
+            <label className="block text-gray-900 font-semibold mb-2">Senha:</label>
             <div className="relative">
               <input
                 type={mostrarSenha ? "text" : "password"}
                 value={editandoSenha ? senhaTemp : senha}
                 onChange={(e) => setSenhaTemp(e.target.value)}
                 onFocus={() => !editandoSenha && setEditandoSenha(true)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300 pr-10"
+                className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300 pr-10"
               />
               <button
                 type="button"
@@ -185,7 +198,7 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
             {editandoSenha && (
               <button
                 onClick={() => confirmarAlteracao("senha", senhaTemp, setSenha, setEditandoSenha)}
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transform hover:scale-105 shadow-md hover:shadow-xl transition"
+                className="mt-2 animated-button"
               >
                 Alterar Senha
               </button>

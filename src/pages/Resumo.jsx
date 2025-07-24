@@ -33,21 +33,48 @@ export default function Resumo() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start p-8 space-y-10 bg-gradient-to-b from-blue-100 to-blue-200">
-      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-6 animate-fadeIn">
+    <div className="min-h-screen flex flex-col items-center justify-start p-8 space-y-10 bg-[#d8e7f5]">
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animated-button {
+          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background-size: 400% 400%;
+          animation: shimmer 6s ease infinite;
+          transition: color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .animated-button:hover {
+          color: white !important;
+          box-shadow: 0 8px 15px rgba(59, 130, 246, 0.6);
+        }
+        .fade-slide-enter {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-slide-enter-active {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
+
+      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-6">
         Resumo dos Artigos
       </h1>
 
       <img
         src={ImagemDaHome}
         alt="Imagem Resumo"
-        className="w-full max-w-4xl rounded-lg shadow-md transform transition duration-500 hover:scale-105 hover:shadow-xl"
+        className="w-full max-w-4xl rounded-3xl shadow-xl transform transition-transform duration-500 hover:scale-110 cursor-pointer"
       />
 
       <div
         ref={setRef('conteudo')}
         data-section="conteudo"
-        className={`bg-[#AED2E6] p-8 rounded-lg shadow-lg max-w-5xl text-gray-900 space-y-6 leading-relaxed text-justify text-lg transition-all duration-1000 transform ${
+        className={`bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] p-8 rounded-3xl shadow-xl max-w-5xl text-gray-900 space-y-6 leading-relaxed text-justify text-lg transition-all duration-1000 transform ${
           visibleSections.conteudo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -115,7 +142,7 @@ export default function Resumo() {
         <a
           href="/downloads/resumo.pdf"
           download
-          className="px-8 py-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transform hover:scale-105 shadow-md hover:shadow-xl transition text-center cursor-pointer"
+          className="px-8 py-4 rounded-3xl animated-button font-semibold shadow-xl text-gray-900 hover:text-white hover:shadow-2xl transform hover:scale-110 transition cursor-pointer text-center"
         >
           Baixar Resumo Completo
         </a>
@@ -124,14 +151,14 @@ export default function Resumo() {
           href="/downloads/resumo.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transform hover:scale-105 shadow-md hover:shadow-xl transition text-center cursor-pointer"
+          className="px-8 py-4 rounded-3xl animated-button font-semibold shadow-xl text-gray-900 hover:text-white hover:shadow-2xl transform hover:scale-110 transition cursor-pointer text-center"
         >
           Abrir Resumo em Nova Aba
         </a>
 
         <Link
           to="/artigo"
-          className="px-8 py-4 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transform hover:scale-105 shadow-md hover:shadow-xl transition text-center cursor-pointer"
+          className="px-8 py-4 rounded-3xl animated-button font-semibold shadow-xl text-gray-900 hover:text-white hover:shadow-2xl transform hover:scale-110 transition cursor-pointer text-center"
         >
           Voltar para Artigos
         </Link>

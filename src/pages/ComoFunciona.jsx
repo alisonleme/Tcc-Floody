@@ -66,9 +66,28 @@ export default function ComoFunciona() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-all duration-700 ease-in-out"
-      style={{ backgroundColor: "#E0E7F3" }}
+      className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-all duration-700 ease-in-out bg-[#d8e7f5]"
     >
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animated-button {
+          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background-size: 400% 400%;
+          animation: shimmer 6s ease infinite;
+          transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+          cursor: pointer;
+        }
+        .animated-button:hover {
+          color: white !important;
+          box-shadow: 0 8px 15px rgba(59, 130, 246, 0.6);
+          transform: scale(1.05);
+        }
+      `}</style>
+
       <h1 className="text-5xl font-extrabold text-gray-900 text-center mt-20">
         Como Funciona Nosso Dispositivo
       </h1>
@@ -76,7 +95,7 @@ export default function ComoFunciona() {
       <div
         ref={setRef("video")}
         data-section="video"
-        className={`bg-[#AED2E6] p-6 rounded-2xl shadow-lg transition-all duration-1000 transform w-full max-w-5xl ${
+        className={`bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] p-6 rounded-3xl shadow-xl transition-all duration-1000 transform w-full max-w-5xl ${
           visibleSections.video ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
@@ -90,7 +109,7 @@ export default function ComoFunciona() {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="absolute top-0 left-0 w-full h-full rounded-xl shadow-md"
+            className="absolute top-0 left-0 w-full h-full rounded-3xl shadow-xl transition-transform duration-500 hover:scale-110"
           ></iframe>
         </div>
       </div>
@@ -98,7 +117,7 @@ export default function ComoFunciona() {
       <div
         ref={setRef("explicacao")}
         data-section="explicacao"
-        className={`bg-[#AED2E6] p-8 rounded-2xl shadow-lg w-full max-w-5xl text-gray-900 transition-all duration-1000 transform leading-relaxed ${
+        className={`bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] p-8 rounded-3xl shadow-xl w-full max-w-5xl text-gray-900 transition-all duration-1000 transform leading-relaxed ${
           visibleSections.explicacao ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
         style={{ textAlign: "justify" }}
@@ -115,7 +134,7 @@ export default function ComoFunciona() {
       <div
         ref={setRef("youtube")}
         data-section="youtube"
-        className={`bg-[#AED2E6] p-6 rounded-2xl shadow-lg transition-all duration-1000 transform w-full max-w-5xl text-center ${
+        className={`bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] p-6 rounded-3xl shadow-xl transition-all duration-1000 transform w-full max-w-5xl text-center ${
           visibleSections.youtube ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
@@ -125,7 +144,7 @@ export default function ComoFunciona() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visitar canal do YouTube Manoel Gomes"
-          className="px-8 py-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 shadow-md hover:shadow-xl transition duration-300 cursor-pointer"
+          className="px-8 py-4 animated-button text-gray-900 font-semibold rounded-3xl shadow-xl transition cursor-pointer inline-block"
         >
           Visitar Canal
         </a>
@@ -134,7 +153,7 @@ export default function ComoFunciona() {
       <div
         ref={setRef("forum")}
         data-section="forum"
-        className={`bg-white rounded-lg shadow-xl p-8 max-w-3xl w-full text-gray-900 transition-all duration-1000 transform ${
+        className={`bg-white rounded-3xl shadow-xl p-8 max-w-3xl w-full text-gray-900 transition-all duration-1000 transform ${
           visibleSections.forum ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
         style={{ textAlign: "justify" }}
@@ -145,14 +164,14 @@ export default function ComoFunciona() {
             value={forumMessage}
             onChange={(e) => setForumMessage(e.target.value)}
             placeholder="Deixe sua pergunta ou comentário"
-            className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none text-justify"
+            className="w-full p-4 border rounded-3xl focus:ring-2 focus:ring-blue-400 outline-none text-justify resize-none"
             rows="4"
             required
           />
           <button
             type="submit"
             aria-label="Enviar pergunta para o fórum"
-            className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
+            className="px-6 py-3 animated-button text-gray-900 font-semibold rounded-3xl shadow-xl transition cursor-pointer w-full"
           >
             Enviar Pergunta
           </button>
@@ -162,7 +181,7 @@ export default function ComoFunciona() {
       <div
         ref={setRef("ajuda")}
         data-section="ajuda"
-        className={`bg-white rounded-lg shadow-xl p-8 max-w-3xl w-full text-gray-900 transition-all duration-1000 transform ${
+        className={`bg-white rounded-3xl shadow-xl p-8 max-w-3xl w-full text-gray-900 transition-all duration-1000 transform ${
           visibleSections.ajuda ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
         style={{ textAlign: "justify" }}
@@ -173,14 +192,14 @@ export default function ComoFunciona() {
             value={helpMessage}
             onChange={(e) => setHelpMessage(e.target.value)}
             placeholder="Descreva seu problema ou dúvida"
-            className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none text-justify"
+            className="w-full p-4 border rounded-3xl focus:ring-2 focus:ring-green-400 outline-none text-justify resize-none"
             rows="4"
             required
           />
           <button
             type="submit"
             aria-label="Solicitar ajuda"
-            className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
+            className="px-6 py-3 animated-button text-gray-900 font-semibold rounded-3xl shadow-xl transition cursor-pointer w-full"
           >
             Solicitar Ajuda
           </button>
@@ -189,7 +208,7 @@ export default function ComoFunciona() {
 
       <Link
         to="/"
-        className="mt-10 px-8 py-4 bg-purple-500 text-white font-semibold rounded-lg hover:bg-purple-600 shadow-md hover:shadow-xl transition duration-300 cursor-pointer"
+        className="mt-10 px-8 py-4 animated-button text-gray-900 font-semibold rounded-3xl shadow-xl transition cursor-pointer inline-block"
       >
         Voltar para Home
       </Link>

@@ -26,15 +26,12 @@ export default function Jogo() {
       if (el) observer.observe(el);
     });
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div
-      className="flex flex-col items-center justify-start min-h-screen p-6"
-      style={{ backgroundColor: "#d8e7f5" }}
+      className="flex flex-col items-center justify-start min-h-screen p-6 bg-[#d8e7f5]"
     >
       <style>
         {`
@@ -50,11 +47,14 @@ export default function Jogo() {
             color: #2c3e50;
             font-weight: 600;
             padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
+            border-radius: 1.5rem; /* rounded-3xl */
             border: none;
             cursor: pointer;
             box-shadow: 0 8px 15px rgba(70,130,180,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            user-select: none;
           }
           .animated-button:hover {
             transform: scale(1.05);
@@ -73,7 +73,7 @@ export default function Jogo() {
         {/* Seção 1 */}
         <section
           ref={(el) => (sectionsRef.current[0] = el)}
-          className={`p-6 rounded-2xl shadow-lg transition-opacity transition-transform duration-700 ease-in-out ${
+          className={`p-6 rounded-3xl shadow-xl transition-opacity transition-transform duration-700 ease-in-out ${
             visibleSections.includes(0)
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10"
@@ -93,7 +93,7 @@ export default function Jogo() {
         {/* Seção 2 (Gameplay) */}
         <section
           ref={(el) => (sectionsRef.current[1] = el)}
-          className={`p-6 rounded-2xl shadow-lg space-y-4 transition-opacity transition-transform duration-700 ease-in-out ${
+          className={`p-6 rounded-3xl shadow-xl space-y-4 transition-opacity transition-transform duration-700 ease-in-out ${
             visibleSections.includes(1)
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10"
@@ -111,7 +111,7 @@ export default function Jogo() {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="absolute top-0 left-0 w-full h-full rounded-xl"
+              className="absolute top-0 left-0 w-full h-full rounded-3xl shadow-xl transition-transform duration-500 hover:scale-110"
             ></iframe>
           </div>
 
@@ -138,7 +138,7 @@ export default function Jogo() {
         {/* Seção 3 (Trailer) */}
         <section
           ref={(el) => (sectionsRef.current[2] = el)}
-          className={`p-6 rounded-2xl shadow-lg transition-opacity transition-transform duration-700 ease-in-out ${
+          className={`p-6 rounded-3xl shadow-xl transition-opacity transition-transform duration-700 ease-in-out ${
             visibleSections.includes(2)
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10"
@@ -156,7 +156,7 @@ export default function Jogo() {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="absolute top-0 left-0 w-full h-full rounded-xl"
+              className="absolute top-0 left-0 w-full h-full rounded-3xl shadow-xl transition-transform duration-500 hover:scale-110"
             ></iframe>
           </div>
         </section>

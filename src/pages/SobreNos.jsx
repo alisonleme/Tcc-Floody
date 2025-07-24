@@ -105,13 +105,37 @@ export default function SobreNos() {
   );
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-all duration-700 ease-in-out bg-gradient-to-b from-blue-100 to-blue-200"
-    >
-      <h1 className="text-5xl font-extrabold text-gray-900 text-center mt-20 animate-fadeIn">
-        Sobre Nós
-      </h1>
+    <div className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-all duration-700 ease-in-out" style={{ backgroundColor: "#d8e7f5" }}>
+      <style>
+        {`
+          @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .animated-button {
+            background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+            background-size: 400% 400%;
+            animation: shimmer 6s ease infinite;
+            color: #2c3e50;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(70,130,180,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+          }
+          .animated-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(70,130,180,0.6);
+            color: white;
+          }
+        `}
+      </style>
 
+      <h1 className="text-5xl font-extrabold text-gray-900 text-center mt-20">Sobre Nós</h1>
+
+      {/* Cards dos Devs */}
       <div
         ref={setRef("integrantes")}
         data-section="integrantes"
@@ -119,7 +143,7 @@ export default function SobreNos() {
           visibleSections.integrantes ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        {[ 
+        {[
           { nome: "Alison Lemes Gomes Pereira", foto: AlisonFoto, descricao: "Dev do site, game, back-end e dispositivo.", links: [
               { icon: instagramIcon, hover: "#8e3e9f", url: "https://www.instagram.com/off._alisu/" },
               { icon: linkedinIcon, hover: "#004182", url: "https://www.linkedin.com/in/alison-lemes-gomes-pereira-358949337/" },
@@ -137,29 +161,35 @@ export default function SobreNos() {
             ]
           }
         ].map((dev, i) => (
-          <div key={i} className="bg-white p-6 rounded-lg shadow-lg w-64 text-center flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl">
+          <div
+            key={i}
+            className="p-6 rounded-3xl shadow-xl w-64 text-center flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-2xl"
+            style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
+          >
             <img
               src={dev.foto}
               alt={dev.nome}
-              className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300 transform transition duration-500 hover:scale-110`}
+              className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300 transform transition-transform duration-500 hover:scale-110`}
             />
             <div className="flex justify-center gap-6 mb-4">
               {dev.links.map((l, j) => (
                 <IconHover key={j} icon={l.icon} hoverColor={l.hover} link={l.url} tamanhoIcon={tamanhoIcon} />
               ))}
             </div>
-            <h2 className="text-lg font-bold text-blue-600">{dev.nome}</h2>
-            <p className="text-gray-600 mt-1 text-justify px-4">{dev.descricao}</p>
+            <h2 className="text-lg font-bold text-gray-900">{dev.nome}</h2>
+            <p className="text-gray-900 mt-1 text-justify px-4">{dev.descricao}</p>
           </div>
         ))}
       </div>
 
+      {/* Sobre */}
       <div
         ref={setRef("sobre")}
         data-section="sobre"
-        className={`bg-white p-8 rounded-lg shadow-xl max-w-3xl text-gray-900 text-justify leading-relaxed text-lg transition-all duration-1000 transform ${
+        className={`p-8 rounded-3xl shadow-xl max-w-3xl text-gray-900 text-justify leading-relaxed text-lg transition-all duration-1000 transform ${
           visibleSections.sobre ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
+        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
       >
         <p>
           Somos estudantes do UNASP São Paulo e estamos finalizando nosso curso após três anos de muito aprendizado.
@@ -171,70 +201,60 @@ export default function SobreNos() {
         </p>
         <a
           href="mailto:grupo.floody@gmail.com"
-          className="mt-3 inline-block text-xl font-semibold text-blue-700 hover:text-blue-900 hover:underline transform transition duration-300 hover:scale-105"
+          className="mt-3 inline-block text-xl font-semibold animated-button"
         >
           📧 grupo.floody@gmail.com
         </a>
       </div>
 
+      {/* Fórum */}
       <div
         ref={setRef("forum")}
         data-section="forum"
-        className={`bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl transition-all duration-1000 transform ${
+        className={`p-6 rounded-3xl shadow-xl w-full max-w-3xl transition-all duration-1000 transform ${
           visibleSections.forum ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
+        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6 text-center">Fórum</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">Fórum</h2>
         <form onSubmit={handleForumSubmit} className="space-y-4">
           <textarea
             value={forumMessage}
             onChange={(e) => setForumMessage(e.target.value)}
             placeholder="Deixe sua pergunta ou comentário"
-            className="w-full p-4 border rounded-lg focus:ring-4 focus:ring-blue-400 outline-none resize-none transition-all duration-300"
+            className="w-full p-4 rounded-lg focus:ring-4 focus:ring-blue-400 outline-none resize-none transition-all duration-300"
             rows="4"
             required
           />
-          <button
-            type="submit"
-            className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transform hover:scale-105 shadow-md hover:shadow-xl transition"
-          >
-            Enviar Pergunta
-          </button>
+          <button type="submit" className="animated-button">Enviar Pergunta</button>
         </form>
       </div>
 
+      {/* Ajuda */}
       <div
         ref={setRef("ajuda")}
         data-section="ajuda"
-        className={`bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl transition-all duration-1000 transform ${
+        className={`p-6 rounded-3xl shadow-xl w-full max-w-3xl transition-all duration-1000 transform ${
           visibleSections.ajuda ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
+        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-green-600 mb-6 text-center">Ajuda</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">Ajuda</h2>
         <form onSubmit={handleHelpSubmit} className="space-y-4">
           <textarea
             value={helpMessage}
             onChange={(e) => setHelpMessage(e.target.value)}
             placeholder="Descreva seu problema ou dúvida"
-            className="w-full p-4 border rounded-lg focus:ring-4 focus:ring-green-400 outline-none resize-none transition-all duration-300"
+            className="w-full p-4 rounded-lg focus:ring-4 focus:ring-green-400 outline-none resize-none transition-all duration-300"
             rows="4"
             required
           />
-          <button
-            type="submit"
-            className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transform hover:scale-105 shadow-md hover:shadow-xl transition"
-          >
-            Solicitar Ajuda
-          </button>
+          <button type="submit" className="animated-button">Solicitar Ajuda</button>
         </form>
       </div>
 
-      <Link
-        to="/"
-        className="px-8 py-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transform hover:scale-105 shadow-md hover:shadow-xl transition text-lg font-semibold"
-      >
-        Voltar para Home
-      </Link>
+      {/* Voltar */}
+      <Link to="/" className="animated-button">Voltar para Home</Link>
     </div>
   );
 }
