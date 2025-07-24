@@ -37,7 +37,7 @@ export default function Resumo({ darkMode, toggleTheme }) {
       className={`min-h-screen flex flex-col items-center justify-start p-8 space-y-10 transition-colors duration-500 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-          : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+          : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
       }`}
     >
       {/* Botão de alternar tema */}
@@ -87,7 +87,7 @@ export default function Resumo({ darkMode, toggleTheme }) {
         className={`p-8 rounded-3xl shadow-xl max-w-5xl space-y-6 leading-relaxed text-justify text-lg transition-all duration-1000 transform ${
           darkMode
             ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-            : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
         } ${visibleSections.conteudo ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
         <h2 className="text-3xl font-bold text-center mb-4">

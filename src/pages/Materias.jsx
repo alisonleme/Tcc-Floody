@@ -52,33 +52,30 @@ export default function Material({ user, darkMode }) {
     setMateriais((prev) => prev.filter((m) => m.id !== id));
   };
 
-  // Classes condicionais para o container principal
   const containerClasses = `flex flex-col items-center justify-center min-h-screen p-6 transition-all duration-700 ease-in-out ${
-    visible
-      ? "opacity-100 translate-y-0"
-      : "opacity-0 translate-y-10"
+    visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
   } ${
     darkMode
       ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
       : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
   }`;
 
-  // Fundo e texto dos cards
+  // Estilo dos cards igual ao Jogo.jsx
+  const cardClasses = `p-6 rounded-3xl shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out`;
+
   const cardBg = darkMode
     ? "bg-gradient-to-br from-gray-800 to-gray-700"
     : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee]";
 
-  // Texto e detalhes dos cards
   const cardTextColor = darkMode ? "text-yellow-300" : "text-gray-900";
   const cardPriceColor = darkMode ? "text-yellow-200" : "text-gray-800";
 
-  // Botão shimmer para excluir e adicionar com cores adaptadas ao tema
   const buttonShimmerStyle = {
     backgroundSize: "400% 400%",
     animation: "shimmer 6s ease infinite",
     backgroundImage: darkMode
-      ? "linear-gradient(270deg, #fbbf24, #fde68a, #b45309)" // amarelo/dourado
-      : "linear-gradient(270deg, #4ade80, #22c55e, #16a34a)", // verde claro para claro
+      ? "linear-gradient(270deg, #fbbf24, #fde68a, #b45309)"
+      : "linear-gradient(270deg, #4ade80, #22c55e, #16a34a)",
   };
 
   const inputClasses = `flex-1 p-4 border rounded-xl text-lg focus:outline-none focus:ring-2 transition duration-300 ${
@@ -90,14 +87,11 @@ export default function Material({ user, darkMode }) {
   return (
     <div ref={containerRef} className={containerClasses}>
       <div
-        className={`p-8 rounded-3xl shadow-xl w-full max-w-5xl ${darkMode ? "shadow-yellow-900/50" : "shadow-blue-400/50"}`}
-        style={{
-          background: darkMode
-            ? "linear-gradient(135deg, #4b5563, #374151)"
-            : "linear-gradient(135deg, #b3ddfe, #71b7e6)",
-        }}
+        className={`${cardClasses} w-full max-w-5xl ${cardBg}`}
       >
-        <h1 className={`text-5xl font-bold text-center mb-8 ${cardTextColor}`}>Materiais</h1>
+        <h1 className={`text-5xl font-bold text-center mb-8 ${cardTextColor}`}>
+          Materiais
+        </h1>
 
         <div
           className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 overflow-y-auto pr-2"
@@ -107,12 +101,12 @@ export default function Material({ user, darkMode }) {
             <div
               key={item.id}
               style={{ animationDelay: `${index * 150}ms` }}
-              className={`animate-fadeSlide p-6 rounded-2xl shadow-md flex flex-col items-center hover:scale-105 hover:shadow-2xl transition transform duration-300 cursor-default ${cardBg}`}
+              className={`${cardClasses} flex flex-col items-center cursor-default ${cardBg}`}
             >
               <img
                 src={item.imagem}
                 alt={item.nome}
-                className="w-32 h-32 object-cover rounded-xl mb-4 transition transform hover:scale-110"
+                className="w-32 h-32 object-cover rounded-xl mb-4 transition-transform hover:scale-110"
               />
               <h2 className={`text-2xl font-semibold mb-1 ${cardTextColor}`}>{item.nome}</h2>
               <p className={`mb-4 text-justify text-lg ${cardPriceColor}`}>
@@ -121,7 +115,7 @@ export default function Material({ user, darkMode }) {
               {user?.isAdmin && (
                 <button
                   onClick={() => excluirMaterial(item.id)}
-                  className="mt-2 px-5 py-3 rounded-xl hover:scale-105 hover:shadow-lg cursor-pointer transition transform duration-300"
+                  className="mt-2 px-5 py-3 rounded-xl hover:scale-105 hover:shadow-lg cursor-pointer transition-transform duration-300"
                   style={buttonShimmerStyle}
                 >
                   Excluir
@@ -132,16 +126,7 @@ export default function Material({ user, darkMode }) {
         </div>
 
         {user?.isAdmin && (
-          <div
-            className={`p-6 rounded-2xl shadow-md animate-pulse-slow ${
-              darkMode ? "shadow-yellow-900/40" : "shadow-blue-400/40"
-            }`}
-            style={{
-              background: darkMode
-                ? "linear-gradient(135deg, #374151, #1f2937)"
-                : "linear-gradient(135deg, #d0e6f8, #a3cbee)",
-            }}
-          >
+          <div className={`${cardClasses} ${cardBg} animate-pulse-slow`}>
             <h2 className={`text-3xl font-bold mb-6 text-center ${cardTextColor}`}>
               Adicionar Material
             </h2>
@@ -170,7 +155,7 @@ export default function Material({ user, darkMode }) {
               />
               <button
                 onClick={adicionarMaterial}
-                className="px-8 py-4 rounded-xl hover:scale-105 hover:shadow-lg cursor-pointer transition transform duration-300 font-semibold text-white"
+                className="px-8 py-4 rounded-xl hover:scale-105 hover:shadow-lg cursor-pointer transition-transform duration-300 font-semibold text-white"
                 style={{
                   ...buttonShimmerStyle,
                   color: darkMode ? "#374151" : "#ffffff",

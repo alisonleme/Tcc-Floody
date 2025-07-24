@@ -46,7 +46,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
       className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-500 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-          : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+          : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
       }`}
     >
       {/* Botão de alternar tema */}
@@ -91,10 +91,10 @@ export default function Artigo({ darkMode, toggleTheme }) {
         {artigos.map((artigo, index) => (
           <div
             key={index}
-            className={`flex flex-col md:flex-row items-center justify-between rounded-3xl p-6 shadow-xl cursor-pointer transform transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl ${
+            className={`flex flex-col md:flex-row items-center justify-between rounded-3xl p-6 shadow-xl cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl ${
               darkMode
                 ? "bg-gradient-to-br from-gray-800 to-gray-700 text-white"
-                : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+                : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
             }`}
             style={{
               opacity: visible ? 1 : 0,
@@ -139,7 +139,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
         className={`rounded-3xl shadow-xl p-8 max-w-5xl leading-relaxed transition-all duration-700 ${
           darkMode
             ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-            : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
         }`}
         style={{
           textAlign: "justify",

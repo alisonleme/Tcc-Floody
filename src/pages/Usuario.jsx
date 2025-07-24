@@ -80,7 +80,7 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-500 ${
+      className={`min-h-screen flex flex-col items-center justify-center p-12 space-y-16 transition-colors duration-500 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-100"
           : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
@@ -125,13 +125,14 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
         }
       `}</style>
 
+      {/* Card centralizado */}
       <div
         className={`p-8 rounded-3xl shadow-xl w-full max-w-md transition-all duration-1000 transform ${
           visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-95"
         } ${
           darkMode
             ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-            : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
         }`}
       >
         <h1 className="text-3xl font-extrabold text-center mb-8">Área do Usuário</h1>

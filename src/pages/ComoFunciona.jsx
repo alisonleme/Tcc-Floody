@@ -69,7 +69,7 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
       className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-500 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-100"
-          : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+          : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
       }`}
     >
       {/* Botão de alternar tema */}
@@ -101,7 +101,9 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
       `}</style>
 
       {/* Título */}
-      <h1 className="text-5xl font-extrabold text-center mt-20">Como Funciona Nosso Dispositivo</h1>
+      <h1 className="text-5xl font-extrabold text-center mt-20">
+        Como Funciona Nosso Dispositivo
+      </h1>
 
       {/* Vídeo explicativo */}
       <div
@@ -110,7 +112,7 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
         className={`p-6 rounded-3xl shadow-xl transition-all duration-1000 transform w-full max-w-5xl ${
           darkMode
             ? "bg-gradient-to-br from-gray-800 to-gray-700"
-            : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6]"
+            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee]"
         } ${visibleSections.video ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
         <h2 className="text-3xl font-bold mb-4 text-center">Vídeo Explicativo</h2>
@@ -126,14 +128,14 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
         </div>
       </div>
 
-      {/* Explicação do dispositivo */}
+      {/* Explicação */}
       <div
         ref={setRef("explicacao")}
         data-section="explicacao"
         className={`p-8 rounded-3xl shadow-xl w-full max-w-5xl transition-all duration-1000 transform leading-relaxed text-justify text-lg ${
           darkMode
             ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-            : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
         } ${visibleSections.explicacao ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
         <h2 className="text-3xl font-bold mb-6 text-center">Explicação do Dispositivo</h2>
@@ -144,14 +146,14 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
         </p>
       </div>
 
-      {/* Canal do YouTube */}
+      {/* Canal YouTube */}
       <div
         ref={setRef("youtube")}
         data-section="youtube"
         className={`p-6 rounded-3xl shadow-xl transition-all duration-1000 transform w-full max-w-5xl text-center ${
           darkMode
             ? "bg-gradient-to-br from-gray-800 to-gray-700"
-            : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6]"
+            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee]"
         } ${visibleSections.youtube ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
         <h2 className="text-3xl font-bold mb-4">Nosso Canal no YouTube</h2>
@@ -177,10 +179,14 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
         className={`p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform ${
           darkMode
             ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-            : "bg-gradient-to-br from-white to-gray-50 text-gray-900"
+            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
         } ${visibleSections.forum ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
-        <h2 className={`text-3xl font-bold mb-6 text-center ${darkMode ? "text-yellow-400" : "text-blue-600"}`}>
+        <h2
+          className={`text-3xl font-bold mb-6 text-center ${
+            darkMode ? "text-yellow-400" : "text-blue-600"
+          }`}
+        >
           Fórum
         </h2>
         <form onSubmit={handleForumSubmit} className="space-y-4">
@@ -212,10 +218,14 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
         className={`p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform ${
           darkMode
             ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-            : "bg-gradient-to-br from-white to-gray-50 text-gray-900"
+            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
         } ${visibleSections.ajuda ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
-        <h2 className={`text-3xl font-bold mb-6 text-center ${darkMode ? "text-yellow-400" : "text-green-600"}`}>
+        <h2
+          className={`text-3xl font-bold mb-6 text-center ${
+            darkMode ? "text-yellow-400" : "text-green-600"
+          }`}
+        >
           Ajuda
         </h2>
         <form onSubmit={handleHelpSubmit} className="space-y-4">
