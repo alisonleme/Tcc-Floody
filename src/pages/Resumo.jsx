@@ -32,6 +32,10 @@ export default function Resumo({ darkMode, toggleTheme }) {
     sectionsRef.current[key] = el;
   };
 
+  // Botões estilo Artigo.jsx
+  const buttonClasses =
+    "mt-4 px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button";
+
   return (
     <div
       className={`min-h-screen flex flex-col items-center justify-start p-8 space-y-10 transition-colors duration-500 ${
@@ -44,16 +48,22 @@ export default function Resumo({ darkMode, toggleTheme }) {
       <button
         onClick={toggleTheme}
         aria-label="Alternar tema"
-        className="fixed top-6 right-6 p-4 rounded-full transition-transform duration-500 hover:scale-110 hover:rotate-12 shadow-lg"
+        className="fixed top-6 right-6 p-4 rounded-full transition-transform duration-500 hover:scale-110 hover:rotate-12 shadow-lg bg-gray-700/40 backdrop-blur-md"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className={`w-8 h-8 transition-colors duration-500 ${
-            darkMode ? "fill-yellow-300" : "fill-gray-800"
-          }`}
+          className="w-8 h-8"
+          fill="white"
+          style={{
+            filter: "drop-shadow(0 0 6px rgba(0,0,0,0.7))",
+          }}
         >
-          <path d="M12 2a9.93 9.93 0 00-7.07 2.93A10 10 0 1012 2z" />
+          {darkMode ? (
+            <path d="M12 3v1m0 16v1m8.485-9h1M3 12H2m15.364 6.364l.707.707M6.343 6.343l-.707-.707m12.728 12.728l-.707-.707M6.343 17.657l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z" />
+          ) : (
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+          )}
         </svg>
       </button>
 
@@ -64,21 +74,28 @@ export default function Resumo({ darkMode, toggleTheme }) {
           100% { background-position: 0% 50%; }
         }
         .animated-button {
-          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background: ${
+            darkMode
+              ? "linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))"
+              : "linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))"
+          };
           background-size: 400% 400%;
           animation: shimmer 6s ease infinite;
-          color: #1f2937; /* cinza escuro */
-          transition: all 0.5s ease;
+          color: ${darkMode ? "#f8fafc" : "#1f2937"};
+          text-shadow: ${darkMode ? "0 0 6px rgba(0,0,0,0.7)" : "none"};
+          transition: all 0.7s ease-in-out;
         }
         .animated-button:hover {
-          color: white;
-          box-shadow: 0 10px 20px rgba(50,130,220,0.6);
-          transform: scale(1.05);
+          filter: brightness(1.15);
         }
       `}</style>
 
       {/* Título */}
-      <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 transition-all duration-700">
+      <h1
+        className={`text-5xl font-bold text-center mb-6 transition-all duration-700 ${
+          darkMode ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]" : ""
+        }`}
+      >
         Resumo dos Artigos
       </h1>
 
@@ -95,8 +112,8 @@ export default function Resumo({ darkMode, toggleTheme }) {
         data-section="conteudo"
         className={`p-8 rounded-3xl shadow-xl max-w-5xl space-y-6 leading-relaxed text-justify text-lg transition-all duration-1000 transform ${
           darkMode
-            ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
+            ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-gray-200"
+            : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
         } ${visibleSections.conteudo ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
         <h2 className="text-3xl font-bold text-center mb-4">
@@ -149,11 +166,7 @@ export default function Resumo({ darkMode, toggleTheme }) {
           visibleSections.botoes ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <a
-          href="/downloads/resumo.pdf"
-          download
-          className="px-8 py-4 rounded-3xl font-semibold shadow-xl animated-button cursor-pointer"
-        >
+        <a href="/downloads/resumo.pdf" download className={buttonClasses}>
           Baixar Resumo Completo
         </a>
 
@@ -161,15 +174,12 @@ export default function Resumo({ darkMode, toggleTheme }) {
           href="/downloads/resumo.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-8 py-4 rounded-3xl font-semibold shadow-xl animated-button cursor-pointer"
+          className={buttonClasses}
         >
           Abrir Resumo em Nova Aba
         </a>
 
-        <Link
-          to="/artigo"
-          className="px-8 py-4 rounded-3xl font-semibold shadow-xl animated-button cursor-pointer"
-        >
+        <Link to="/artigo" className={buttonClasses}>
           Voltar para Artigos
         </Link>
       </div>

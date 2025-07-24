@@ -35,16 +35,9 @@ export default function Material({ user, darkMode }) {
       alert("Preencha todos os campos");
       return;
     }
-    const novo = {
-      id: Date.now(),
-      nome,
-      preco: parseFloat(preco),
-      imagem,
-    };
+    const novo = { id: Date.now(), nome, preco: parseFloat(preco), imagem };
     setMateriais((prev) => [...prev, novo]);
-    setNome("");
-    setPreco("");
-    setImagem("");
+    setNome(""); setPreco(""); setImagem("");
   };
 
   const excluirMaterial = (id) => {
@@ -60,35 +53,38 @@ export default function Material({ user, darkMode }) {
       : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
   }`;
 
-  // Estilo dos cards igual ao Jogo.jsx
   const cardClasses = `p-6 rounded-3xl shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out`;
-
   const cardBg = darkMode
-    ? "bg-gradient-to-br from-gray-800 to-gray-700"
-    : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee]";
+    ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80"
+    : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc]";
 
-  const cardTextColor = darkMode ? "text-yellow-300" : "text-gray-900";
-  const cardPriceColor = darkMode ? "text-yellow-200" : "text-gray-800";
+  // Títulos e textos agora brancos com sombra no dark mode
+  const cardTextColor = darkMode
+    ? "text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.7)]"
+    : "text-gray-900";
+  const cardPriceColor = darkMode
+    ? "text-gray-300 drop-shadow-[0_0_4px_rgba(0,0,0,0.6)]"
+    : "text-gray-800";
 
   const buttonShimmerStyle = {
     backgroundSize: "400% 400%",
     animation: "shimmer 6s ease infinite",
     backgroundImage: darkMode
-      ? "linear-gradient(270deg, #fbbf24, #fde68a, #b45309)"
-      : "linear-gradient(270deg, #4ade80, #22c55e, #16a34a)",
+      ? "linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))"
+      : "linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))",
+    color: darkMode ? "#f8fafc" : "#1f2937",
+    textShadow: darkMode ? "0 0 6px rgba(0,0,0,0.7)" : "none",
   };
 
   const inputClasses = `flex-1 p-4 border rounded-xl text-lg focus:outline-none focus:ring-2 transition duration-300 ${
     darkMode
-      ? "bg-gray-700 text-white placeholder-yellow-300 border-gray-600 focus:ring-yellow-400"
+      ? "bg-gray-700 text-white placeholder-gray-300 border-gray-600 focus:ring-purple-400"
       : "bg-white text-gray-900 placeholder-gray-600 border-gray-300 focus:ring-blue-400"
   }`;
 
   return (
     <div ref={containerRef} className={containerClasses}>
-      <div
-        className={`${cardClasses} w-full max-w-5xl ${cardBg}`}
-      >
+      <div className={`${cardClasses} w-full max-w-5xl ${cardBg}`}>
         <h1 className={`text-5xl font-bold text-center mb-8 ${cardTextColor}`}>
           Materiais
         </h1>
@@ -108,7 +104,9 @@ export default function Material({ user, darkMode }) {
                 alt={item.nome}
                 className="w-32 h-32 object-cover rounded-xl mb-4 transition-transform hover:scale-110"
               />
-              <h2 className={`text-2xl font-semibold mb-1 ${cardTextColor}`}>{item.nome}</h2>
+              <h2 className={`text-2xl font-semibold mb-1 ${cardTextColor}`}>
+                {item.nome}
+              </h2>
               <p className={`mb-4 text-justify text-lg ${cardPriceColor}`}>
                 R$ {item.preco.toFixed(2)}
               </p>
@@ -155,11 +153,8 @@ export default function Material({ user, darkMode }) {
               />
               <button
                 onClick={adicionarMaterial}
-                className="px-8 py-4 rounded-xl hover:scale-105 hover:shadow-lg cursor-pointer transition-transform duration-300 font-semibold text-white"
-                style={{
-                  ...buttonShimmerStyle,
-                  color: darkMode ? "#374151" : "#ffffff",
-                }}
+                className="px-8 py-4 rounded-xl hover:scale-105 hover:shadow-lg cursor-pointer transition-transform duration-300 font-semibold"
+                style={buttonShimmerStyle}
               >
                 Adicionar
               </button>
@@ -170,39 +165,21 @@ export default function Material({ user, darkMode }) {
 
       <style jsx>{`
         @keyframes fadeSlide {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fadeSlide {
-          animation: fadeSlide 0.8s ease forwards;
-        }
+        .animate-fadeSlide { animation: fadeSlide 0.8s ease forwards; }
+
         @keyframes pulseSlow {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.02);
-          }
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.02); }
         }
-        .animate-pulse-slow {
-          animation: pulseSlow 3s infinite;
-        }
+        .animate-pulse-slow { animation: pulseSlow 3s infinite; }
+
         @keyframes shimmer {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
       `}</style>
     </div>

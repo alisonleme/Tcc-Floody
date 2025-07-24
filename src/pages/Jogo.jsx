@@ -30,28 +30,31 @@ export default function Jogo({ darkMode, toggleTheme }) {
     localStorage.setItem("floody-theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  const containerClasses = `flex flex-col items-center justify-start min-h-screen p-6 transition-colors duration-500 ${
+  const containerClasses = `flex flex-col items-center justify-start min-h-screen p-6 transition-colors duration-700 ${
     darkMode
       ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-      : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
+      : "bg-gradient-to-br from-blue-100 via-blue-200 to-blue-400 text-gray-900"
   }`;
 
   const sectionBaseClasses =
     "p-6 rounded-3xl shadow-xl transition-opacity transition-transform duration-700 ease-in-out max-w-5xl w-full mb-10";
   const sectionBg = darkMode
-    ? "bg-gradient-to-br from-gray-800 to-gray-700"
-    : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee]";
+    ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80"
+    : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc]";
 
-  const sectionTitleClasses = `text-3xl font-bold mb-4 ${
-    darkMode ? "text-yellow-300" : "text-gray-900"
+  // Títulos agora brancos com sombra no modo escuro
+  const sectionTitleClasses = `text-3xl font-bold mb-4 transition-colors duration-500 ${
+    darkMode
+      ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.6)]"
+      : "text-gray-900"
   }`;
 
-  const paragraphClasses = `text-lg text-justify ${
+  const paragraphClasses = `text-lg text-justify transition-colors duration-500 ${
     darkMode ? "text-gray-200" : "text-gray-900"
   }`;
 
-  // Botões padronizados como na Home (com shimmer animado)
-  const buttonClasses = `mt-6 px-10 py-4 rounded-md font-semibold text-gray-900 shadow-lg transition-all duration-500 transform hover:scale-105 hover:text-white hover:shadow-2xl animated-button`;
+  // Botões com gradiente suave e shimmer animado
+  const buttonClasses = `mt-6 px-10 py-4 rounded-md font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button`;
 
   return (
     <div className={containerClasses}>
@@ -62,12 +65,23 @@ export default function Jogo({ darkMode, toggleTheme }) {
           100% { background-position: 0% 50%; }
         }
         .animated-button {
-          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background: ${
+            darkMode
+              ? "linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))"
+              : "linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))"
+          };
           background-size: 400% 400%;
           animation: shimmer 6s ease infinite;
+          color: ${darkMode ? "#f8fafc" : "#1f2937"};
+          text-shadow: ${darkMode ? "0 0 6px rgba(0,0,0,0.7)" : "none"};
+          transition: all 0.7s ease-in-out;
+        }
+        .animated-button:hover {
+          filter: brightness(1.15);
         }
         .toggle-icon {
           transition: transform 0.6s ease;
+          filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
         }
         .toggle-icon:hover {
           transform: rotate(15deg) scale(1.1);
@@ -78,13 +92,15 @@ export default function Jogo({ darkMode, toggleTheme }) {
       <button
         onClick={toggleTheme}
         aria-label="Alternar tema"
-        className="mb-10 p-3 rounded-full bg-gray-700 dark:bg-gray-800 shadow-md hover:shadow-lg cursor-pointer transition-transform duration-300 inline-flex items-center justify-center"
+        className={`mb-10 p-3 rounded-full shadow-md hover:shadow-lg cursor-pointer transition-transform duration-300 inline-flex items-center justify-center ${
+          darkMode ? "bg-gray-800" : "bg-gray-300"
+        }`}
         type="button"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          fill={darkMode ? "#FBBF24" : "#374151"}
+          fill={darkMode ? "#ffffff" : "#374151"}
           className="w-8 h-8 toggle-icon"
           role="img"
           aria-hidden="true"
@@ -97,7 +113,13 @@ export default function Jogo({ darkMode, toggleTheme }) {
         </svg>
       </button>
 
-      <h1 className="text-5xl font-bold mb-16 text-center select-none">
+      <h1
+        className={`text-5xl font-bold mb-16 text-center select-none ${
+          darkMode
+            ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]"
+            : "text-gray-900"
+        }`}
+      >
         Jogo Floody
       </h1>
 
@@ -175,6 +197,9 @@ export default function Jogo({ darkMode, toggleTheme }) {
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10"
           }`}
+          style={{
+            transition: "background 0.7s ease-in-out, color 0.7s ease-in-out",
+          }}
           tabIndex={0}
           aria-label={ariaLabel}
         >

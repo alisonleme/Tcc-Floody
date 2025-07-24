@@ -40,32 +40,18 @@ export default function Artigo({ darkMode, toggleTheme }) {
     return () => observer.disconnect();
   }, []);
 
+  // Botões menores e mais arredondados
+  const buttonClasses = `mt-6 md:mt-0 px-8 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button`;
+
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-500 ${
+      className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-700 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-          : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
+          : "bg-gradient-to-br from-blue-100 via-blue-200 to-blue-400 text-gray-900"
       }`}
     >
-      {/* Botão de alternar tema */}
-      <button
-        onClick={toggleTheme}
-        aria-label="Alternar tema"
-        className="fixed top-6 right-6 p-4 rounded-full transition-transform duration-500 hover:scale-110 hover:rotate-12 shadow-lg"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          className={`w-8 h-8 transition-colors duration-500 ${
-            darkMode ? "fill-yellow-300" : "fill-gray-800"
-          }`}
-        >
-          <path d="M12 2a9.93 9.93 0 00-7.07 2.93A10 10 0 1012 2z" />
-        </svg>
-      </button>
-
       <style>{`
         @keyframes shimmer {
           0% { background-position: 0% 50%; }
@@ -73,23 +59,59 @@ export default function Artigo({ darkMode, toggleTheme }) {
           100% { background-position: 0% 50%; }
         }
         .animated-button {
-          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background: ${
+            darkMode
+              ? "linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))"
+              : "linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))"
+          };
           background-size: 400% 400%;
           animation: shimmer 6s ease infinite;
-          color: #1f2937; /* cinza escuro */
-          transition: all 0.5s ease;
+          color: ${darkMode ? "#f8fafc" : "#1f2937"};
+          text-shadow: ${darkMode ? "0 0 6px rgba(0,0,0,0.7)" : "none"};
+          transition: all 0.7s ease-in-out;
         }
         .animated-button:hover {
-          color: white;
-          box-shadow: 0 10px 20px rgba(50,130,220,0.6);
-          transform: scale(1.05);
+          filter: brightness(1.15);
+        }
+        .toggle-icon {
+          transition: transform 0.6s ease;
+          filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
+        }
+        .toggle-icon:hover {
+          transform: rotate(15deg) scale(1.1);
         }
       `}</style>
+
+      {/* Botão alternar tema */}
+      <button
+        onClick={toggleTheme}
+        aria-label="Alternar tema"
+        className={`fixed top-6 right-6 p-3 rounded-full shadow-md hover:shadow-lg cursor-pointer transition-transform duration-300 inline-flex items-center justify-center ${
+          darkMode ? "bg-gray-800" : "bg-gray-300"
+        }`}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill={darkMode ? "#ffffff" : "#374151"}
+          className="w-8 h-8 toggle-icon"
+        >
+          {darkMode ? (
+            <path d="M12 3v1m0 16v1m8.485-9h1M3 12H2m15.364 6.364l.707.707M6.343 6.343l-.707-.707m12.728 12.728l-.707-.707M6.343 17.657l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z" />
+          ) : (
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+          )}
+        </svg>
+      </button>
 
       {/* Título */}
       <h1
         className={`text-5xl font-extrabold text-center mt-20 transition-all duration-700 ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        } ${
+          darkMode
+            ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]"
+            : "text-gray-900"
         }`}
       >
         Artigos Utilizados
@@ -102,8 +124,8 @@ export default function Artigo({ darkMode, toggleTheme }) {
             key={index}
             className={`flex flex-col md:flex-row items-center justify-between rounded-3xl p-6 shadow-xl cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl ${
               darkMode
-                ? "bg-gradient-to-br from-gray-800 to-gray-700 text-white"
-                : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
+                ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-white"
+                : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
             }`}
             style={{
               opacity: visible ? 1 : 0,
@@ -120,7 +142,9 @@ export default function Artigo({ darkMode, toggleTheme }) {
               />
               <p
                 className={`font-semibold text-lg md:text-xl leading-relaxed max-w-xl ${
-                  darkMode ? "text-gray-200" : "text-gray-900"
+                  darkMode
+                    ? "text-white drop-shadow-[0_0_4px_rgba(0,0,0,0.8)]"
+                    : "text-gray-900"
                 }`}
                 style={{ textAlign: "justify" }}
               >
@@ -131,7 +155,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
               href={artigo.download}
               download
               aria-label={`Baixar o artigo: ${artigo.titulo}`}
-              className="mt-6 md:mt-0 px-6 py-3 rounded-xl font-semibold shadow-lg animated-button cursor-pointer"
+              className={buttonClasses}
             >
               Fazer Download
             </a>
@@ -143,8 +167,8 @@ export default function Artigo({ darkMode, toggleTheme }) {
       <div
         className={`rounded-3xl shadow-xl p-8 max-w-5xl leading-relaxed transition-all duration-700 ${
           darkMode
-            ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-            : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
+            ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-white"
+            : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
         }`}
         style={{
           textAlign: "justify",
@@ -166,17 +190,10 @@ export default function Artigo({ darkMode, toggleTheme }) {
 
       {/* Botões finais */}
       <div className="flex flex-col md:flex-row items-center gap-8 mt-8">
-        <a
-          href="/downloads/todos-artigos.zip"
-          download
-          className="px-6 py-3 rounded-xl font-semibold shadow-lg animated-button cursor-pointer"
-        >
+        <a href="/downloads/todos-artigos.zip" download className={buttonClasses}>
           Baixar Todos os Artigos
         </a>
-        <Link
-          to="/resumo"
-          className="px-6 py-3 rounded-xl font-semibold shadow-lg animated-button cursor-pointer"
-        >
+        <Link to="/resumo" className={buttonClasses}>
           Ver Página de Resumo
         </Link>
       </div>

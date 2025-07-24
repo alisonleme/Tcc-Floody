@@ -2,19 +2,31 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import FundoPNGclaro from '../Img/FundoPNGclaroGirar.png';
-import ImagemDaHome from '../Img/ImagemDaHome.png';
+import FundoPNGescuro from '../Img/FundoPNGescuro.png';
 import FundoPNGClaro from '../Img/FundoPNGclaro.png';
+import ImagemDaHome from '../Img/ImagemDaHome.png';
 import ArtigoImg from '../Img/artigo_quadrado.png';
 import ArduinoImg from '../Img/arduino.png';
 import ComoFuncionaImg from '../Img/comofunciona.png';
 
-export default function Home() {
+export default function Home({ darkMode }) {
   const [visibleBlocks, setVisibleBlocks] = useState([]);
   const [titleVisible, setTitleVisible] = useState(false);
   const [mainVisible, setMainVisible] = useState(false);
   const blocksRef = useRef([]);
   const titleRef = useRef(null);
   const mainRef = useRef(null);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (darkMode) {
+      const corSecundaria =
+        getComputedStyle(root).getPropertyValue('--cor-secundaria').trim() || '#243c5a';
+      root.style.setProperty('--cor-principal', corSecundaria);
+    } else {
+      root.style.setProperty('--cor-principal', '#06baf9');
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     const blockObserver = new IntersectionObserver(
@@ -82,7 +94,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="relative min-h-screen overflow-hidden" style={{ backgroundColor: 'var(--cor-principal)' }}>
+    <div
+      className="relative min-h-screen overflow-hidden transition-colors duration-700"
+      style={{ backgroundColor: 'var(--cor-principal)' }}
+    >
       <style>
         {`
           @keyframes shimmer {
@@ -91,20 +106,26 @@ export default function Home() {
             100% { background-position: 0% 50%; }
           }
           .animated-button {
-            background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+            background: ${darkMode
+              ? 'linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))'
+              : 'linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))'};
             background-size: 400% 400%;
             animation: shimmer 6s ease infinite;
+            transition: all 0.5s ease-in-out;
+          }
+          .animated-button:hover {
+            filter: brightness(1.15);
           }
         `}
       </style>
 
       {/* Cabeçalho */}
-      <div className="relative w-full h-[900px] flex justify-center items-center overflow-hidden">
+      <div className="relative w-full h-[900px] flex justify-center items-center overflow-hidden transition-all duration-700">
         <img src={ImagemDaHome} alt="Imagem Home" className="w-[2350px] h-full object-cover max-w-none" />
         <img
-          src={FundoPNGClaro}
+          src={darkMode ? FundoPNGescuro : FundoPNGClaro}
           alt="Efeito Borda"
-          className="absolute top-[700px] left-1/2 -translate-x-1/2 w-full max-w-none z-10 pointer-events-none"
+          className="absolute top-[700px] left-1/2 -translate-x-1/2 w-full max-w-none z-10 pointer-events-none transition-opacity duration-700"
         />
         <div
           ref={titleRef}
@@ -117,24 +138,38 @@ export default function Home() {
       </div>
 
       {/* Faixa intermediária */}
-      <div className="w-full h-[400px] relative z-10 -mt-16">
-        <img src={FundoPNGclaro} alt="Imagem Ciano" className="w-full h-full object-cover" />
+      <div className="w-full h-[400px] relative z-10 -mt-16 transition-all duration-700">
+        <img
+          src={darkMode ? FundoPNGescuro : FundoPNGclaro}
+          alt="Imagem Ciano"
+          className="w-full h-full object-cover transition-opacity duration-700"
+        />
       </div>
 
       {/* Conteúdo principal */}
       <div className="-mt-40 flex flex-col justify-center items-center relative z-20 px-4">
         <div
           ref={mainRef}
-          className={`p-16 rounded-2xl text-gray-900 text-center max-w-7xl w-full space-y-6 shadow-lg transition-all duration-1000 transform ${
+          className={`p-16 rounded-2xl text-center max-w-7xl w-full space-y-6 shadow-lg transition-all duration-1000 transform ${
             mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
           style={{
-            background: 'linear-gradient(135deg, #b3ddfe, #71b7e6)',
+            background: darkMode
+              ? 'linear-gradient(135deg, rgba(30,41,59,0.8), rgba(51,65,85,0.7))'
+              : 'linear-gradient(135deg, rgba(179,221,254,0.7), rgba(113,183,230,0.7))',
+            color: darkMode ? '#f8fafc' : '#1f2937',
+            transition: 'background 0.7s ease-in-out, color 0.7s ease-in-out',
           }}
         >
-          <h1 className="text-5xl font-extrabold text-gray-900">O que é o Floody?</h1>
+          <h1 className="text-5xl font-extrabold">O que é o Floody?</h1>
 
-          <div className="text-left text-lg font-medium space-y-4 leading-relaxed text-gray-900">
+          <div
+            className="text-left text-lg font-medium space-y-4 leading-relaxed"
+            style={{
+              color: darkMode ? '#f1f5f9' : '#1f2937',
+              transition: 'color 0.7s ease-in-out',
+            }}
+          >
             <p>
               🌧️ O Floody foi desenvolvido como um dispositivo doméstico inovador que visa auxiliar no combate
               às enchentes e promover o reaproveitamento da água da chuva. Seu funcionamento simula um{' '}
@@ -165,14 +200,18 @@ export default function Home() {
             <p>📲 Baixe o app do Floody:</p>
           </div>
 
-          {/* Botão com gradiente animado */}
+          {/* Botão com gradiente brando e transição no tema */}
           <button
-            className="mt-6 px-10 py-4 rounded-md font-semibold text-gray-900 shadow-lg transition-all duration-500 hover:scale-105 hover:text-white hover:shadow-2xl animated-button"
+            className="mt-6 px-10 py-4 rounded-md font-semibold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl animated-button"
+            style={{
+              color: darkMode ? '#f1f5f9' : '#1f2937',
+              transition: 'color 0.7s ease-in-out, background 0.7s ease-in-out',
+            }}
           >
             📥 Download app
           </button>
 
-          {/* Cards */}
+          {/* Cards com gradiente suave e animação de tema */}
           <div className="mt-10 flex flex-col space-y-6 max-w-screen-2xl w-full items-center sm:items-start px-2 sm:px-0">
             {sections.map((item, i) => (
               <div
@@ -184,7 +223,11 @@ export default function Home() {
                     : 'opacity-0 translate-y-10 scale-95'
                 }`}
                 style={{
-                  background: 'linear-gradient(135deg, #b3ddfe, #71b7e6)',
+                  background: darkMode
+                    ? 'linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,41,59,0.75))'
+                    : 'linear-gradient(135deg, rgba(179,221,254,0.7), rgba(113,183,230,0.7))',
+                  color: darkMode ? '#f8fafc' : '#1f2937',
+                  transition: 'background 0.7s ease-in-out, color 0.7s ease-in-out',
                 }}
               >
                 <Link
@@ -198,7 +241,7 @@ export default function Home() {
                     className="w-[250px] h-[50px] sm:w-[300px] sm:h-[80px] md:w-[350px] md:h-[100px] lg:w-[400px] lg:h-[120px] object-cover rounded-md"
                   />
                 </Link>
-                <div className="text-gray-900 text-center sm:text-left text-base lg:text-lg font-semibold text-justify">
+                <div className="text-center sm:text-left text-base lg:text-lg font-semibold text-justify">
                   <p className="mb-2 text-2xl font-bold">{item.title}</p>
                   <p>{item.text}</p>
                 </div>
