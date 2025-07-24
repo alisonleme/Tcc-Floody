@@ -60,11 +60,20 @@ export default function Resumo({ darkMode, toggleTheme }) {
       <style>{`
         @keyframes shimmer {
           0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
         .animated-button {
-          background-size: 200% 200%;
-          animation: shimmer 4s linear infinite;
+          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background-size: 400% 400%;
+          animation: shimmer 6s ease infinite;
+          color: #1f2937; /* cinza escuro */
+          transition: all 0.5s ease;
+        }
+        .animated-button:hover {
+          color: white;
+          box-shadow: 0 10px 20px rgba(50,130,220,0.6);
+          transform: scale(1.05);
         }
       `}</style>
 
@@ -143,11 +152,7 @@ export default function Resumo({ darkMode, toggleTheme }) {
         <a
           href="/downloads/resumo.pdf"
           download
-          className={`px-8 py-4 rounded-3xl font-semibold shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl animated-button ${
-            darkMode
-              ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-              : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-          }`}
+          className="px-8 py-4 rounded-3xl font-semibold shadow-xl animated-button cursor-pointer"
         >
           Baixar Resumo Completo
         </a>
@@ -156,22 +161,14 @@ export default function Resumo({ darkMode, toggleTheme }) {
           href="/downloads/resumo.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className={`px-8 py-4 rounded-3xl font-semibold shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl animated-button ${
-            darkMode
-              ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-              : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-          }`}
+          className="px-8 py-4 rounded-3xl font-semibold shadow-xl animated-button cursor-pointer"
         >
           Abrir Resumo em Nova Aba
         </a>
 
         <Link
           to="/artigo"
-          className={`px-8 py-4 rounded-3xl font-semibold shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl animated-button ${
-            darkMode
-              ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-              : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-          }`}
+          className="px-8 py-4 rounded-3xl font-semibold shadow-xl animated-button cursor-pointer"
         >
           Voltar para Artigos
         </Link>

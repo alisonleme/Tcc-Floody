@@ -92,11 +92,20 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
       <style>{`
         @keyframes shimmer {
           0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
         .animated-button {
-          background-size: 200% 200%;
-          animation: shimmer 4s linear infinite;
+          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background-size: 400% 400%;
+          animation: shimmer 6s ease infinite;
+          color: #1f2937;
+          transition: all 0.5s ease;
+        }
+        .animated-button:hover {
+          color: white;
+          box-shadow: 0 10px 20px rgba(50,130,220,0.6);
+          transform: scale(1.05);
         }
       `}</style>
 
@@ -162,11 +171,7 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visitar canal do YouTube"
-          className={`px-8 py-4 font-semibold rounded-3xl shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl animated-button ${
-            darkMode
-              ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-              : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-          }`}
+          className="px-8 py-4 font-semibold rounded-3xl shadow-xl animated-button cursor-pointer"
         >
           Visitar Canal
         </a>
@@ -198,14 +203,7 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
             rows="4"
             required
           />
-          <button
-            type="submit"
-            className={`px-6 py-3 font-semibold rounded-3xl shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl animated-button ${
-              darkMode
-                ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-                : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-            }`}
-          >
+          <button type="submit" className="px-6 py-3 font-semibold rounded-3xl shadow-xl animated-button cursor-pointer">
             Enviar Pergunta
           </button>
         </form>
@@ -237,28 +235,14 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
             rows="4"
             required
           />
-          <button
-            type="submit"
-            className={`px-6 py-3 font-semibold rounded-3xl shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl animated-button ${
-              darkMode
-                ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-                : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-            }`}
-          >
+          <button type="submit" className="px-6 py-3 font-semibold rounded-3xl shadow-xl animated-button cursor-pointer">
             Solicitar Ajuda
           </button>
         </form>
       </div>
 
       {/* Botão Voltar */}
-      <Link
-        to="/"
-        className={`mt-10 px-8 py-4 font-semibold rounded-3xl shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl animated-button ${
-          darkMode
-            ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-            : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-        }`}
-      >
+      <Link to="/" className="mt-10 px-8 py-4 font-semibold rounded-3xl shadow-xl animated-button cursor-pointer">
         Voltar para Home
       </Link>
     </div>

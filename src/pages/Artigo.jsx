@@ -69,11 +69,20 @@ export default function Artigo({ darkMode, toggleTheme }) {
       <style>{`
         @keyframes shimmer {
           0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
         .animated-button {
-          background-size: 200% 200%;
-          animation: shimmer 4s linear infinite;
+          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background-size: 400% 400%;
+          animation: shimmer 6s ease infinite;
+          color: #1f2937; /* cinza escuro */
+          transition: all 0.5s ease;
+        }
+        .animated-button:hover {
+          color: white;
+          box-shadow: 0 10px 20px rgba(50,130,220,0.6);
+          transform: scale(1.05);
         }
       `}</style>
 
@@ -122,11 +131,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
               href={artigo.download}
               download
               aria-label={`Baixar o artigo: ${artigo.titulo}`}
-              className={`mt-6 md:mt-0 px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button ${
-                darkMode
-                  ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900 hover:text-black"
-                  : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white hover:text-gray-200"
-              }`}
+              className="mt-6 md:mt-0 px-6 py-3 rounded-xl font-semibold shadow-lg animated-button cursor-pointer"
             >
               Fazer Download
             </a>
@@ -160,32 +165,17 @@ export default function Artigo({ darkMode, toggleTheme }) {
       </div>
 
       {/* Botões finais */}
-      <div
-        className="flex flex-col md:flex-row items-center gap-8 mt-8 transition-all duration-700"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(20px)",
-          transitionDelay: visible ? `${(artigos.length + 1) * 150}ms` : "0ms",
-        }}
-      >
+      <div className="flex flex-col md:flex-row items-center gap-8 mt-8">
         <a
           href="/downloads/todos-artigos.zip"
           download
-          className={`px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button ${
-            darkMode
-              ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-              : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-          }`}
+          className="px-6 py-3 rounded-xl font-semibold shadow-lg animated-button cursor-pointer"
         >
           Baixar Todos os Artigos
         </a>
         <Link
           to="/resumo"
-          className={`px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button ${
-            darkMode
-              ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
-              : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
-          }`}
+          className="px-6 py-3 rounded-xl font-semibold shadow-lg animated-button cursor-pointer"
         >
           Ver Página de Resumo
         </Link>

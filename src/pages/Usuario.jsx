@@ -80,17 +80,43 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen flex flex-col items-center justify-center p-12 space-y-16 transition-colors duration-500 ${
+      className={`min-h-screen flex items-center justify-center transition-colors duration-500 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-100"
           : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
       }`}
     >
-      {/* Botão toggle tema */}
+      {/* Estilos do gradiente animado */}
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animated-button {
+          background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
+          background-size: 400% 400%;
+          animation: shimmer 6s ease infinite;
+          font-weight: 600;
+          padding: 0.75rem 1.5rem;
+          border-radius: 0.75rem;
+          cursor: pointer;
+          color: #1f2937;
+          box-shadow: 0 8px 15px rgba(70,130,180,0.3);
+          transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+        }
+        .animated-button:hover {
+          transform: scale(1.05);
+          box-shadow: 0 12px 25px rgba(70,130,180,0.6);
+          color: white;
+        }
+      `}</style>
+
+      {/* Botão de alternar tema */}
       <button
         onClick={toggleTheme}
         aria-label="Alternar tema"
-        className="fixed top-6 right-6 p-4 rounded-full transition-transform duration-500 hover:scale-110 hover:rotate-12 shadow-lg"
+        className="fixed top-6 right-6 p-4 rounded-full shadow-lg animated-button transition-transform duration-500 hover:scale-110 hover:rotate-12"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,28 +128,6 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
           <path d="M12 2a9.93 9.93 0 00-7.07 2.93A10 10 0 1012 2z" />
         </svg>
       </button>
-
-      <style>{`
-        @keyframes shimmer {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
-        }
-        .animated-button {
-          background-size: 200% 200%;
-          animation: shimmer 4s linear infinite;
-          font-weight: 600;
-          padding: 0.5rem 1.25rem;
-          border-radius: 0.75rem;
-          cursor: pointer;
-          box-shadow: 0 8px 15px rgba(70,130,180,0.3);
-          transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-        }
-        .animated-button:hover {
-          transform: scale(1.05);
-          box-shadow: 0 12px 25px rgba(70,130,180,0.6);
-          color: white;
-        }
-      `}</style>
 
       {/* Card centralizado */}
       <div
@@ -137,6 +141,7 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
       >
         <h1 className="text-3xl font-extrabold text-center mb-8">Área do Usuário</h1>
 
+        {/* Botões principais */}
         <div className="flex justify-between mb-6">
           <button className="animated-button" onClick={onLogout}>
             Sair
@@ -146,6 +151,7 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
           </button>
         </div>
 
+        {/* Informações do usuário */}
         <div className="mb-6 p-4 rounded-lg shadow-inner bg-white bg-opacity-20">
           <p className="mb-2 font-semibold">Conta atual:</p>
           <p className="mb-1">Nome de usuário: {username || "(não informado)"}</p>
@@ -153,6 +159,7 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
           <p className="mb-0">Senha: {senha ? esconderSenha(senha) : "(não informada)"}</p>
         </div>
 
+        {/* Campos editáveis */}
         <div className="space-y-6">
           {/* Nome de usuário */}
           <div>
