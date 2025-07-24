@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default function Usuario({ user, onLogout, onUserUpdate }) {
+export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggleTheme }) {
   const [email, setEmail] = useState(user.email);
   const [senha, setSenha] = useState(user.senha);
   const [username, setUsername] = useState(user.username || "");
@@ -80,73 +80,98 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col items-center justify-center min-h-screen p-6 transition-all duration-1000 transform ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-500 ${
+        darkMode
+          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-100"
+          : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
       }`}
-      style={{ backgroundColor: "#d8e7f5" }}
     >
-      <style>
-        {`
-          @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-          .animated-button {
-            background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
-            background-size: 400% 400%;
-            animation: shimmer 6s ease infinite;
-            color: #2c3e50;
-            font-weight: 600;
-            padding: 0.5rem 1.25rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            box-shadow: 0 8px 15px rgba(70,130,180,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-          }
-          .animated-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 25px rgba(70,130,180,0.6);
-            color: white;
-          }
-        `}
-      </style>
+      {/* Botão toggle tema */}
+      <button
+        onClick={toggleTheme}
+        aria-label="Alternar tema"
+        className="fixed top-6 right-6 p-4 rounded-full transition-transform duration-500 hover:scale-110 hover:rotate-12 shadow-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          className={`w-8 h-8 transition-colors duration-500 ${
+            darkMode ? "fill-yellow-300" : "fill-gray-800"
+          }`}
+        >
+          <path d="M12 2a9.93 9.93 0 00-7.07 2.93A10 10 0 1012 2z" />
+        </svg>
+      </button>
+
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+        .animated-button {
+          background-size: 200% 200%;
+          animation: shimmer 4s linear infinite;
+          font-weight: 600;
+          padding: 0.5rem 1.25rem;
+          border-radius: 0.75rem;
+          cursor: pointer;
+          box-shadow: 0 8px 15px rgba(70,130,180,0.3);
+          transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+        }
+        .animated-button:hover {
+          transform: scale(1.05);
+          box-shadow: 0 12px 25px rgba(70,130,180,0.6);
+          color: white;
+        }
+      `}</style>
 
       <div
-        className={`p-8 rounded-3xl shadow-xl w-full max-w-md text-gray-900 transition-all duration-1000 transform ${
-          visible ? "scale-100 opacity-100" : "scale-90 opacity-0"
+        className={`p-8 rounded-3xl shadow-xl w-full max-w-md transition-all duration-1000 transform ${
+          visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-95"
+        } ${
+          darkMode
+            ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
+            : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
         }`}
-        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
       >
-        <h1 className="text-3xl font-extrabold text-center mb-8 text-gray-900">Área do Usuário</h1>
+        <h1 className="text-3xl font-extrabold text-center mb-8">Área do Usuário</h1>
 
         <div className="flex justify-between mb-6">
-          <button onClick={onLogout} className="animated-button">Sair</button>
-          <button onClick={excluirConta} className="animated-button">Excluir Conta</button>
+          <button className="animated-button" onClick={onLogout}>
+            Sair
+          </button>
+          <button className="animated-button" onClick={excluirConta}>
+            Excluir Conta
+          </button>
         </div>
 
-        <div className="mb-6 p-4 bg-white bg-opacity-70 rounded-lg text-gray-900 shadow-inner">
+        <div className="mb-6 p-4 rounded-lg shadow-inner bg-white bg-opacity-20">
           <p className="mb-2 font-semibold">Conta atual:</p>
           <p className="mb-1">Nome de usuário: {username || "(não informado)"}</p>
           <p className="mb-1">Email: {email}</p>
           <p className="mb-0">Senha: {senha ? esconderSenha(senha) : "(não informada)"}</p>
         </div>
 
-        {/* Inputs */}
         <div className="space-y-6">
           {/* Nome de usuário */}
           <div>
-            <label className="block text-gray-900 font-semibold mb-2">Nome de Usuário:</label>
+            <label className="block font-semibold mb-2">Nome de Usuário:</label>
             <input
               type="text"
               value={editandoUsername ? usernameTemp : username}
               onChange={(e) => setUsernameTemp(e.target.value)}
               onFocus={() => !editandoUsername && setEditandoUsername(true)}
-              className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300"
+              className={`w-full px-4 py-2 rounded-3xl border focus:ring-2 outline-none transition-all duration-300 ${
+                darkMode
+                  ? "bg-gray-900 border-gray-600 text-gray-100 focus:ring-yellow-400"
+                  : "bg-white border-gray-300 text-gray-900 focus:ring-blue-400"
+              }`}
             />
             {editandoUsername && (
               <button
-                onClick={() => confirmarAlteracao("username", usernameTemp, setUsername, setEditandoUsername)}
+                onClick={() =>
+                  confirmarAlteracao("username", usernameTemp, setUsername, setEditandoUsername)
+                }
                 className="mt-2 animated-button"
               >
                 Alterar Nome de Usuário
@@ -156,13 +181,17 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
 
           {/* Email */}
           <div>
-            <label className="block text-gray-900 font-semibold mb-2">Email:</label>
+            <label className="block font-semibold mb-2">Email:</label>
             <input
               type="email"
               value={editandoEmail ? emailTemp : email}
               onChange={(e) => setEmailTemp(e.target.value)}
               onFocus={() => !editandoEmail && setEditandoEmail(true)}
-              className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300"
+              className={`w-full px-4 py-2 rounded-3xl border focus:ring-2 outline-none transition-all duration-300 ${
+                darkMode
+                  ? "bg-gray-900 border-gray-600 text-gray-100 focus:ring-yellow-400"
+                  : "bg-white border-gray-300 text-gray-900 focus:ring-blue-400"
+              }`}
             />
             {editandoEmail && (
               <button
@@ -176,21 +205,27 @@ export default function Usuario({ user, onLogout, onUserUpdate }) {
 
           {/* Senha */}
           <div>
-            <label className="block text-gray-900 font-semibold mb-2">Senha:</label>
+            <label className="block font-semibold mb-2">Senha:</label>
             <div className="relative">
               <input
                 type={mostrarSenha ? "text" : "password"}
                 value={editandoSenha ? senhaTemp : senha}
                 onChange={(e) => setSenhaTemp(e.target.value)}
                 onFocus={() => !editandoSenha && setEditandoSenha(true)}
-                className="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-4 focus:ring-blue-400 outline-none transition-all duration-300 pr-10"
+                className={`w-full px-4 py-2 rounded-3xl border focus:ring-2 outline-none transition-all duration-300 pr-10 ${
+                  darkMode
+                    ? "bg-gray-900 border-gray-600 text-gray-100 focus:ring-yellow-400"
+                    : "bg-white border-gray-300 text-gray-900 focus:ring-blue-400"
+                }`}
               />
               <button
                 type="button"
                 onMouseDown={() => setMostrarSenha(true)}
                 onMouseUp={() => setMostrarSenha(false)}
                 onMouseLeave={() => setMostrarSenha(false)}
-                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 hover:text-gray-900 cursor-pointer transition"
+                className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 transition cursor-pointer select-none"
+                tabIndex={-1}
+                aria-label={mostrarSenha ? "Esconder senha" : "Mostrar senha"}
               >
                 {mostrarSenha ? "🙈" : "👁️"}
               </button>

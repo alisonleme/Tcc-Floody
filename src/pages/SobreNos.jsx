@@ -4,55 +4,39 @@ import AlisonFoto from "../Img/AlisonFoto.png";
 import GabrielFoto from "../Img/GabrielFoto.png";
 import ThiagoFoto from "../Img/ThiagoFoto.png";
 
-function IconHover({ icon, hoverColor, link, tamanhoIcon }) {
-  const [hover, setHover] = useState(false);
-
-  return (
-    <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex flex-col items-center cursor-pointer transition-transform duration-300"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{ width: tamanhoIcon, height: tamanhoIcon }}
-    >
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          fill: hover ? hoverColor : icon.props.fill,
-          transform: hover ? "scale(1.2)" : "scale(1)",
-          transition: "all 0.3s ease",
-        }}
-      >
-        {icon}
-      </div>
-    </a>
-  );
-}
-
-export default function SobreNos() {
+export default function SobreNos({ darkMode, toggleTheme }) {
   const [forumMessage, setForumMessage] = useState("");
   const [helpMessage, setHelpMessage] = useState("");
   const [visibleSections, setVisibleSections] = useState({});
   const sectionsRef = useRef({});
 
   const enviarMensagem = (mensagem, tipo) => {
-    const mailtoLink = `mailto:grupo.floody@gmail.com?subject=${encodeURIComponent(
-      tipo
-    )}&body=${encodeURIComponent(mensagem)}`;
-    window.location.href = mailtoLink;
+    try {
+      const mailtoLink = `mailto:grupo.floody@gmail.com?subject=${encodeURIComponent(
+        tipo
+      )}&body=${encodeURIComponent(mensagem)}`;
+      window.location.href = mailtoLink;
+    } catch {
+      alert("Não foi possível abrir o app de email. Tente manualmente.");
+    }
   };
 
   const handleForumSubmit = (e) => {
     e.preventDefault();
+    if (!forumMessage.trim()) {
+      alert("Digite sua mensagem para o fórum.");
+      return;
+    }
     enviarMensagem(forumMessage, "Mensagem do Fórum");
     setForumMessage("");
   };
 
   const handleHelpSubmit = (e) => {
     e.preventDefault();
+    if (!helpMessage.trim()) {
+      alert("Descreva sua dúvida ou problema.");
+      return;
+    }
     enviarMensagem(helpMessage, "Mensagem de Ajuda");
     setHelpMessage("");
   };
@@ -83,59 +67,52 @@ export default function SobreNos() {
     sectionsRef.current[key] = el;
   };
 
-  const tamanhoFoto = "w-32 h-32";
-  const tamanhoIcon = "40px";
-
-  const githubIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="black">
-      <path d="M12 .5C5.65.5.5 5.65.5 12.07c0 5.08 3.29 9.39 7.85 10.92.57.11.77-.25.77-.56 0-.27-.01-1.16-.02-2.1-3.19.7-3.87-1.53-3.87-1.53-.52-1.32-1.26-1.67-1.26-1.67-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.74 2.65 1.24 3.3.95.1-.74.4-1.24.72-1.53-2.54-.29-5.22-1.27-5.22-5.65 0-1.25.44-2.28 1.17-3.08-.12-.29-.51-1.44.11-3 0 0 .95-.3 3.12 1.18a10.81 10.81 0 012.85-.39c.97 0 1.95.13 2.85.39 2.16-1.48 3.12-1.18 3.12-1.18.62 1.56.23 2.71.11 3 .73.8 1.17 1.83 1.17 3.08 0 4.39-2.68 5.36-5.23 5.65.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.12 0 .31.2.68.78.56A10.56 10.56 0 0023.5 12.07C23.5 5.65 18.35.5 12 .5z" />
-    </svg>
-  );
-
-  const linkedinIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#0077B5" viewBox="0 0 24 24">
-      <path d="M4.983 3.5c0 1.381-1.117 2.5-2.492 2.5-1.374 0-2.492-1.119-2.492-2.5S1.117 1 2.491 1c1.375 0 2.492 1.119 2.492 2.5zM.17 8h4.663v12H.17V8zm7.167 0h4.474v1.714h.062c.623-1.185 2.145-2.436 4.416-2.436 4.722 0 5.594 3.11 5.594 7.152V20H17.63v-6.598c0-1.573-.029-3.598-2.193-3.598-2.196 0-2.533 1.716-2.533 3.488V20H7.336V8z" />
-    </svg>
-  );
-
-  const instagramIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#C13584" viewBox="0 0 24 24">
-      <path d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm5.75-.25a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z" />
-    </svg>
-  );
+  const devs = [
+    {
+      nome: "Alison Lemes Gomes Pereira",
+      foto: AlisonFoto,
+      descricao: "Dev do site, game, back-end e dispositivo.",
+    },
+    {
+      nome: "Gabriel Santos Sales",
+      foto: GabrielFoto,
+      descricao: "Dev do back-end, dispositivo e game.",
+    },
+    {
+      nome: "Thiago Modesto Santos",
+      foto: ThiagoFoto,
+      descricao: "Dev do back-end, game e dispositivo.",
+    },
+  ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-all duration-700 ease-in-out" style={{ backgroundColor: "#d8e7f5" }}>
-      <style>
-        {`
-          @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-          .animated-button {
-            background: linear-gradient(270deg, #4a90e2, #71b7e6, #b3ddfe);
-            background-size: 400% 400%;
-            animation: shimmer 6s ease infinite;
-            color: #2c3e50;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            box-shadow: 0 8px 15px rgba(70,130,180,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-          }
-          .animated-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 25px rgba(70,130,180,0.6);
-            color: white;
-          }
-        `}
-      </style>
+    <div
+      className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-500 ${
+        darkMode
+          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-100"
+          : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+      }`}
+    >
+      {/* Botão alternar tema (mesmo do app) */}
+      <button
+        onClick={toggleTheme}
+        aria-label="Alternar tema"
+        className="fixed top-6 right-6 p-4 rounded-full transition-transform duration-500 hover:scale-110 hover:rotate-12 shadow-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          className={`w-8 h-8 transition-colors duration-500 ${
+            darkMode ? "fill-yellow-300" : "fill-gray-800"
+          }`}
+        >
+          <path d="M12 2a9.93 9.93 0 00-7.07 2.93A10 10 0 1012 2z" />
+        </svg>
+      </button>
 
-      <h1 className="text-5xl font-extrabold text-gray-900 text-center mt-20">Sobre Nós</h1>
+      <h1 className="text-5xl font-extrabold text-center mt-20">Sobre Nós</h1>
 
-      {/* Cards dos Devs */}
+      {/* Cards de integrantes */}
       <div
         ref={setRef("integrantes")}
         data-section="integrantes"
@@ -143,90 +120,80 @@ export default function SobreNos() {
           visibleSections.integrantes ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        {[
-          { nome: "Alison Lemes Gomes Pereira", foto: AlisonFoto, descricao: "Dev do site, game, back-end e dispositivo.", links: [
-              { icon: instagramIcon, hover: "#8e3e9f", url: "https://www.instagram.com/off._alisu/" },
-              { icon: linkedinIcon, hover: "#004182", url: "https://www.linkedin.com/in/alison-lemes-gomes-pereira-358949337/" },
-              { icon: githubIcon, hover: "purple", url: "https://github.com/alisonleme" }
-            ]
-          },
-          { nome: "Gabriel Santos Sales", foto: GabrielFoto, descricao: "Dev do back-end, dispositivo e game.", links: [
-              { icon: linkedinIcon, hover: "#004182", url: "https://www.linkedin.com/in/gabriel-santos-sales-68ab41290/" },
-              { icon: githubIcon, hover: "purple", url: "https://github.com/GabrielSantosSales" }
-            ]
-          },
-          { nome: "Thiago Modesto Santos", foto: ThiagoFoto, descricao: "Dev do back-end, game e dispositivo.", links: [
-              { icon: linkedinIcon, hover: "#004182", url: "https://www.linkedin.com/in/thiago-modesto-santos-21ab64306/" },
-              { icon: githubIcon, hover: "purple", url: "https://github.com/ThiagoWebsites" }
-            ]
-          }
-        ].map((dev, i) => (
+        {devs.map((dev, i) => (
           <div
             key={i}
-            className="p-6 rounded-3xl shadow-xl w-64 text-center flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
+            className={`p-6 rounded-3xl shadow-xl w-64 text-center transition-all duration-500 transform hover:scale-105 hover:shadow-2xl ${
+              darkMode
+                ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
+                : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+            }`}
           >
             <img
               src={dev.foto}
               alt={dev.nome}
-              className={`${tamanhoFoto} object-cover rounded-full mb-4 border-4 border-blue-300 transform transition-transform duration-500 hover:scale-110`}
+              className="w-32 h-32 object-cover rounded-full mb-4 border-4 border-blue-300"
             />
-            <div className="flex justify-center gap-6 mb-4">
-              {dev.links.map((l, j) => (
-                <IconHover key={j} icon={l.icon} hoverColor={l.hover} link={l.url} tamanhoIcon={tamanhoIcon} />
-              ))}
-            </div>
-            <h2 className="text-lg font-bold text-gray-900">{dev.nome}</h2>
-            <p className="text-gray-900 mt-1 text-justify px-4">{dev.descricao}</p>
+            <h2 className="text-lg font-bold">{dev.nome}</h2>
+            <p className="mt-1 text-justify">{dev.descricao}</p>
           </div>
         ))}
       </div>
 
-      {/* Sobre */}
+      {/* Sobre o projeto */}
       <div
         ref={setRef("sobre")}
         data-section="sobre"
-        className={`p-8 rounded-3xl shadow-xl max-w-3xl text-gray-900 text-justify leading-relaxed text-lg transition-all duration-1000 transform ${
-          visibleSections.sobre ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
+        className={`p-8 rounded-3xl shadow-xl max-w-3xl text-justify leading-relaxed text-lg transition-all duration-1000 transform ${
+          darkMode
+            ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
+            : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
+        } ${visibleSections.sobre ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
         <p>
-          Somos estudantes do UNASP São Paulo e estamos finalizando nosso curso após três anos de muito aprendizado.
-          O projeto Floody é fruto de todo o conhecimento, esforço e dedicação que adquirimos ao longo dessa jornada.
+          Somos estudantes do UNASP São Paulo e estamos concluindo nosso curso após três anos de dedicação.
+          O Floody nasceu desse esforço e do desejo de criar uma solução real para ajudar comunidades.
         </p>
         <p className="mt-4">
-          Criamos essa solução para ajudar pessoas e contribuir com a sustentabilidade.
-          Se tiver dúvidas, sugestões ou quiser parceria, fale com a gente:
+          Dúvidas, sugestões ou parcerias? Fale conosco:{" "}
+          <a href="mailto:grupo.floody@gmail.com" className="underline">
+            grupo.floody@gmail.com
+          </a>
         </p>
-        <a
-          href="mailto:grupo.floody@gmail.com"
-          className="mt-3 inline-block text-xl font-semibold animated-button"
-        >
-          📧 grupo.floody@gmail.com
-        </a>
       </div>
 
       {/* Fórum */}
       <div
         ref={setRef("forum")}
         data-section="forum"
-        className={`p-6 rounded-3xl shadow-xl w-full max-w-3xl transition-all duration-1000 transform ${
-          visibleSections.forum ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
+        className={`p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform ${
+          darkMode
+            ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
+            : "bg-gradient-to-br from-white to-gray-50 text-gray-900"
+        } ${visibleSections.forum ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">Fórum</h2>
+        <h2 className={`text-3xl font-bold mb-6 text-center ${darkMode ? "text-yellow-400" : "text-blue-600"}`}>
+          Fórum
+        </h2>
         <form onSubmit={handleForumSubmit} className="space-y-4">
           <textarea
             value={forumMessage}
             onChange={(e) => setForumMessage(e.target.value)}
             placeholder="Deixe sua pergunta ou comentário"
-            className="w-full p-4 rounded-lg focus:ring-4 focus:ring-blue-400 outline-none resize-none transition-all duration-300"
+            className="w-full p-4 border rounded-3xl focus:ring-2 focus:ring-blue-400 outline-none resize-none"
             rows="4"
             required
           />
-          <button type="submit" className="animated-button">Enviar Pergunta</button>
+          <button
+            type="submit"
+            className={`px-6 py-3 font-semibold rounded-3xl shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl ${
+              darkMode
+                ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
+                : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
+            }`}
+          >
+            Enviar Pergunta
+          </button>
         </form>
       </div>
 
@@ -234,27 +201,48 @@ export default function SobreNos() {
       <div
         ref={setRef("ajuda")}
         data-section="ajuda"
-        className={`p-6 rounded-3xl shadow-xl w-full max-w-3xl transition-all duration-1000 transform ${
-          visibleSections.ajuda ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-        style={{ background: "linear-gradient(135deg, #b3ddfe, #71b7e6)" }}
+        className={`p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform ${
+          darkMode
+            ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
+            : "bg-gradient-to-br from-white to-gray-50 text-gray-900"
+        } ${visibleSections.ajuda ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">Ajuda</h2>
+        <h2 className={`text-3xl font-bold mb-6 text-center ${darkMode ? "text-yellow-400" : "text-green-600"}`}>
+          Ajuda
+        </h2>
         <form onSubmit={handleHelpSubmit} className="space-y-4">
           <textarea
             value={helpMessage}
             onChange={(e) => setHelpMessage(e.target.value)}
             placeholder="Descreva seu problema ou dúvida"
-            className="w-full p-4 rounded-lg focus:ring-4 focus:ring-green-400 outline-none resize-none transition-all duration-300"
+            className="w-full p-4 border rounded-3xl focus:ring-2 focus:ring-green-400 outline-none resize-none"
             rows="4"
             required
           />
-          <button type="submit" className="animated-button">Solicitar Ajuda</button>
+          <button
+            type="submit"
+            className={`px-6 py-3 font-semibold rounded-3xl shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl ${
+              darkMode
+                ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
+                : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
+            }`}
+          >
+            Solicitar Ajuda
+          </button>
         </form>
       </div>
 
       {/* Voltar */}
-      <Link to="/" className="animated-button">Voltar para Home</Link>
+      <Link
+        to="/"
+        className={`mt-10 px-8 py-4 font-semibold rounded-3xl shadow-xl transition-all duration-500 transform hover:scale-110 hover:shadow-2xl ${
+          darkMode
+            ? "bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-gray-900"
+            : "bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 text-white"
+        }`}
+      >
+        Voltar para Home
+      </Link>
     </div>
   );
 }
