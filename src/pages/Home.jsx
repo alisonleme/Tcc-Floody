@@ -195,7 +195,6 @@ export default function Home({ darkMode }) {
         </div>
       )}
 
-      {/* Bloco principal (subindo no desktop) */}
       <div
         className={`flex flex-col justify-center items-center relative z-20 px-4 transition-all duration-700 ${
           darkMode ? 'mt-20 sm:mt-20' : 'mt-16 sm:mt-24'
