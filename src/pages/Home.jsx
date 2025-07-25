@@ -38,7 +38,6 @@ export default function Home({ darkMode }) {
     },
   ];
 
-  // Atualiza --cor-principal conforme darkMode
   useEffect(() => {
     const root = document.documentElement;
     if (darkMode) {
@@ -50,7 +49,6 @@ export default function Home({ darkMode }) {
     }
   }, [darkMode]);
 
-  // Observers originais para visibilidade
   useEffect(() => {
     const blockObserver = new IntersectionObserver(
       (entries) => {
@@ -93,11 +91,6 @@ export default function Home({ darkMode }) {
     );
     if (mainRef.current) mainObserver.observe(mainRef.current);
     return () => mainObserver.disconnect();
-  }, []);
-
-  // **NOVO: Ao montar o componente, torna todos os cards visíveis para animar**
-  useEffect(() => {
-    setVisibleBlocks(sections.map((_, i) => i));
   }, []);
 
   return (
@@ -163,19 +156,19 @@ export default function Home({ darkMode }) {
         <div
           ref={mainRef}
           className={`p-16 rounded-2xl text-center max-w-7xl w-full space-y-6 shadow-lg transition-all duration-1000 transform ${
-            mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            mainVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'
           }`}
           style={{
             background: darkMode
               ? 'linear-gradient(135deg, rgba(30,41,59,0.8), rgba(51,65,85,0.7))'
-              : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)', // Gradiente igual ao Jogo
+              : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)',
             color: darkMode ? '#f8fafc' : '#1f2937',
-            transition: 'background 0.7s ease-in-out, color 0.7s ease-in-out',
+            transition: 'background 0.7s ease-in-out, color 0.7s ease-in-out, opacity 0.8s ease, transform 0.8s ease',
+            transitionDelay: mainVisible ? '150ms' : '0ms',
           }}
         >
           <h1 className="text-5xl font-extrabold">O que é o Floody?</h1>
 
-          {/* Conteúdo do texto */}
           <div
             className="text-left text-lg font-medium space-y-4 leading-relaxed"
             style={{
@@ -213,7 +206,6 @@ export default function Home({ darkMode }) {
             <p>📲 Baixe o app do Floody:</p>
           </div>
 
-          {/* Botão animado */}
           <button
             className="mt-6 px-10 py-4 rounded-md font-semibold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl animated-button"
             style={{
@@ -224,7 +216,6 @@ export default function Home({ darkMode }) {
             📥 Download app
           </button>
 
-          {/* Cards */}
           <div className="mt-10 flex flex-col space-y-6 max-w-screen-2xl w-full items-center sm:items-start px-2 sm:px-0">
             {sections.map((item, i) => (
               <div
@@ -238,9 +229,10 @@ export default function Home({ darkMode }) {
                 style={{
                   background: darkMode
                     ? 'linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,41,59,0.75))'
-                    : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)', // Igual ao Jogo
+                    : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)',
                   color: darkMode ? '#f8fafc' : '#1f2937',
-                  transition: 'background 0.7s ease-in-out, color 0.7s ease-in-out',
+                  transition: `background 0.7s ease-in-out, color 0.7s ease-in-out, opacity 0.8s ease, transform 0.8s ease`,
+                  transitionDelay: visibleBlocks.includes(i) ? `${i * 200}ms` : '0ms',
                 }}
               >
                 <Link
