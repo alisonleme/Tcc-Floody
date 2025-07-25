@@ -136,6 +136,32 @@ export default function Auth({ onLogin }) {
           box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7);
           cursor: pointer;
         }
+
+        /* RESPONSIVIDADE MOBILE - só telas <= 640px */
+        @media (max-width: 640px) {
+          /* Ajusta padding do container do card para mobile */
+          .max-w-md {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+          }
+
+          /* Labels e inputs menores no mobile */
+          label {
+            font-size: 0.875rem; /* 14px */
+          }
+
+          input {
+            font-size: 0.875rem !important;
+            min-height: 38px !important;
+          }
+
+          /* Botão maior e confortável no mobile */
+          button[type="submit"] {
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
+            font-size: 1rem !important;
+          }
+        }
       `}</style>
 
       <div

@@ -35,6 +35,28 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
     return () => observer.disconnect();
   }, []);
 
+  // Função para fechar todas as edições
+  const fecharEdicoes = () => {
+    setEditandoEmail(false);
+    setEditandoSenha(false);
+    setEditandoUsername(false);
+  };
+
+  // Fecha edições ao clicar fora do card
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        fecharEdicoes();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   const confirmarAlteracao = (campo, valor, setValor, fecharEdicao) => {
     const mensagens = {
       email: "Você tem certeza que deseja alterar o email?",
@@ -80,7 +102,8 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen flex items-center justify-center transition-colors duration-500 ${
+      onClick={(e) => e.stopPropagation()} // impede fechar edições ao clicar dentro do card
+      className={`min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 transition-colors duration-500 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-100"
           : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
@@ -101,12 +124,16 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
           background-size: 400% 400%;
           animation: shimmer 6s ease infinite;
           font-weight: 600;
-          padding: 0.75rem 1.5rem;
+          padding: 0.5rem 1rem;
           border-radius: 1.5rem;
           cursor: pointer;
           color: white;
           box-shadow: 0 8px 15px rgba(124,58,237,0.5);
+          font-size: 0.875rem;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        @media (min-width: 640px) {
+          .btn-gradient { padding: 0.75rem 1.5rem; font-size: 1rem; }
         }
         .btn-gradient:hover {
           transform: scale(1.05);
@@ -119,23 +146,24 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
         }
         .input-field {
           border-radius: 1.5rem;
-          padding: 0.5rem 1rem;
+          padding: 0.5rem 0.75rem;
           border-width: 1.5px;
           outline: none;
           transition: box-shadow 0.3s ease;
           width: 100%;
-          font-size: 1rem;
+          font-size: 0.875rem;
         }
-        .input-field:focus {
-          box-shadow: 0 0 8px 2px #7c3aed;
+        @media (min-width: 640px) {
+          .input-field { padding: 0.5rem 1rem; font-size: 1rem; }
         }
+        .input-field:focus { box-shadow: 0 0 8px 2px #7c3aed; }
       `}</style>
 
       {/* Botão de alternar tema */}
       <button
         onClick={toggleTheme}
         aria-label="Alternar tema"
-        className="fixed top-6 right-6 p-4 rounded-full shadow-lg transition-transform duration-500 hover:scale-110 hover:rotate-12"
+        className="fixed top-4 right-4 sm:top-6 sm:right-6 p-3 sm:p-4 rounded-full shadow-lg transition-transform duration-500 hover:scale-110 hover:rotate-12"
         style={{
           background: "linear-gradient(270deg, #7c3aed, #a78bfa, #c4b5fd)",
           backgroundSize: "400% 400%",
@@ -145,7 +173,7 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className={`w-8 h-8 transition-colors duration-500 ${
+          className={`w-6 h-6 sm:w-8 sm:h-8 transition-colors duration-500 ${
             darkMode ? "fill-yellow-300" : "fill-white"
           }`}
         >
@@ -155,44 +183,58 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
 
       {/* Card */}
       <div
-        className={`p-8 rounded-3xl shadow-xl w-full max-w-md transition-all duration-1000 transform ${
+        className={`p-6 sm:p-8 rounded-3xl shadow-xl w-full max-w-md sm:max-w-lg transition-all duration-1000 transform ${
           visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-95"
         } ${darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-900"}`}
       >
-        <h1 className="text-3xl font-extrabold text-center mb-8">Área do Usuário</h1>
-
-        {/* Botões principais */}
-        <div className="flex justify-between mb-6">
-          <button className="btn-gradient" onClick={onLogout}>Sair</button>
-          <button className="btn-gradient btn-danger" onClick={excluirConta}>Excluir Conta</button>
-        </div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-center mb-6 sm:mb-8">
+          Área do Usuário
+        </h1>
 
         {/* Informações do usuário */}
-        <div className={`mb-6 p-6 rounded-xl shadow-inner ${darkMode ? "bg-gray-700" : "bg-gray-100"}`}>
-          <p className="mb-3 font-semibold text-lg">Conta atual:</p>
-          <p className="mb-1">Nome de usuário: <span className="font-normal">{username || "(não informado)"}</span></p>
-          <p className="mb-1">Email: <span className="font-normal">{email}</span></p>
-          <p className="mb-0">Senha: <span className="font-normal">{senha ? esconderSenha(senha) : "(não informada)"}</span></p>
+        <div
+          className={`mb-6 p-4 sm:p-6 rounded-xl shadow-inner text-sm sm:text-base ${
+            darkMode ? "bg-gray-700" : "bg-gray-100"
+          }`}
+        >
+          <p className="mb-2 font-semibold">Conta atual:</p>
+          <p className="mb-1">
+            Nome de usuário: <span className="font-normal">{username || "(não informado)"}</span>
+          </p>
+          <p className="mb-1">
+            Email: <span className="font-normal">{email}</span>
+          </p>
+          <p className="mb-0">
+            Senha: <span className="font-normal">{senha ? esconderSenha(senha) : "(não informada)"}</span>
+          </p>
         </div>
 
         {/* Campos editáveis */}
         <div className="space-y-6">
           {/* Nome de usuário */}
           <div>
-            <label className="block font-semibold mb-2" htmlFor="username-input">Nome de Usuário:</label>
+            <label className="block font-semibold mb-2 text-sm sm:text-base" htmlFor="username-input">
+              Nome de Usuário:
+            </label>
             <input
               id="username-input"
               type="text"
               value={editandoUsername ? usernameTemp : username}
               onChange={(e) => setUsernameTemp(e.target.value)}
-              onFocus={() => !editandoUsername && setEditandoUsername(true)}
-              className={`input-field ${darkMode ? "bg-gray-900 border-gray-600 text-gray-100" : "bg-white border-gray-300 text-gray-900"}`}
+              onFocus={() => {
+                setEditandoUsername(true);
+                setEditandoEmail(false);
+                setEditandoSenha(false);
+              }}
+              className={`input-field ${
+                darkMode ? "bg-gray-900 border-gray-600 text-gray-100" : "bg-white border-gray-300 text-gray-900"
+              }`}
               style={{ borderColor: darkMode ? "#a78bfa" : "#7c3aed" }}
             />
             {editandoUsername && (
               <button
                 onClick={() => confirmarAlteracao("username", usernameTemp, setUsername, setEditandoUsername)}
-                className="mt-3 btn-gradient"
+                className="mt-3 btn-gradient w-full sm:w-auto"
               >
                 Alterar Nome de Usuário
               </button>
@@ -201,20 +243,28 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
 
           {/* Email */}
           <div>
-            <label className="block font-semibold mb-2" htmlFor="email-input">Email:</label>
+            <label className="block font-semibold mb-2 text-sm sm:text-base" htmlFor="email-input">
+              Email:
+            </label>
             <input
               id="email-input"
               type="email"
               value={editandoEmail ? emailTemp : email}
               onChange={(e) => setEmailTemp(e.target.value)}
-              onFocus={() => !editandoEmail && setEditandoEmail(true)}
-              className={`input-field ${darkMode ? "bg-gray-900 border-gray-600 text-gray-100" : "bg-white border-gray-300 text-gray-900"}`}
+              onFocus={() => {
+                setEditandoEmail(true);
+                setEditandoUsername(false);
+                setEditandoSenha(false);
+              }}
+              className={`input-field ${
+                darkMode ? "bg-gray-900 border-gray-600 text-gray-100" : "bg-white border-gray-300 text-gray-900"
+              }`}
               style={{ borderColor: darkMode ? "#a78bfa" : "#7c3aed" }}
             />
             {editandoEmail && (
               <button
                 onClick={() => confirmarAlteracao("email", emailTemp, setEmail, setEditandoEmail)}
-                className="mt-3 btn-gradient"
+                className="mt-3 btn-gradient w-full sm:w-auto"
               >
                 Alterar Email
               </button>
@@ -223,15 +273,23 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
 
           {/* Senha */}
           <div>
-            <label className="block font-semibold mb-2" htmlFor="senha-input">Senha:</label>
+            <label className="block font-semibold mb-2 text-sm sm:text-base" htmlFor="senha-input">
+              Senha:
+            </label>
             <div className="relative">
               <input
                 id="senha-input"
                 type={mostrarSenha ? "text" : "password"}
                 value={editandoSenha ? senhaTemp : senha}
                 onChange={(e) => setSenhaTemp(e.target.value)}
-                onFocus={() => !editandoSenha && setEditandoSenha(true)}
-                className={`input-field pr-10 ${darkMode ? "bg-gray-900 border-gray-600 text-gray-100" : "bg-white border-gray-300 text-gray-900"}`}
+                onFocus={() => {
+                  setEditandoSenha(true);
+                  setEditandoEmail(false);
+                  setEditandoUsername(false);
+                }}
+                className={`input-field pr-10 ${
+                  darkMode ? "bg-gray-900 border-gray-600 text-gray-100" : "bg-white border-gray-300 text-gray-900"
+                }`}
                 style={{ borderColor: darkMode ? "#a78bfa" : "#7c3aed" }}
               />
               <button
@@ -247,13 +305,23 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
             {editandoSenha && (
               <button
                 onClick={() => confirmarAlteracao("senha", senhaTemp, setSenha, setEditandoSenha)}
-                className="mt-3 btn-gradient"
+                className="mt-3 btn-gradient w-full sm:w-auto"
               >
                 Alterar Senha
               </button>
             )}
           </div>
         </div>
+      </div>
+
+      {/* Botões principais - AGORA ABAIXO NO MOBILE */}
+      <div className="flex flex-col sm:flex-row gap-3 mt-6 w-full max-w-md sm:max-w-lg justify-between">
+        <button className="btn-gradient w-full sm:w-auto" onClick={onLogout}>
+          Sair
+        </button>
+        <button className="btn-gradient btn-danger w-full sm:w-auto" onClick={excluirConta}>
+          Excluir Conta
+        </button>
       </div>
     </div>
   );
