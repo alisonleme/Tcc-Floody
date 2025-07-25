@@ -4,9 +4,7 @@ export default function Jogo({ darkMode, toggleTheme }) {
   const [visibleSections, setVisibleSections] = useState([]);
   const sectionsRef = useRef([]);
 
-  // Gradiente do tema claro (agora igual ao Material)
-  const fundoClaro =
-    "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900";
+  const fundoClaro = "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,29 +32,29 @@ export default function Jogo({ darkMode, toggleTheme }) {
     localStorage.setItem("floody-theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  const containerClasses = `flex flex-col items-center justify-start min-h-screen p-6 transition-colors duration-700 ${
+  const containerClasses = `flex flex-col items-center justify-start min-h-screen p-4 sm:p-6 transition-colors duration-700 ${
     darkMode
       ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
       : fundoClaro
   }`;
 
   const sectionBaseClasses =
-    "p-6 rounded-3xl shadow-xl transition-opacity transition-transform duration-700 ease-in-out max-w-5xl w-full mb-10";
+    "p-6 sm:p-8 md:p-10 rounded-3xl shadow-xl transition-opacity transition-transform duration-700 ease-in-out max-w-5xl w-full mb-12";
   const sectionBg = darkMode
     ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80"
     : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc]";
 
-  const sectionTitleClasses = `text-3xl font-bold mb-4 transition-colors duration-500 ${
+  const sectionTitleClasses = `text-2xl sm:text-3xl md:text-4xl font-bold mb-4 transition-colors duration-500 ${
     darkMode
       ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.6)]"
       : "text-gray-900"
   }`;
 
-  const paragraphClasses = `text-lg text-justify transition-colors duration-500 ${
+  const paragraphClasses = `text-base sm:text-lg text-justify leading-relaxed transition-colors duration-500 ${
     darkMode ? "text-gray-200" : "text-gray-900"
   }`;
 
-  const buttonClasses = `mt-6 px-10 py-4 rounded-md font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button`;
+  const buttonClasses = `mt-6 px-6 sm:px-8 py-3 sm:py-4 rounded-md font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button text-center text-base sm:text-lg`;
 
   return (
     <div className={containerClasses}>
@@ -90,7 +88,7 @@ export default function Jogo({ darkMode, toggleTheme }) {
         }
       `}</style>
 
-      {/* Botão de alternância do tema */}
+      {/* Botão alternar tema */}
       <button
         onClick={toggleTheme}
         aria-label="Alternar tema"
@@ -103,7 +101,7 @@ export default function Jogo({ darkMode, toggleTheme }) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill={darkMode ? "#ffffff" : "#374151"}
-          className="w-8 h-8 toggle-icon"
+          className="w-10 h-10 sm:w-12 sm:h-12 toggle-icon"
           role="img"
           aria-hidden="true"
         >
@@ -115,8 +113,9 @@ export default function Jogo({ darkMode, toggleTheme }) {
         </svg>
       </button>
 
+      {/* Título principal */}
       <h1
-        className={`text-5xl font-bold mb-16 text-center select-none ${
+        className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-14 text-center select-none ${
           darkMode
             ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]"
             : "text-gray-900"
@@ -125,28 +124,26 @@ export default function Jogo({ darkMode, toggleTheme }) {
         Jogo Floody
       </h1>
 
+      {/* Seções */}
       {[
         {
           title: "Nossa História",
           content:
-            "Nosso jogo conta a história de 3 sobreviventes de enchentes que ocorreram em uma cidade antiga. Eles se encontram diante de diversos puzzles que precisam resolver para ativar as válvulas de drenagem e ajudar a cidade a brilhar novamente.",
+            "Nosso jogo conta a história de 3 sobreviventes de enchentes em uma cidade antiga. Eles precisam resolver puzzles para ativar válvulas de drenagem e restaurar a cidade.",
           ariaLabel: "Nossa História",
         },
         {
           title: "Gameplay",
           content: (
             <>
-              <div
-                className="relative w-full"
-                style={{ paddingBottom: "56.25%" }}
-              >
+              <div className="relative w-full mb-6" style={{ paddingBottom: "56.25%" }}>
                 <iframe
                   src="https://www.youtube.com/embed/67Bi50_ORjI"
                   title="Gameplay Floody"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  className="absolute top-0 left-0 w-full h-full rounded-3xl shadow-xl transition-transform duration-500 hover:scale-110"
+                  className="absolute top-0 left-0 w-full h-full rounded-3xl shadow-xl transition-transform duration-500 hover:scale-105"
                 />
               </div>
               <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
@@ -174,17 +171,14 @@ export default function Jogo({ darkMode, toggleTheme }) {
         {
           title: "Trailer do Jogo",
           content: (
-            <div
-              className="relative w-full"
-              style={{ paddingBottom: "56.25%" }}
-            >
+            <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
               <iframe
                 src="https://www.youtube.com/embed/f-nnv_9N6s8"
                 title="Trailer Floody"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="absolute top-0 left-0 w-full h-full rounded-3xl shadow-xl transition-transform duration-500 hover:scale-110"
+                className="absolute top-0 left-0 w-full h-full rounded-3xl shadow-xl transition-transform duration-500 hover:scale-105"
               />
             </div>
           ),
@@ -199,11 +193,6 @@ export default function Jogo({ darkMode, toggleTheme }) {
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10"
           }`}
-          style={{
-            transition: "background 0.7s ease-in-out, color 0.7s ease-in-out",
-          }}
-          tabIndex={0}
-          aria-label={ariaLabel}
         >
           <h2 className={sectionTitleClasses}>{title}</h2>
           {typeof content === "string" ? (

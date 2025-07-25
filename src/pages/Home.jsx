@@ -41,8 +41,7 @@ export default function Home({ darkMode }) {
   useEffect(() => {
     const root = document.documentElement;
     if (darkMode) {
-      const corSecundaria =
-        getComputedStyle(root).getPropertyValue('--cor-secundaria').trim() || '#243c5a';
+      const corSecundaria = getComputedStyle(root).getPropertyValue('--cor-secundaria').trim() || '#243c5a';
       root.style.setProperty('--cor-principal', corSecundaria);
     } else {
       root.style.setProperty('--cor-principal', '#06baf9');
@@ -116,29 +115,78 @@ export default function Home({ darkMode }) {
           .animated-button:hover {
             filter: brightness(1.15);
           }
+
+          /* Fundo ajustado */
+          .banner-fundo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            max-width: none;
+            z-index: 10;
+            pointer-events: none;
+            transition: opacity 0.7s, bottom 0.7s;
+          }
+          @media (max-width: 768px) {
+            .banner-fundo {
+              bottom: -120px !important; /* continua visível no mobile */
+              min-height: 120px;
+            }
+          }
+          @media (min-width: 769px) {
+            .banner-fundo {
+              bottom: -500px !important; /* sobe um pouco no desktop */
+            }
+          }
+
+          /* Cards responsivos */
+          @media (max-width: 768px) {
+            .home-main {
+              padding: 1.5rem !important;
+              margin-top: 2rem !important;
+            }
+            .home-card {
+              flex-direction: column !important;
+              text-align: center;
+              margin-top: 1rem !important;
+            }
+            .home-card img {
+              width: 300px !important;
+              height: 90px !important;
+              margin-bottom: 15px;
+            }
+            .home-card > div {
+              text-align: center !important;
+            }
+          }
         `}
       </style>
 
       {/* Banner superior */}
-      <div className="relative w-full h-[900px] flex justify-center items-center overflow-hidden transition-all duration-700">
-        <img src={ImagemDaHome} alt="Imagem Home" className="w-[2350px] h-full object-cover max-w-none" />
+      <div className="relative w-full h-[700px] sm:h-[900px] flex justify-center items-center overflow-hidden transition-all duration-700">
+        <img src={ImagemDaHome} alt="Imagem Home" className="w-full h-full object-cover max-w-none" />
         <img
           src={darkMode ? FundoPNGescuro : FundoPNGClaro}
           alt="Efeito Borda"
-          className="absolute top-[700px] left-1/2 -translate-x-1/2 w-full max-w-none z-10 pointer-events-none transition-opacity duration-700"
+          className="banner-fundo"
         />
         <div
           ref={titleRef}
-          className={`absolute p-20 text-center max-w-xl z-20 transition-all duration-1000 ease-out drop-shadow-lg ${
+          className={`absolute p-10 sm:p-20 text-center max-w-xl z-20 transition-all duration-1000 ease-out drop-shadow-lg ${
             titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <p className="text-5xl font-extrabold text-white drop-shadow-[0_0_15px_rgba(0,0,0,0.7)]">Floody</p>
+          <p className="text-4xl sm:text-5xl font-extrabold text-white drop-shadow-[0_0_15px_rgba(0,0,0,0.7)]">
+            Floody
+          </p>
         </div>
       </div>
 
+      {/* Fundo ciano no claro */}
       {!darkMode && (
-        <div className="w-full h-[400px] relative z-10 -mt-16 transition-all duration-700">
+        <div className="w-full h-[150px] sm:h-[250px] relative z-10 mt-6 sm:mt-10 transition-all duration-700">
           <img
             src={FundoPNGclaro}
             alt="Imagem Ciano"
@@ -147,81 +195,59 @@ export default function Home({ darkMode }) {
         </div>
       )}
 
-      {/* Bloco principal com texto e cards */}
+      {/* Bloco principal (subindo no desktop) */}
       <div
-        className={`flex flex-col justify-center items-center relative z-20 px-4 ${
-          darkMode ? 'mt-20' : '-mt-40'
-        } transition-all duration-700`}
+        className={`flex flex-col justify-center items-center relative z-20 px-4 transition-all duration-700 ${
+          darkMode ? 'mt-20 sm:mt-20' : 'mt-16 sm:mt-24'
+        }`}
       >
         <div
           ref={mainRef}
-          className={`p-16 rounded-2xl text-center max-w-7xl w-full space-y-6 shadow-lg transition-all duration-1000 transform ${
-            mainVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'
+          className={`home-main p-6 sm:p-16 rounded-2xl text-center max-w-7xl w-full space-y-6 shadow-lg transition-all duration-1000 transform ${
+            mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
           style={{
             background: darkMode
               ? 'linear-gradient(135deg, rgba(30,41,59,0.8), rgba(51,65,85,0.7))'
               : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)',
             color: darkMode ? '#f8fafc' : '#1f2937',
-            transition: 'background 0.7s ease-in-out, color 0.7s ease-in-out, opacity 0.8s ease, transform 0.8s ease',
-            transitionDelay: mainVisible ? '150ms' : '0ms',
           }}
         >
-          <h1 className="text-5xl font-extrabold">O que é o Floody?</h1>
+          <h1 className="text-3xl sm:text-5xl font-extrabold">O que é o Floody?</h1>
 
           <div
-            className="text-left text-lg font-medium space-y-4 leading-relaxed"
-            style={{
-              color: darkMode ? '#f1f5f9' : '#1f2937',
-              transition: 'color 0.7s ease-in-out',
-            }}
+            className="text-left text-base sm:text-lg font-medium space-y-4 leading-relaxed"
+            style={{ color: darkMode ? '#f1f5f9' : '#1f2937' }}
           >
+            <p>🌧️ O Floody ajuda a reduzir enchentes e reaproveita água de chuva com sistema automatizado.</p>
+            <p>🏠 Instala-se em áreas externas, funciona como ralo inteligente com filtragem dupla e reservatório.</p>
+            <p>👥 <strong>Público-alvo:</strong> Moradores de áreas urbanas com histórico de alagamentos.</p>
+            <p>🎯 <strong>Objetivo:</strong> Reduzir impactos das enchentes e promover práticas sustentáveis.</p>
             <p>
-              🌧️ O Floody foi desenvolvido como um dispositivo doméstico inovador que visa auxiliar no combate
-              às enchentes e promover o reaproveitamento da água da chuva. Seu funcionamento simula um{' '}
-              <q>piscinão domiciliar</q>, inspirado em estruturas como o Piscinão de Taboão da Serra (RC-5 Taboão).
+              🌟 <strong>Diferenciais:</strong>
+              <ul className="list-disc list-inside">
+                <li>Ação automática em acúmulo de água</li>
+                <li>Filtragem e reaproveitamento</li>
+                <li>Instalação simples</li>
+                <li>Contribui para o meio ambiente</li>
+              </ul>
             </p>
-            <p>
-              🏠 Trata-se de um ralo inteligente, instalado em áreas externas da casa. Quando identifica acúmulo de
-              água, ele se eleva automaticamente, permitindo que a água escoe para seu interior. O sistema realiza
-              duas etapas de filtragem: uma inicial e outra mais densa. Após o tratamento, a água é armazenada em um
-              reservatório interno e enviada para uma caixa d'água auxiliar, podendo ser reutilizada em tarefas como
-              lavar o quintal, regar plantas e dar descarga.
-            </p>
-            <p>
-              👥 <strong>Público-alvo:</strong> Moradores de áreas urbanas com histórico de alagamentos.
-            </p>
-            <p>
-              🎯 <strong>Objetivo do Projeto:</strong> Reduzir os impactos das enchentes e promover práticas
-              sustentáveis dentro das residências.
-            </p>
-            <p>✨ <strong>Diferenciais do Floody:</strong></p>
-            <ul className="list-disc list-inside ml-5 space-y-1">
-              <li>Ação automática em casos de acúmulo de água</li>
-              <li>Sistema de filtragem</li>
-              <li>Reaproveitamento de água tratada</li>
-              <li>Instalação simples em áreas externas</li>
-              <li>Contribuição direta com o meio ambiente</li>
-            </ul>
-            <p>📲 Baixe o app do Floody:</p>
           </div>
 
           <button
-            className="mt-6 px-10 py-4 rounded-md font-semibold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl animated-button"
-            style={{
-              color: darkMode ? '#f1f5f9' : '#1f2937',
-              transition: 'color 0.7s ease-in-out, background 0.7s ease-in-out',
-            }}
+            className="mt-6 px-8 py-3 sm:px-10 sm:py-4 rounded-md font-semibold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl animated-button"
+            style={{ color: darkMode ? '#f1f5f9' : '#1f2937' }}
           >
             📥 Download app
           </button>
 
+          {/* Cards */}
           <div className="mt-10 flex flex-col space-y-6 max-w-screen-2xl w-full items-center sm:items-start px-2 sm:px-0">
             {sections.map((item, i) => (
               <div
                 key={i}
                 ref={(el) => (blocksRef.current[i] = el)}
-                className={`flex flex-col sm:flex-row rounded-xl p-6 sm:p-8 items-center sm:items-start w-full max-w-5xl shadow-xl hover:shadow-2xl transform transition-all duration-1000 ease-in-out cursor-pointer hover:scale-[1.03] ${
+                className={`home-card flex flex-col sm:flex-row rounded-xl p-4 sm:p-8 items-center sm:items-start w-full max-w-5xl shadow-xl hover:shadow-2xl transform transition-all duration-1000 ease-in-out cursor-pointer hover:scale-[1.03] ${
                   visibleBlocks.includes(i)
                     ? 'opacity-100 translate-y-0 scale-100'
                     : 'opacity-0 translate-y-10 scale-95'
@@ -231,23 +257,22 @@ export default function Home({ darkMode }) {
                     ? 'linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,41,59,0.75))'
                     : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)',
                   color: darkMode ? '#f8fafc' : '#1f2937',
-                  transition: `background 0.7s ease-in-out, color 0.7s ease-in-out, opacity 0.8s ease, transform 0.8s ease`,
                   transitionDelay: visibleBlocks.includes(i) ? `${i * 200}ms` : '0ms',
                 }}
               >
                 <Link
                   to={item.link}
                   className="mb-4 sm:mb-0 sm:mr-8 rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-white transition-transform duration-300 hover:scale-105"
-                  style={{ minWidth: '250px' }}
+                  style={{ minWidth: '220px' }}
                 >
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="w-[250px] h-[50px] sm:w-[300px] sm:h-[80px] md:w-[350px] md:h-[100px] lg:w-[400px] lg:h-[120px] object-cover rounded-md"
+                    className="w-[220px] h-[50px] sm:w-[300px] sm:h-[80px] md:w-[350px] md:h-[100px] lg:w-[400px] lg:h-[120px] object-cover rounded-md"
                   />
                 </Link>
-                <div className="text-center sm:text-left text-base lg:text-lg font-semibold text-justify">
-                  <p className="mb-2 text-2xl font-bold">{item.title}</p>
+                <div className="text-center sm:text-left text-sm sm:text-base lg:text-lg font-semibold text-justify">
+                  <p className="mb-2 text-xl sm:text-2xl font-bold">{item.title}</p>
                   <p>{item.text}</p>
                 </div>
               </div>

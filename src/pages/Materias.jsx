@@ -45,20 +45,19 @@ export default function Material({ user, darkMode }) {
     setMateriais((prev) => prev.filter((m) => m.id !== id));
   };
 
-  const containerClasses = `flex flex-col items-center justify-center min-h-screen p-6 transition-all duration-700 ease-in-out ${
-    visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-  } ${
-    darkMode
+  const containerClasses = `flex flex-col items-center justify-center min-h-screen 
+    pt-28 md:pt-12 p-6 transition-all duration-700 ease-in-out
+    ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
+    ${darkMode
       ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
       : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
-  }`;
+    }`;
 
   const cardClasses = `p-6 rounded-3xl shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out`;
   const cardBg = darkMode
     ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80"
     : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc]";
 
-  // Títulos e textos agora brancos com sombra no dark mode
   const cardTextColor = darkMode
     ? "text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.7)]"
     : "text-gray-900";
@@ -84,20 +83,18 @@ export default function Material({ user, darkMode }) {
 
   return (
     <div ref={containerRef} className={containerClasses}>
-      <div className={`${cardClasses} w-full max-w-5xl ${cardBg}`}>
+      <div className={`${cardClasses} w-full max-w-6xl ${cardBg}`}>
         <h1 className={`text-5xl font-bold text-center mb-8 ${cardTextColor}`}>
           Materiais
         </h1>
 
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 overflow-y-auto pr-2"
-          style={{ maxHeight: "400px" }}
-        >
+        {/* Grid adaptável */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 w-full">
           {materiais.map((item, index) => (
             <div
               key={item.id}
               style={{ animationDelay: `${index * 150}ms` }}
-              className={`${cardClasses} flex flex-col items-center cursor-default ${cardBg}`}
+              className={`${cardClasses} flex flex-col items-center cursor-default ${cardBg} animate-fadeSlide`}
             >
               <img
                 src={item.imagem}
@@ -107,7 +104,7 @@ export default function Material({ user, darkMode }) {
               <h2 className={`text-2xl font-semibold mb-1 ${cardTextColor}`}>
                 {item.nome}
               </h2>
-              <p className={`mb-4 text-justify text-lg ${cardPriceColor}`}>
+              <p className={`mb-4 text-lg ${cardPriceColor}`}>
                 R$ {item.preco.toFixed(2)}
               </p>
               {user?.isAdmin && (
@@ -123,12 +120,13 @@ export default function Material({ user, darkMode }) {
           ))}
         </div>
 
+        {/* Formulário responsivo */}
         {user?.isAdmin && (
           <div className={`${cardClasses} ${cardBg} animate-pulse-slow`}>
             <h2 className={`text-3xl font-bold mb-6 text-center ${cardTextColor}`}>
               Adicionar Material
             </h2>
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row flex-wrap gap-4 w-full">
               <input
                 type="text"
                 placeholder="Nome do material"
@@ -142,7 +140,7 @@ export default function Material({ user, darkMode }) {
                 placeholder="Preço"
                 value={preco}
                 onChange={(e) => setPreco(e.target.value)}
-                className={`${inputClasses} w-40`}
+                className={`${inputClasses} md:w-40`}
               />
               <input
                 type="text"
@@ -153,7 +151,7 @@ export default function Material({ user, darkMode }) {
               />
               <button
                 onClick={adicionarMaterial}
-                className="px-8 py-4 rounded-xl hover:scale-105 hover:shadow-lg cursor-pointer transition-transform duration-300 font-semibold"
+                className="px-8 py-4 rounded-xl hover:scale-105 hover:shadow-lg cursor-pointer transition-transform duration-300 font-semibold w-full md:w-auto"
                 style={buttonShimmerStyle}
               >
                 Adicionar
