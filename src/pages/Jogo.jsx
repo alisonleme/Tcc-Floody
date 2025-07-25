@@ -4,6 +4,10 @@ export default function Jogo({ darkMode, toggleTheme }) {
   const [visibleSections, setVisibleSections] = useState([]);
   const sectionsRef = useRef([]);
 
+  // Gradiente do tema claro (agora igual ao Material)
+  const fundoClaro =
+    "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900";
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -33,7 +37,7 @@ export default function Jogo({ darkMode, toggleTheme }) {
   const containerClasses = `flex flex-col items-center justify-start min-h-screen p-6 transition-colors duration-700 ${
     darkMode
       ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-      : "bg-gradient-to-br from-blue-100 via-blue-200 to-blue-400 text-gray-900"
+      : fundoClaro
   }`;
 
   const sectionBaseClasses =
@@ -42,7 +46,6 @@ export default function Jogo({ darkMode, toggleTheme }) {
     ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80"
     : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc]";
 
-  // Títulos agora brancos com sombra no modo escuro
   const sectionTitleClasses = `text-3xl font-bold mb-4 transition-colors duration-500 ${
     darkMode
       ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.6)]"
@@ -53,7 +56,6 @@ export default function Jogo({ darkMode, toggleTheme }) {
     darkMode ? "text-gray-200" : "text-gray-900"
   }`;
 
-  // Botões com gradiente suave e shimmer animado
   const buttonClasses = `mt-6 px-10 py-4 rounded-md font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button`;
 
   return (

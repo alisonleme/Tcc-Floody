@@ -40,7 +40,6 @@ export default function Artigo({ darkMode, toggleTheme }) {
     return () => observer.disconnect();
   }, []);
 
-  // Botões menores e mais arredondados
   const buttonClasses = `mt-6 md:mt-0 px-8 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button`;
 
   return (
@@ -49,7 +48,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
       className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-700 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-          : "bg-gradient-to-br from-blue-100 via-blue-200 to-blue-400 text-gray-900"
+          : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
       }`}
     >
       <style>{`

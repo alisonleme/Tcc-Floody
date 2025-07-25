@@ -17,6 +17,28 @@ export default function Home({ darkMode }) {
   const titleRef = useRef(null);
   const mainRef = useRef(null);
 
+  const sections = [
+    {
+      img: ArtigoImg,
+      title: 'Artigo Técnico',
+      text: 'Clique na imagem para acessar a seção do artigo técnico do Floody, com informações completas sobre a pesquisa e desenvolvimento.',
+      link: '/artigo',
+    },
+    {
+      img: ArduinoImg,
+      title: 'Materiais do Floody',
+      text: 'Clique na imagem para ver todos os materiais usados no protótipo do Floody, com descrições e preços.',
+      link: '/materias',
+    },
+    {
+      img: ComoFuncionaImg,
+      title: 'Como Funciona',
+      text: 'Clique para entender como o Floody funciona, incluindo sistema, instalação e uso do dispositivo.',
+      link: '/comofunciona',
+    },
+  ];
+
+  // Atualiza --cor-principal conforme darkMode
   useEffect(() => {
     const root = document.documentElement;
     if (darkMode) {
@@ -28,6 +50,7 @@ export default function Home({ darkMode }) {
     }
   }, [darkMode]);
 
+  // Observers originais para visibilidade
   useEffect(() => {
     const blockObserver = new IntersectionObserver(
       (entries) => {
@@ -72,26 +95,10 @@ export default function Home({ darkMode }) {
     return () => mainObserver.disconnect();
   }, []);
 
-  const sections = [
-    {
-      img: ArtigoImg,
-      title: 'Artigo Técnico',
-      text: 'Clique na imagem para acessar a seção do artigo técnico do Floody, com informações completas sobre a pesquisa e desenvolvimento.',
-      link: '/artigo',
-    },
-    {
-      img: ArduinoImg,
-      title: 'Materiais do Floody',
-      text: 'Clique na imagem para ver todos os materiais usados no protótipo do Floody, com descrições e preços.',
-      link: '/materias',
-    },
-    {
-      img: ComoFuncionaImg,
-      title: 'Como Funciona',
-      text: 'Clique para entender como o Floody funciona, incluindo sistema, instalação e uso do dispositivo.',
-      link: '/comofunciona',
-    },
-  ];
+  // **NOVO: Ao montar o componente, torna todos os cards visíveis para animar**
+  useEffect(() => {
+    setVisibleBlocks(sections.map((_, i) => i));
+  }, []);
 
   return (
     <div
@@ -119,7 +126,7 @@ export default function Home({ darkMode }) {
         `}
       </style>
 
-      {/* Cabeçalho */}
+      {/* Banner superior */}
       <div className="relative w-full h-[900px] flex justify-center items-center overflow-hidden transition-all duration-700">
         <img src={ImagemDaHome} alt="Imagem Home" className="w-[2350px] h-full object-cover max-w-none" />
         <img
@@ -137,17 +144,22 @@ export default function Home({ darkMode }) {
         </div>
       </div>
 
-      {/* Faixa intermediária */}
-      <div className="w-full h-[400px] relative z-10 -mt-16 transition-all duration-700">
-        <img
-          src={darkMode ? FundoPNGescuro : FundoPNGclaro}
-          alt="Imagem Ciano"
-          className="w-full h-full object-cover transition-opacity duration-700"
-        />
-      </div>
+      {!darkMode && (
+        <div className="w-full h-[400px] relative z-10 -mt-16 transition-all duration-700">
+          <img
+            src={FundoPNGclaro}
+            alt="Imagem Ciano"
+            className="w-full h-full object-cover transition-opacity duration-700"
+          />
+        </div>
+      )}
 
-      {/* Conteúdo principal */}
-      <div className="-mt-40 flex flex-col justify-center items-center relative z-20 px-4">
+      {/* Bloco principal com texto e cards */}
+      <div
+        className={`flex flex-col justify-center items-center relative z-20 px-4 ${
+          darkMode ? 'mt-20' : '-mt-40'
+        } transition-all duration-700`}
+      >
         <div
           ref={mainRef}
           className={`p-16 rounded-2xl text-center max-w-7xl w-full space-y-6 shadow-lg transition-all duration-1000 transform ${
@@ -156,13 +168,14 @@ export default function Home({ darkMode }) {
           style={{
             background: darkMode
               ? 'linear-gradient(135deg, rgba(30,41,59,0.8), rgba(51,65,85,0.7))'
-              : 'linear-gradient(135deg, rgba(179,221,254,0.7), rgba(113,183,230,0.7))',
+              : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)', // Gradiente igual ao Jogo
             color: darkMode ? '#f8fafc' : '#1f2937',
             transition: 'background 0.7s ease-in-out, color 0.7s ease-in-out',
           }}
         >
           <h1 className="text-5xl font-extrabold">O que é o Floody?</h1>
 
+          {/* Conteúdo do texto */}
           <div
             className="text-left text-lg font-medium space-y-4 leading-relaxed"
             style={{
@@ -200,7 +213,7 @@ export default function Home({ darkMode }) {
             <p>📲 Baixe o app do Floody:</p>
           </div>
 
-          {/* Botão com gradiente brando e transição no tema */}
+          {/* Botão animado */}
           <button
             className="mt-6 px-10 py-4 rounded-md font-semibold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl animated-button"
             style={{
@@ -211,7 +224,7 @@ export default function Home({ darkMode }) {
             📥 Download app
           </button>
 
-          {/* Cards com gradiente suave e animação de tema */}
+          {/* Cards */}
           <div className="mt-10 flex flex-col space-y-6 max-w-screen-2xl w-full items-center sm:items-start px-2 sm:px-0">
             {sections.map((item, i) => (
               <div
@@ -225,7 +238,7 @@ export default function Home({ darkMode }) {
                 style={{
                   background: darkMode
                     ? 'linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,41,59,0.75))'
-                    : 'linear-gradient(135deg, rgba(179,221,254,0.7), rgba(113,183,230,0.7))',
+                    : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)', // Igual ao Jogo
                   color: darkMode ? '#f8fafc' : '#1f2937',
                   transition: 'background 0.7s ease-in-out, color 0.7s ease-in-out',
                 }}
