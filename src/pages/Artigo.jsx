@@ -45,7 +45,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen flex flex-col items-center justify-start p-12 space-y-16 transition-colors duration-700 ${
+      className={`min-h-screen flex flex-col items-center justify-start p-6 md:p-12 space-y-14 md:space-y-16 transition-colors duration-700 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
           : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
@@ -78,6 +78,54 @@ export default function Artigo({ darkMode, toggleTheme }) {
         }
         .toggle-icon:hover {
           transform: rotate(15deg) scale(1.1);
+        }
+
+        /* === RESPONSIVIDADE === */
+
+        /* Cards: empilhar no mobile e centralizar */
+        @media (max-width: 768px) {
+          .article-card {
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center;
+            gap: 1rem !important;
+          }
+          .article-img {
+            width: 90% !important;
+            height: auto !important;
+            max-height: 220px;
+            border-radius: 1.5rem !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+          }
+          .article-text {
+            max-width: 100% !important;
+            font-size: 1.05rem !important;
+            line-height: 1.5;
+            padding: 0 0.5rem;
+          }
+          a.download-btn {
+            width: 70%;
+            margin: 0 auto;
+            margin-top: 1rem;
+          }
+        }
+
+        /* Botões finais: empilhar e largura 100% no mobile */
+        @media (max-width: 768px) {
+          .final-buttons {
+            flex-direction: column !important;
+            width: 100%;
+          }
+          .final-buttons > a,
+          .final-buttons > .link-button {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 1rem;
+          }
+          .final-buttons > a:last-child,
+          .final-buttons > .link-button:last-child {
+            margin-bottom: 0;
+          }
         }
       `}</style>
 
@@ -117,11 +165,11 @@ export default function Artigo({ darkMode, toggleTheme }) {
       </h1>
 
       {/* Lista de artigos */}
-      <div className="flex flex-col gap-12 w-full max-w-5xl">
+      <div className="flex flex-col gap-14 w-full max-w-5xl">
         {artigos.map((artigo, index) => (
           <div
             key={index}
-            className={`flex flex-col md:flex-row items-center justify-between rounded-3xl p-6 shadow-xl cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl ${
+            className={`article-card flex flex-row md:flex-row items-center justify-between rounded-3xl p-6 shadow-xl cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl ${
               darkMode
                 ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-white"
                 : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
@@ -132,15 +180,15 @@ export default function Artigo({ darkMode, toggleTheme }) {
               transitionDelay: visible ? `${index * 150}ms` : "0ms",
             }}
           >
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 flex-col md:flex-row">
               <img
                 src={artigo.img}
                 alt={artigo.titulo}
                 loading="lazy"
-                className="w-48 h-32 object-cover rounded-3xl shadow-md transition-transform duration-300 hover:scale-110"
+                className="article-img w-48 h-32 object-cover rounded-3xl shadow-md transition-transform duration-300 hover:scale-110"
               />
               <p
-                className={`font-semibold text-lg md:text-xl leading-relaxed max-w-xl ${
+                className={`article-text font-semibold text-lg md:text-xl leading-relaxed max-w-xl ${
                   darkMode
                     ? "text-white drop-shadow-[0_0_4px_rgba(0,0,0,0.8)]"
                     : "text-gray-900"
@@ -154,7 +202,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
               href={artigo.download}
               download
               aria-label={`Baixar o artigo: ${artigo.titulo}`}
-              className={buttonClasses}
+              className={`${buttonClasses} download-btn`}
             >
               Fazer Download
             </a>
@@ -188,7 +236,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
       </div>
 
       {/* Botões finais */}
-      <div className="flex flex-col md:flex-row items-center gap-8 mt-8">
+      <div className="final-buttons flex flex-col md:flex-row items-center gap-6 mt-8 w-full max-w-5xl">
         <a href="/downloads/todos-artigos.zip" download className={buttonClasses}>
           Baixar Todos os Artigos
         </a>
