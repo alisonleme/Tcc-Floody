@@ -77,7 +77,7 @@ export function App() {
                 to={path}
                 className="text-white hover:text-blue-500 text-xl font-bold transition relative"
               >
-                {["Home", "Jogo", "Matérias", "Artigo", "Dispositivo", "Sobre Nós"][idx]}
+                {["Home", "Jogo", "Materiais", "Artigo", "Dispositivo", "Sobre Nós"][idx]}
                 <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-blue-500 transition-all duration-300 hover:w-full"></span>
               </Link>
             ))}
@@ -130,14 +130,14 @@ export function App() {
       {menuOpen && (
         <div className="fixed top-[120px] right-0 w-64 bg-gray-900 text-white shadow-xl z-50 p-6 animate-slideIn">
           <ul className="space-y-4 text-lg font-bold">
-            {["/", "/jogo", "/materias", "/artigo", "/comofunciona", "/sobre-nos"].map((path, idx) => (
+            {["/", "/jogo", "/materiais", "/artigo", "/comofunciona", "/sobre-nos"].map((path, idx) => (
               <li key={idx}>
                 <Link
                   to={path}
                   onClick={() => setMenuOpen(false)}
                   className="block hover:text-blue-400 transition"
                 >
-                  {["Home", "Jogo", "Matérias", "Artigo", "Dispositivo", "Sobre Nós"][idx]}
+                  {["Home", "Jogo", "Materiais", "Artigo", "Dispositivo", "Sobre Nós"][idx]}
                 </Link>
               </li>
             ))}
