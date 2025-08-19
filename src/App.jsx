@@ -130,7 +130,7 @@ export function App() {
       {menuOpen && (
         <div className="fixed top-[120px] right-0 w-64 bg-gray-900 text-white shadow-xl z-50 p-6 animate-slideIn">
           <ul className="space-y-4 text-lg font-bold">
-            {["/", "/jogo", "/materiais", "/artigo", "/comofunciona", "/sobre-nos"].map((path, idx) => (
+            {["/", "/jogo", "/materias", "/artigo", "/comofunciona", "/sobre-nos"].map((path, idx) => (
               <li key={idx}>
                 <Link
                   to={path}
