@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import FundoPNGclaro from "./Img/FundoPNGclaroGirar.png";
 import FundoPNGescuro from "./Img/FundoPNGescuroGirar.png";
 import MenuIcon from "./Img/menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
 import WaterDropIcon from "./Img/water_drop_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+import Error404 from './components/Error404';
 
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
@@ -181,7 +182,9 @@ export function App() {
           }
         />
         <Route path="/resumo" element={<Resumo darkMode={darkMode} toggleTheme={toggleTheme} />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+
+        {/* Rota 404 personalizada */}
+        <Route path="*" element={<Error404 />} />
       </Routes>
 
       <style>{`
@@ -194,6 +197,5 @@ export function App() {
         }
       `}</style>
     </Router>
-    
   );
 }
