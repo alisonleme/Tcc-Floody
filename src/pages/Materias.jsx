@@ -2,11 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import BombaPng from "../Img/bomba.png";
 import SensorPng from "../Img/SensorPh.png";
 import ProtoboardPng from "../Img/Protoboard.png";
-import Hc05 from "../Img/Hc05.png";
 import ArduinoMat from "../Img/ArduinoMat.png";
 import Peneira from "../Img/Peneira.png";
 import Display from "../Img/Display.png";
 import Pastilha from "../Img/Pastilha.png";
+import Servo from "../Img/Servo.png";
+import Jumper from "../Img/Jumper.png";
+import Modulo from "../Img/Modulo.png";
+import Pilha from "../Img/Pilha.png";
 
 
 
@@ -18,15 +21,18 @@ export default function Material({ darkMode }) {
 
   useEffect(() => {
     const itensMock = [
-      { id: 1, nome: "Bomba submersível", preco: 10.0, imagem: BombaPng },
-      { id: 2, nome: "Sensor de pH", preco: 10.0, imagem: SensorPng },
-      { id: 3, nome: "Protoboard - 4 Unidades", preco: 10.0, imagem: ProtoboardPng },
-      { id: 4, nome: "Módulo WiFi ESP32 Bluetooth", preco: 10.0, imagem: ArduinoMat },
+      { id: 1, nome: "Bomba submersível", preco: 11.90, imagem: BombaPng },
+      { id: 2, nome: "Sensor de pH", preco: 193, imagem: SensorPng },
+      { id: 3, nome: "Protoboard - 3 Unidades", preco: 26.70, imagem: ProtoboardPng },
+      { id: 4, nome: "Módulo WiFi Bluetooth ESP32", preco: 64.90, imagem: ArduinoMat },
       { id: 5, nome: "Peneira", preco: 10.0, imagem: Peneira },
-      { id: 6, nome: " Display ", preco: 10.0, imagem: Display },
+      { id: 6, nome: " Display ", preco: 17, imagem: Display },
       { id: 7, nome: "Cabornato de cálcio", preco: 10.0, imagem: Pastilha },
-      { id: 8, nome: "Servo motor", preco: 10.0, imagem: "https://via.placeholder.com/150" },
-      { id: 9, nome: "Jumper (Fios) ", preco: 10.0, imagem: "https://via.placeholder.com/150" },
+      { id: 8, nome: "Servo motor", preco: 15.0, imagem: Servo },
+      { id: 9, nome: "Jumper (Fios) ", preco: 5.0, imagem: Jumper },
+      { id: 10, nome: "Módulo relé 5V", preco: 7.0, imagem: Modulo },
+      { id: 11, nome: "Pilha AA ", preco: 8.0, imagem: Pilha },
+
     ];
     setMateriais(itensMock);
   }, []);

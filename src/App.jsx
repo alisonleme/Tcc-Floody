@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 
 import FundoPNGclaro from "./Img/FundoPNGclaroGirar.png";
 import FundoPNGescuro from "./Img/FundoPNGescuroGirar.png";
 import MenuIcon from "./Img/menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+import WaterDropIcon from "./Img/water_drop_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
 
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
@@ -59,6 +60,9 @@ export function App() {
     return <Auth onLogin={handleLogin} />;
   }
 
+  const paths = ["/jogo", "/materias", "/artigo", "/comofunciona", "/sobre-nos"];
+  const labels = ["Jogo", "Materiais", "Artigo", "Dispositivo", "Sobre Nós"];
+
   return (
     <Router>
       {/* Cabeçalho fixo */}
@@ -68,25 +72,34 @@ export function App() {
           alt="Fundo girado"
           className="w-full h-full"
         />
-        <div className="absolute inset-0 h-full flex items-center justify-between px-6">
-          {/* Links centralizados (desktop) */}
-          <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -mt-2 space-x-20">
-            {["/", "/jogo", "/materias", "/artigo", "/comofunciona", "/sobre-nos"].map((path, idx) => (
+        <div className="absolute inset-0 h-full flex items-center px-6">
+          {/* Home no lado esquerdo */}
+          <Link
+            to="/"
+            className="text-white p-3 rounded-full cursor-pointer transition-colors duration-300 flex items-center hover:bg-blue-500 hover:text-blue-200"
+            aria-label="Home"
+          >
+            <img src={WaterDropIcon} alt="Home" className="w-10 h-10" />
+          </Link>
+
+          {/* Container flexível que ocupa o meio */}
+          <nav className="flex-grow hidden md:flex justify-center space-x-28">
+            {paths.map((path, idx) => (
               <Link
                 key={idx}
                 to={path}
-                className="text-white hover:text-blue-500 text-xl font-bold transition relative"
+                className="text-white hover:text-blue-500 text-xl font-bold transition-colors duration-300 relative flex items-center gap-2"
               >
-                {["Home", "Jogo", "Materiais", "Artigo", "Dispositivo", "Sobre Nós"][idx]}
+                {labels[idx]}
                 <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-blue-500 transition-all duration-300 hover:w-full"></span>
               </Link>
             ))}
-          </div>
+          </nav>
 
-          {/* Ícones à direita */}
+          {/* Botões lado direito */}
           <div className="flex items-center space-x-6 ml-auto">
-            {/* Perfil */}
-            <Link to="/usuario" className="p-3 hover:bg-blue-500 rounded-full cursor-pointer transition">
+            {/* Usuário */}
+            <Link to="/usuario" className="p-3 hover:bg-blue-500 rounded-full cursor-pointer transition-colors duration-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="48px"
@@ -98,10 +111,10 @@ export function App() {
               </svg>
             </Link>
 
-            {/* Botão Tema */}
+            {/* Tema */}
             <button
               onClick={toggleTheme}
-              className="p-3 rounded-full cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110 hover:bg-blue-500"
+              className="p-3 rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-500"
               aria-label="Alternar tema"
             >
               <svg
@@ -115,10 +128,11 @@ export function App() {
               </svg>
             </button>
 
-            {/* Hambúrguer (somente mobile) */}
+            {/* Menu Hambúrguer */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="p-3 rounded-full cursor-pointer transition hover:bg-blue-500 md:hidden"
+              aria-label="Menu"
             >
               <img src={MenuIcon} alt="Menu" className="w-10 h-10" />
             </button>
@@ -126,18 +140,19 @@ export function App() {
         </div>
       </div>
 
-      {/* Menu lateral (mobile) */}
+      {/* Menu mobile */}
       {menuOpen && (
         <div className="fixed top-[120px] right-0 w-64 bg-gray-900 text-white shadow-xl z-50 p-6 animate-slideIn">
           <ul className="space-y-4 text-lg font-bold">
-            {["/", "/jogo", "/materias", "/artigo", "/comofunciona", "/sobre-nos"].map((path, idx) => (
+            {/* REMOVE o botão Home do menu mobile */}
+            {paths.map((path, idx) => (
               <li key={idx}>
                 <Link
                   to={path}
                   onClick={() => setMenuOpen(false)}
-                  className="block hover:text-blue-400 transition"
+                  className="block hover:text-blue-400 transition flex items-center gap-2"
                 >
-                  {["Home", "Jogo", "Materiais", "Artigo", "Dispositivo", "Sobre Nós"][idx]}
+                  {labels[idx]}
                 </Link>
               </li>
             ))}
@@ -169,7 +184,6 @@ export function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
-      {/* Animação do menu */}
       <style>{`
         @keyframes slideIn {
           from { transform: translateX(100%); opacity: 0; }
