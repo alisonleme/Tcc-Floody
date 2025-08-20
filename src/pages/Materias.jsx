@@ -12,8 +12,6 @@ import Modulo from "../Img/Modulo.png";
 import Pilha from "../Img/Pilha.png";
 import Footer from '../components/Footer.jsx';
 
-
-
 export default function Material({ darkMode }) {
   const [materiais, setMateriais] = useState([]);
   const containerRef = useRef(null);
@@ -32,7 +30,6 @@ export default function Material({ darkMode }) {
       { id: 9, nome: "Jumper (Fios) ", preco: 5.0, imagem: Jumper },
       { id: 10, nome: "Módulo relé 5V", preco: 7.0, imagem: Modulo },
       { id: 11, nome: "Pilha AA ", preco: 8.0, imagem: Pilha },
-
     ];
     setMateriais(itensMock);
   }, []);
@@ -56,7 +53,12 @@ export default function Material({ darkMode }) {
       : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
     }`;
 
-  const cardClasses = `p-6 rounded-3xl shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out`;
+  // Card grande - sem animação e hover
+  const cardGrandeClasses = `p-6 rounded-3xl shadow-xl w-full max-w-6xl`;
+
+  // Cards pequenos - com animação e hover
+  const cardPequenoClasses = `p-6 rounded-3xl shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out`;
+
   const cardBg = darkMode
     ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80"
     : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc]";
@@ -64,13 +66,15 @@ export default function Material({ darkMode }) {
   const cardTextColor = darkMode
     ? "text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.7)]"
     : "text-gray-900";
+
   const cardPriceColor = darkMode
     ? "text-gray-300 drop-shadow-[0_0_4px_rgba(0,0,0,0.6)]"
     : "text-gray-800";
 
   return (
     <div ref={containerRef} className={containerClasses}>
-      <div className={`${cardClasses} w-full max-w-6xl ${cardBg}`}>
+      {/* Card grande sem animação e hover */}
+      <div className={`${cardGrandeClasses} ${cardBg}`}>
         <h1 className={`text-5xl font-bold text-center mb-8 ${cardTextColor}`}>
           Materiais
         </h1>
@@ -80,7 +84,7 @@ export default function Material({ darkMode }) {
             <div
               key={`${item.id}-${index}`}
               style={{ animationDelay: `${index * 150}ms` }}
-              className={`${cardClasses} flex flex-col items-center justify-center text-center cursor-default ${cardBg} animate-fadeSlide`}
+              className={`${cardPequenoClasses} flex flex-col items-center justify-center text-center cursor-default ${cardBg} animate-fadeSlide`}
             >
               <div className="w-full p-4 flex flex-col items-center justify-center text-center">
                 <img
