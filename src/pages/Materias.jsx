@@ -10,7 +10,7 @@ import Servo from "../Img/Servo.png";
 import Jumper from "../Img/Jumper.png";
 import Modulo from "../Img/Modulo.png";
 import Pilha from "../Img/Pilha.png";
-
+import Footer from '../components/Footer.jsx';
 
 
 
@@ -27,7 +27,7 @@ export default function Material({ darkMode }) {
       { id: 4, nome: "Módulo WiFi Bluetooth ESP32", preco: 64.90, imagem: ArduinoMat },
       { id: 5, nome: "Peneira", preco: 10.0, imagem: Peneira },
       { id: 6, nome: " Display ", preco: 17, imagem: Display },
-      { id: 7, nome: "Cabornato de cálcio", preco: 10.0, imagem: Pastilha },
+      { id: 7, nome: "Cabornato de cálcio", preco: 20.50, imagem: Pastilha },
       { id: 8, nome: "Servo motor", preco: 15.0, imagem: Servo },
       { id: 9, nome: "Jumper (Fios) ", preco: 5.0, imagem: Jumper },
       { id: 10, nome: "Módulo relé 5V", preco: 7.0, imagem: Modulo },
@@ -98,6 +98,7 @@ export default function Material({ darkMode }) {
             </div>
           ))}
         </div>
+        <Footer />
       </div>
 
       <style jsx>{`

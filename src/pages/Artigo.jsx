@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Artigo1 from "../Img/image.png";
 import Artigo2 from "../Img/image copy.png";
 import Artigo3 from "../Img/image copy 2.png";
-
+import Footer from '../components/Footer.jsx';
 const artigos = [
   {
     img: Artigo1,
@@ -244,6 +244,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
           Ver Página de Resumo
         </Link>
       </div>
+      <Footer />
     </div>
   );
 }

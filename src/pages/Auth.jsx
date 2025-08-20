@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import Footer from '../components/Footer.jsx';
 const DarkModeIcon = ({ darkMode }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -312,6 +312,7 @@ export default function Auth({ onLogin }) {
           </button>
         </p>
       </div>
+      <Footer />
     </div>
   );
 }

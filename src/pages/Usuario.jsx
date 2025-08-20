@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import Footer from '../components/Footer.jsx';
 export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggleTheme }) {
   const [email, setEmail] = useState(user.email);
   const [senha, setSenha] = useState(user.senha);
@@ -323,6 +323,7 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
           Excluir Conta
         </button>
       </div>
+      <Footer />
     </div>
   );
 }

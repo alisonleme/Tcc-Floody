@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-
+import Footer from '../components/Footer.jsx';
 export default function ComoFunciona({ darkMode, toggleTheme }) {
   const [forumMessage, setForumMessage] = useState("");
   const [helpMessage, setHelpMessage] = useState("");
@@ -266,6 +266,7 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           Voltar para Home
         </Link>
       </div>
+      <Footer />
     </div>
   );
 }

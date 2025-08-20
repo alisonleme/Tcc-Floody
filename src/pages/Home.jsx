@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
+import Footer from '../components/Footer.jsx';
 import FundoPNGclaro from '../Img/FundoPNGclaroGirar.png';
 import FundoPNGescuro from '../Img/FundoPNGescuro.png';
 import FundoPNGClaro from '../Img/FundoPNGclaro.png';
@@ -11,7 +13,7 @@ import ComoFuncionaImg from '../Img/comofunciona.png';
 
 export default function Home({ darkMode }) {
   const [visibleBlocks, setVisibleBlocks] = useState([]);
-  const [titleVisible, setTitleVisible] = useState(false);
+  const [titleVisible, setTitleVisible] = useState(false); 
   const [mainVisible, setMainVisible] = useState(false);
   const blocksRef = useRef([]);
   const titleRef = useRef(null);
@@ -195,9 +197,10 @@ export default function Home({ darkMode }) {
         </div>
       )}
 
+      {/* Aqui diminuí a margin-top para subir os cards */}
       <div
         className={`flex flex-col justify-center items-center relative z-20 px-4 transition-all duration-700 ${
-          darkMode ? 'mt-20 sm:mt-20' : 'mt-16 sm:mt-24'
+          darkMode ? 'mt-14 sm:mt-16' : 'mt-2 sm:mt-0.01'
         }`}
       >
         <div
@@ -279,6 +282,8 @@ export default function Home({ darkMode }) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
+    
   );
 }

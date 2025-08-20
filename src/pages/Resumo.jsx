@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ImagemDaHome from "../Img/ImagemDaHome.png";
-
+import Footer from '../components/Footer.jsx';
 export default function Resumo({ darkMode, toggleTheme }) {
   const [visibleSections, setVisibleSections] = useState({});
   const sectionsRef = useRef({});
@@ -215,6 +215,7 @@ export default function Resumo({ darkMode, toggleTheme }) {
           Voltar para Artigos
         </Link>
       </div>
+      <Footer />
     </div>
   );
 }

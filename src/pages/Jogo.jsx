@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import Footer from '../components/Footer.jsx';
 export default function Jogo({ darkMode, toggleTheme }) {
   const [visibleSections, setVisibleSections] = useState([]);
   const sectionsRef = useRef([]);
@@ -202,6 +202,7 @@ export default function Jogo({ darkMode, toggleTheme }) {
           )}
         </section>
       ))}
+       <Footer />
     </div>
   );
 }

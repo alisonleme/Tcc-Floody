@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import AlisonFoto from "../Img/AlisonFoto.png";
 import GabrielFoto from "../Img/GabrielFoto.png";
 import ThiagoFoto from "../Img/ThiagoFoto.png";
-
+import Footer from '../components/Footer.jsx';
 export default function SobreNos({ darkMode, toggleTheme }) {
   const [forumMessage, setForumMessage] = useState("");
   const [helpMessage, setHelpMessage] = useState("");
@@ -318,6 +318,7 @@ export default function SobreNos({ darkMode, toggleTheme }) {
           Enviar
         </button>
       </div>
+      <Footer />
     </div>
   );
 }
