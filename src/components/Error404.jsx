@@ -1,8 +1,7 @@
-
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Footer from './Footer'; // Footer reutilizável
-import LoadingSVG from '../Img/loading.svg'; // coloque seu loading.svg em /Img/
+import Footer from './Footer'; // Pode remover se não quiser mostrar
+import LoadingSVG from '../Img/loading.svg'; // Certifique-se que o path está correto
 
 export default function Error404() {
   const navigate = useNavigate();
@@ -17,20 +16,23 @@ export default function Error404() {
 
   return (
     <div
-      className="flex flex-col justify-center items-center min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 px-4"
+      className="fixed top-0 left-0 w-full h-full z-[9999] bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col justify-center items-center px-4"
       style={{ userSelect: 'none' }}
     >
       <img
         src={LoadingSVG}
         alt="Loading"
-        className="w-24 h-24 mb-6 animate-spin-slow"
+        className="w-24 h-24 mb-6 animate-spin"
         style={{ animationDuration: '3s' }}
       />
       <h1 className="text-6xl font-bold mb-2">404</h1>
       <p className="text-xl mb-4">Página não encontrada</p>
       <p>Redirecionando para a página inicial...</p>
 
-      <Footer />
+      {/* Opcional: manter o footer na parte inferior */}
+      <div className="absolute bottom-4 w-full">
+        <Footer />
+      </div>
     </div>
   );
 }

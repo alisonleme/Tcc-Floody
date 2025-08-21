@@ -1,42 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Footer from '../components/Footer.jsx';
+
 export default function ComoFunciona({ darkMode, toggleTheme }) {
   const [forumMessage, setForumMessage] = useState("");
   const [helpMessage, setHelpMessage] = useState("");
   const [visibleSections, setVisibleSections] = useState({});
   const sectionsRef = useRef({});
-
-  const enviarMensagem = (mensagem, tipo) => {
-    try {
-      const mailtoLink = `mailto:grupo.floody@gmail.com?subject=${encodeURIComponent(
-        tipo
-      )}&body=${encodeURIComponent(mensagem)}`;
-      window.location.href = mailtoLink;
-    } catch {
-      alert("Não foi possível abrir o aplicativo de email. Por favor, tente manualmente.");
-    }
-  };
-
-  const handleForumSubmit = (e) => {
-    e.preventDefault();
-    if (!forumMessage.trim()) {
-      alert("Por favor, preencha a mensagem do fórum.");
-      return;
-    }
-    enviarMensagem(forumMessage, "Mensagem do Fórum");
-    setForumMessage("");
-  };
-
-  const handleHelpSubmit = (e) => {
-    e.preventDefault();
-    if (!helpMessage.trim()) {
-      alert("Por favor, preencha a mensagem de ajuda.");
-      return;
-    }
-    enviarMensagem(helpMessage, "Mensagem de Ajuda");
-    setHelpMessage("");
-  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,9 +45,9 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
       }`}
     >
-      {/* Wrapper centralizado */}
       <div className="w-full max-w-6xl mx-auto flex flex-col items-center space-y-16">
 
+        {/* Estilos animados */}
         <style>{`
           @keyframes shimmer {
             0% { background-position: 0% 50%; }
@@ -99,31 +69,13 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           .animated-button:hover {
             filter: brightness(1.15);
           }
-
-          /* Mobile improvements */
-          @media (max-width: 768px) {
-            div[data-section] {
-              padding-left: 1rem !important;
-              padding-right: 1rem !important;
-            }
-            iframe {
-              border-radius: 1rem !important;
-            }
-            textarea {
-              font-size: 1rem !important;
-            }
-            .animated-button {
-              width: 100% !important;
-              text-align: center !important;
-            }
-          }
         `}</style>
 
-        {/* Botão alternar tema */}
+        {/* Botão de tema */}
         <button
           onClick={toggleTheme}
-          aria-label="Alternar tema"
           className="fixed top-6 right-6 p-4 rounded-full transition-transform duration-500 hover:scale-110 hover:rotate-12 shadow-lg bg-gray-700/40 backdrop-blur-md"
+          aria-label="Alternar tema"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +92,6 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           </svg>
         </button>
 
-        {/* Título */}
         <h1 className="text-5xl font-extrabold text-center mt-20">
           Como Funciona Nosso Dispositivo
         </h1>
@@ -202,14 +153,13 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
             href="https://www.youtube.com/@ManoelGomesOfficial"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Visitar canal do YouTube"
             className={buttonClasses}
           >
             Visitar Canal
           </a>
         </div>
 
-        {/* Fórum */}
+        {/* Fórum - formulário de envio para e-mail */}
         <div
           ref={setRef("forum")}
           data-section="forum"
@@ -220,8 +170,14 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           } ${visibleSections.forum ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
           <h2 className="text-3xl font-bold mb-6 text-center">Fórum</h2>
-          <form onSubmit={handleForumSubmit} className="space-y-4">
+          <form
+            action="https://formsubmit.co/grupo.floody@gmail.com"
+            method="POST"
+            className="space-y-4"
+          >
+            <input type="hidden" name="_subject" value="Mensagem do Fórum - Floody" />
             <textarea
+              name="mensagem"
               value={forumMessage}
               onChange={(e) => setForumMessage(e.target.value)}
               placeholder="Deixe sua pergunta ou comentário"
@@ -235,7 +191,7 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           </form>
         </div>
 
-        {/* Ajuda */}
+        {/* Ajuda - formulário de envio para e-mail */}
         <div
           ref={setRef("ajuda")}
           data-section="ajuda"
@@ -246,8 +202,14 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           } ${visibleSections.ajuda ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
           <h2 className="text-3xl font-bold mb-6 text-center">Ajuda</h2>
-          <form onSubmit={handleHelpSubmit} className="space-y-4">
+          <form
+            action="https://formsubmit.co/grupo.floody@gmail.com"
+            method="POST"
+            className="space-y-4"
+          >
+            <input type="hidden" name="_subject" value="Solicitação de Ajuda - Floody" />
             <textarea
+              name="mensagem"
               value={helpMessage}
               onChange={(e) => setHelpMessage(e.target.value)}
               placeholder="Descreva seu problema ou dúvida"
@@ -261,12 +223,13 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           </form>
         </div>
 
-        {/* Botão Voltar */}
-        <Link to="/" className={buttonClasses}>
+              {/* Voltar */}
+              <Link to="/" className={buttonClasses}>
           Voltar para Home
         </Link>
-      </div>
+      </div> 
       <Footer />
-    </div>
+    </div> 
   );
 }
+
