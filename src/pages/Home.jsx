@@ -186,17 +186,6 @@ export default function Home({ darkMode }) {
         </div>
       </div>
 
-      {/* Fundo ciano no claro */}
-      {!darkMode && (
-        <div className="w-full h-[150px] sm:h-[250px] relative z-10 mt-6 sm:mt-10 transition-all duration-700">
-          <img
-            src={FundoPNGclaro}
-            alt="Imagem Ciano"
-            className="w-full h-full object-cover transition-opacity duration-700"
-          />
-        </div>
-      )}
-
       {/* Aqui diminuí a margin-top para subir os cards */}
       <div
         className={`flex flex-col justify-center items-center relative z-20 px-4 transition-all duration-700 ${
