@@ -23,7 +23,7 @@ export default function Home({ darkMode }) {
     {
       img: ArtigoImg,
       title: 'Artigo Técnico',
-      text: 'Clique na imagem para acessar a seção do artigo técnico do Floody, com informações completas sobre a pesquisa e desenvolvimento.',
+      text: 'Clique na imagem para acessar os artigos utilizados na pesquisa do tema, que serviram de base e inspiração para o desenvolvimento do projeto Floody.',
       link: '/artigo',
     },
     {
@@ -35,7 +35,7 @@ export default function Home({ darkMode }) {
     {
       img: ComoFuncionaImg,
       title: 'Como Funciona',
-      text: 'Clique para entender como o Floody funciona, incluindo sistema, instalação e uso do dispositivo.',
+      text: 'Clique para entender o funcionamento do Floody, incluindo o sistema, a instalação e a aplicação do dispositivo no dia a dia.',
       link: '/comofunciona',
     },
   ];
@@ -204,26 +204,37 @@ export default function Home({ darkMode }) {
             color: darkMode ? '#f8fafc' : '#1f2937',
           }}
         >
-          <h1 className="text-3xl sm:text-5xl font-extrabold">O que é o Floody?</h1>
+            <div
+      className="text-left text-base sm:text-lg font-medium space-y-4 leading-relaxed"
+      style={{ color: darkMode ? '#f1f5f9' : '#1f2937' }}
+    >
+      <h1 className='text-4xl sm:text-5xl font-extrabold text-center'>Floody</h1>
 
-          <div
-            className="text-left text-base sm:text-lg font-medium space-y-4 leading-relaxed"
-            style={{ color: darkMode ? '#f1f5f9' : '#1f2937' }}
-          >
-            <p>🌧️ O Floody ajuda a reduzir enchentes e reaproveita água de chuva com sistema automatizado.</p>
-            <p>🏠 Instala-se em áreas externas, funciona como ralo inteligente com filtragem dupla e reservatório.</p>
-            <p>👥 <strong>Público-alvo:</strong> Moradores de áreas urbanas com histórico de alagamentos.</p>
-            <p>🎯 <strong>Objetivo:</strong> Reduzir impactos das enchentes e promover práticas sustentáveis.</p>
-            <p>
-              🌟 <strong>Diferenciais:</strong>
-              <ul className="list-disc list-inside">
-                <li>Ação automática em acúmulo de água</li>
-                <li>Filtragem e reaproveitamento</li>
-                <li>Instalação simples</li>
-                <li>Contribui para o meio ambiente</li>
-              </ul>
-            </p>
-          </div>
+      <p>🌧️ O <strong>Floody</strong> é um sistema inteligente que ajuda a reduzir enchentes e ainda permite o <strong>reaproveitamento completo da água da chuva</strong>.</p>
+
+      <p>💧 Funciona como um receptor de chuva com <strong>filtragem dupla</strong> e purificação, capaz de <strong>remover impurezas e neutralizar a acidez</strong> comum em áreas urbanas e industriais.</p>
+
+      <p>🏠 Pode ser instalado em áreas externas, embutido em <strong>paredes ou telhados próximos às calhas</strong>, de forma simples e eficaz.</p>
+
+      <p>👥 <strong>Público-alvo:</strong> Moradores que buscam <strong>economizar na conta de água</strong> e adotar práticas mais <strong>sustentáveis</strong>.</p>
+
+      <p>🎯 <strong>Objetivo:</strong>  Promover o reaproveitamento da água e incentivar a preservação do meio ambiente.</p>
+
+      <p>📱 Além disso, o sistema conta com um <strong>aplicativo de monitoramento em tempo real</strong>, onde você pode acompanhar o funcionamento, a captação e a qualidade da água armazenada.</p>
+
+      <p>
+        🌟 <strong>Diferenciais:</strong>
+        <ul className="list-disc list-inside mt-2">
+          <li>Ação automática ao detectar acúmulo de água</li>
+          <li>Filtragem completa e purificação da água da chuva</li>
+          <li>Instalação versátil e simplificada</li>
+          <li>Economia na conta de água</li>
+          <li>Monitoramento via aplicativo</li>
+          <li>Contribuição direta para o meio ambiente</li>
+        </ul>
+      </p>
+    </div>
+
 
           <button
             className="mt-6 px-8 py-3 sm:px-10 sm:py-4 rounded-md font-semibold shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl animated-button"

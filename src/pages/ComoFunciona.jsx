@@ -47,7 +47,6 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
     >
       <div className="w-full max-w-6xl mx-auto flex flex-col items-center space-y-16">
 
-        {/* Estilos animados */}
         <style>{`
           @keyframes shimmer {
             0% { background-position: 0% 50%; }
@@ -71,7 +70,6 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           }
         `}</style>
 
-        {/* Botão de tema */}
         <button
           onClick={toggleTheme}
           className="fixed top-6 right-6 p-4 rounded-full transition-transform duration-500 hover:scale-110 hover:rotate-12 shadow-lg bg-gray-700/40 backdrop-blur-md"
@@ -96,7 +94,6 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           Como Funciona Nosso Dispositivo
         </h1>
 
-        {/* Vídeo */}
         <div
           ref={setRef("video")}
           data-section="video"
@@ -120,7 +117,6 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           </div>
         </div>
 
-        {/* Explicação */}
         <div
           ref={setRef("explicacao")}
           data-section="explicacao"
@@ -131,14 +127,49 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           } ${visibleSections.explicacao ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
           <h2 className="text-3xl font-bold mb-6 text-center">Explicação do Dispositivo</h2>
-          <p>
-            O Floody monitora e ajuda na prevenção de enchentes em áreas urbanas. Com sensores de nível de água, IoT e alertas
-            em tempo real, auxilia comunidades a agir rapidamente, reduzindo riscos e danos. Integrado a um aplicativo, promove
-            gestão eficiente e sustentável.
-          </p>
+          <div className="text-base sm:text-lg leading-relaxed space-y-4 text-justify">
+            <p>
+              O <strong>Floody</strong> é um sistema inteligente voltado para o <strong>aproveitamento sustentável da água da chuva</strong> e a <strong>prevenção de enchentes em áreas urbanas</strong>. Mais do que um simples coletor, ele combina <strong>automação</strong>, <strong>sensoriamento</strong> e <strong>filtragem avançada</strong> para oferecer uma solução completa e autônoma.
+            </p>
+
+            <h3 className="text-2xl font-semibold mt-6">🌧️ Etapas do Funcionamento:</h3>
+
+            <ul className="list-disc list-inside space-y-2">
+              <li>
+                <strong>Coleta da água da chuva:</strong> A água é captada por calhas e entradas posicionadas estrategicamente (em telhados, muros ou áreas externas). O sistema possui sensores e um <strong>ralo inteligente autolimpante</strong>, garantindo o fluxo contínuo mesmo em períodos de chuva intensa.
+              </li>
+
+              <li>
+                <strong>Análise e correção do pH:</strong> Um sensor integrado mede o <strong>nível de pH da água coletada</strong>, identificando possíveis níveis de acidez — comuns em ambientes urbanos. Quando necessário, o dispositivo libera automaticamente uma <strong>pastilha de carbonato de cálcio</strong> para neutralizar a água antes do armazenamento.
+              </li>
+
+              <li>
+                <strong>Filtragem em dois reservatórios:</strong>
+                <ul className="list-disc list-inside ml-5 space-y-1">
+                  <li><strong>Pré-reservatório:</strong> Responsável pela filtragem inicial e remoção de partículas maiores.</li>
+                  <li>
+                    <strong>Reservatório com filtro biológico:</strong> A água passa por camadas filtrantes compostas de <strong>carvão ativado, algodão, pedras e areia</strong>, removendo impurezas, odores, metais pesados e microrganismos.
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <strong>Monitoramento inteligente via app:</strong> O sistema é totalmente conectado a um <strong>aplicativo</strong>, onde o usuário pode acompanhar em tempo real:
+                <ul className="list-disc list-inside ml-5 space-y-1">
+                  <li>Nível de água armazenada</li>
+                  <li>Estado dos sensores</li>
+                  <li>Qualidade da água (incluindo pH)</li>
+                  <li>Ativação dos ciclos de filtragem e limpeza</li>
+                </ul>
+              </li>
+
+              <li>
+                <strong>Manutenção automatizada:</strong> O ralo inteligente realiza a <strong>autolimpeza de forma periódica</strong>, evitando entupimentos e reduzindo a necessidade de manutenção manual.
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Canal YouTube */}
         <div
           ref={setRef("youtube")}
           data-section="youtube"
@@ -159,7 +190,6 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           </a>
         </div>
 
-        {/* Fórum - formulário de envio para e-mail */}
         <div
           ref={setRef("forum")}
           data-section="forum"
@@ -191,7 +221,6 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           </form>
         </div>
 
-        {/* Ajuda - formulário de envio para e-mail */}
         <div
           ref={setRef("ajuda")}
           data-section="ajuda"
@@ -223,13 +252,11 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
           </form>
         </div>
 
-              {/* Voltar */}
-              <Link to="/" className={buttonClasses}>
+        <Link to="/" className={buttonClasses}>
           Voltar para Home
         </Link>
-      </div> 
+      </div>
       <Footer />
-    </div> 
+    </div>
   );
 }
-
