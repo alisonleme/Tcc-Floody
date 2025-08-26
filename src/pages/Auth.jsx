@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Footer from '../components/Footer.jsx';
+
 const DarkModeIcon = ({ darkMode }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -206,6 +207,8 @@ export default function Auth({ onLogin }) {
                       : "bg-white text-[#1f2937] placeholder-[#1f2937] border-gray-300"
                   }`}
                   required
+                  autoComplete="username"
+                  spellCheck={false}
                 />
               </div>
 
@@ -224,6 +227,7 @@ export default function Auth({ onLogin }) {
                       : "bg-white text-[#1f2937] placeholder-[#1f2937] border-gray-300"
                   }`}
                   required
+                  autoComplete="current-password"
                 />
               </div>
             </>
@@ -244,6 +248,8 @@ export default function Auth({ onLogin }) {
                       : "bg-white text-[#1f2937] placeholder-[#1f2937] border-gray-300"
                   }`}
                   required
+                  autoComplete="email"
+                  spellCheck={false}
                 />
               </div>
 
@@ -262,6 +268,8 @@ export default function Auth({ onLogin }) {
                       : "bg-white text-[#1f2937] placeholder-[#1f2937] border-gray-300"
                   }`}
                   required
+                  autoComplete="username"
+                  spellCheck={false}
                 />
               </div>
 
@@ -280,6 +288,7 @@ export default function Auth({ onLogin }) {
                       : "bg-white text-[#1f2937] placeholder-[#1f2937] border-gray-300"
                   }`}
                   required
+                  autoComplete="new-password"
                 />
               </div>
             </>
