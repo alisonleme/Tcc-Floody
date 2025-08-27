@@ -191,66 +191,89 @@ export default function ComoFunciona({ darkMode, toggleTheme }) {
         </div>
 
         <div
-          ref={setRef("forum")}
-          data-section="forum"
-          className={`p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform ${
-            darkMode
-              ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-              : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
-          } ${visibleSections.forum ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        >
-          <h2 className="text-3xl font-bold mb-6 text-center">Fórum</h2>
-          <form
-            action="https://formsubmit.co/grupo.floody@gmail.com"
-            method="POST"
-            className="space-y-4"
-          >
-            <input type="hidden" name="_subject" value="Mensagem do Fórum - Floody" />
-            <textarea
-              name="mensagem"
-              value={forumMessage}
-              onChange={(e) => setForumMessage(e.target.value)}
-              placeholder="Deixe sua pergunta ou comentário"
-              className="w-full p-4 border rounded-3xl focus:ring-2 focus:ring-blue-400 outline-none resize-none"
-              rows="4"
-              required
-            />
-            <button type="submit" className={buttonClasses}>
-              Enviar Pergunta
-            </button>
-          </form>
-        </div>
+  ref={setRef("formForum")}
+  data-section="formForum"
+  className={`p-6 sm:p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform text-sm sm:text-base ${
+    darkMode
+      ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
+      : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
+  } ${
+    visibleSections.formForum
+      ? "opacity-100 translate-y-0"
+      : "opacity-0 translate-y-10"
+  }`}
+>
+  <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Fórum Floody</h2>
+  <form
+    action="https://formsubmit.co/grupo.floody@gmail.com"
+    method="POST"
+    className="flex flex-col space-y-4"
+  >
+    <input type="hidden" name="_subject" value="Mensagem do Fórum - Floody" />
+    <textarea
+      name="mensagem"
+      value={forumMessage}
+      onChange={(e) => setForumMessage(e.target.value)}
+      placeholder="Escreva aqui sua dúvida, sugestão ou comentário..."
+      className={`resize-none rounded-md p-3 w-full min-h-[100px] border-4 border-gray-400 ${
+        darkMode
+          ? "text-gray-300 placeholder-gray-500"
+          : "text-gray-700 placeholder-gray-400"
+      }`}
+      required
+    />
+    <button
+      type="submit"
+      className={`${buttonClasses} self-center w-max`}
+    >
+      Enviar
+    </button>
+  </form>
+</div>
 
-        <div
-          ref={setRef("ajuda")}
-          data-section="ajuda"
-          className={`p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform ${
-            darkMode
-              ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
-              : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
-          } ${visibleSections.ajuda ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        >
-          <h2 className="text-3xl font-bold mb-6 text-center">Ajuda</h2>
-          <form
-            action="https://formsubmit.co/grupo.floody@gmail.com"
-            method="POST"
-            className="space-y-4"
-          >
-            <input type="hidden" name="_subject" value="Solicitação de Ajuda - Floody" />
-            <textarea
-              name="mensagem"
-              value={helpMessage}
-              onChange={(e) => setHelpMessage(e.target.value)}
-              placeholder="Descreva seu problema ou dúvida"
-              className="w-full p-4 border rounded-3xl focus:ring-2 focus:ring-green-400 outline-none resize-none"
-              rows="4"
-              required
-            />
-            <button type="submit" className={buttonClasses}>
-              Solicitar Ajuda
-            </button>
-          </form>
-        </div>
+{/* Formulário Ajuda */}
+<div
+  ref={setRef("formHelp")}
+  data-section="formHelp"
+  className={`p-6 sm:p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform text-sm sm:text-base ${
+    darkMode
+      ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
+      : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
+  } ${
+    visibleSections.formHelp
+      ? "opacity-100 translate-y-0"
+      : "opacity-0 translate-y-10"
+  }`}
+>
+  <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Ajuda</h2>
+  <form
+    action="https://formsubmit.co/grupo.floody@gmail.com"
+    method="POST"
+    className="flex flex-col space-y-4"
+  >
+    <input type="hidden" name="_subject" value="Solicitação de Ajuda - Floody" />
+    <textarea
+      name="mensagem"
+      value={helpMessage}
+      onChange={(e) => setHelpMessage(e.target.value)}
+      placeholder="Descreva sua dúvida ou problema..."
+      className={`resize-none rounded-md p-3 w-full min-h-[100px] border-4 border-gray-400 ${
+        darkMode
+          ? "text-gray-300 placeholder-gray-500"
+          : "text-gray-700 placeholder-gray-400"
+      }`}
+      required
+    />
+    <button
+      type="submit"
+      className={`${buttonClasses} self-center w-max`}
+    >
+      Enviar
+    </button>
+  </form>
+</div>
+
+
 
         <Link to="/" className={buttonClasses}>
           Voltar para Home

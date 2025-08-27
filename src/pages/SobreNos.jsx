@@ -281,7 +281,11 @@ export default function SobreNos({ darkMode, toggleTheme }) {
       value={forumMessage}
       onChange={(e) => setForumMessage(e.target.value)}
       placeholder="Escreva aqui sua dúvida, sugestão ou comentário..."
-      className="resize-none rounded-md p-3 w-full min-h-[100px] text-white"
+      className={`resize-none rounded-md p-3 w-full min-h-[100px] border-4 border-gray-400 ${
+        darkMode
+          ? "text-gray-300 placeholder-gray-500"
+          : "text-gray-700 placeholder-gray-400"
+      }`}
       required
     />
     <button
@@ -299,7 +303,7 @@ export default function SobreNos({ darkMode, toggleTheme }) {
   data-section="formHelp"
   className={`p-6 sm:p-8 rounded-3xl shadow-xl max-w-3xl w-full transition-all duration-1000 transform text-sm sm:text-base ${
     darkMode
-      ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-900"
+      ? "bg-gradient-to-br from-gray-800 to-gray-700 text-gray-200"
       : "bg-gradient-to-br from-[#d0e6f8] to-[#a3cbee] text-gray-900"
   } ${
     visibleSections.formHelp
@@ -319,7 +323,11 @@ export default function SobreNos({ darkMode, toggleTheme }) {
       value={helpMessage}
       onChange={(e) => setHelpMessage(e.target.value)}
       placeholder="Descreva sua dúvida ou problema..."
-      className="resize-none rounded-md p-3 w-full min-h-[100px] text-white"
+      className={`resize-none rounded-md p-3 w-full min-h-[100px] border-4 border-gray-400 ${
+        darkMode
+          ? "text-gray-300 placeholder-gray-500"
+          : "text-gray-700 placeholder-gray-400"
+      }`}
       required
     />
     <button
