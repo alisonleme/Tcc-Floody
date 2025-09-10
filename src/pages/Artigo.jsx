@@ -8,19 +8,19 @@ const artigos = [
   {
     img: Artigo1,
     titulo:
-      "1. Impactos da inserção dos piscinões na escala local: o caso do Reservatório de Contenção RC5 - Taboão",
+      "Chuvas Ácidas: Impactos Ambientais, Urbanos e a Importância de sua Análise",
     download: "/downloads/artigo1.pdf",
   },
   {
     img: Artigo2,
     titulo:
-      "2. Alagamentos em áreas Urbanas: O caso da Av. Amazilio Lino de Souza com Av. Pedro Ludovico em Anápolis -GO",
+      "Educação Ambiental e Chuva Ácida: Uma Abordagem Didática no Ensino Médio",
     download: "/downloads/artigo2.pdf",
   },
   {
     img: Artigo3,
     titulo:
-      "3. Análise do efeito dos reservatórios de detenção domiciliares no escoamento superficial urbano...",
+      "Tecnologias de Filtração e Radiação Ultravioleta para o Tratamento da Água de Chuva",
     download: "/downloads/artigo3.pdf",
   },
 ];

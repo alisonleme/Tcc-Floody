@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ImagemDaHome from "../Img/ImagemDaHome.png";
-import Footer from '../components/Footer.jsx';
+import Footer from "../components/Footer.jsx";
 
 export default function Resumo({ darkMode, toggleTheme }) {
   const [visibleSections, setVisibleSections] = useState({});
@@ -149,47 +149,74 @@ export default function Resumo({ darkMode, toggleTheme }) {
             ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-gray-200"
             : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
         } ${
-          visibleSections.conteudo ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          visibleSections.conteudo
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
         }`}
       >
         <h2 className="text-3xl font-bold text-center mb-4">
-          Soluções para Alagamentos e Drenagem Urbana no Brasil
+          Soluções para os Impactos da Chuva Ácida e Aproveitamento da Água de
+          Chuva
         </h2>
 
         <p>
-          As chuvas fortes, mesmo as de média intensidade, têm se tornado um dos maiores desafios enfrentados pelas cidades brasileiras.
-          A impermeabilização do solo, ocupações irregulares e sistemas de drenagem ultrapassados transformam precipitações intensas em alagamentos frequentes.
+          A poluição atmosférica e seus efeitos, como a chuva ácida,
+          representam desafios crescentes para a sociedade moderna. Esse
+          fenômeno afeta ecossistemas, degrada monumentos, contamina recursos
+          hídricos e pode comprometer a saúde humana. Ao mesmo tempo, a busca
+          por soluções sustentáveis para o uso da água se torna cada vez mais
+          urgente diante da crise hídrica.
         </p>
 
         <p>
-          Este resumo reúne três estudos com diferentes abordagens para entender e combater esses eventos:
+          Este resumo reúne três estudos complementares que ajudam a compreender
+          e enfrentar esses problemas:
         </p>
 
         <div>
-          <h3 className="text-xl font-semibold mb-2">1. Impactos dos Piscinões no ABCD Paulista</h3>
+          <h3 className="text-xl font-semibold mb-2">
+            1. Chuva Ácida e Educação Ambiental
+          </h3>
           <p>
-            O estudo do Reservatório RC5 em São Bernardo do Campo mostra que piscinões, embora eficazes, podem gerar impactos negativos no entorno quando mal planejados.
+            Experimentos simples em sala de aula, como o “chá de repolho”,
+            mostraram como é possível conscientizar alunos sobre o pH da chuva e
+            os impactos da poluição. A proposta reforça a importância da
+            educação ambiental para formar cidadãos mais conscientes.
           </p>
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold mb-2">2. Reservatórios Domiciliares</h3>
+          <h3 className="text-xl font-semibold mb-2">
+            2. Efeitos e Riscos da Chuva Ácida
+          </h3>
           <p>
-            Pequenos reservatórios residenciais reduziram picos de vazão em até 31% em simulações, mostrando que soluções descentralizadas podem aliviar o sistema urbano.
+            Pesquisas destacam os danos provocados pela acidez da chuva em
+            florestas, lagos, solos, monumentos históricos e na saúde humana. No
+            Brasil, já foram registrados pH abaixo do normal em grandes cidades,
+            comparáveis a centros industriais globais.
           </p>
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold mb-2">3. Alagamentos em Anápolis-GO</h3>
+          <h3 className="text-xl font-semibold mb-2">
+            3. Tecnologias para Aproveitamento da Água de Chuva
+          </h3>
           <p>
-            O estudo aponta crescimento urbano desorganizado e obstrução de cursos d’água como fatores principais, propondo infraestrutura verde e fiscalização.
+            Um sistema composto por filtros de brita, areia e carvão ativado
+            aliado à radiação ultravioleta mostrou-se eficiente no tratamento da
+            água de chuva, tornando-a adequada para usos não potáveis e até para
+            contato direto, como banho e lavagem de roupas.
           </p>
         </div>
 
         <div>
           <h3 className="text-xl font-semibold mb-2">Conclusão</h3>
           <p>
-            É essencial integrar infraestrutura cinza e verde, planejamento urbano e educação ambiental para mitigar enchentes cada vez mais frequentes.
+            Os estudos apontam que enfrentar os efeitos da chuva ácida e avançar
+            no aproveitamento sustentável da água requer a união entre educação,
+            ciência e inovação tecnológica. Somente assim será possível reduzir
+            os impactos ambientais e garantir uma gestão hídrica mais consciente
+            e resiliente.
           </p>
         </div>
       </div>
@@ -199,10 +226,16 @@ export default function Resumo({ darkMode, toggleTheme }) {
         ref={setRef("botoes")}
         data-section="botoes"
         className={`action-buttons flex flex-col md:flex-row gap-6 mt-6 transition-all duration-1000 transform ${
-          visibleSections.botoes ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          visibleSections.botoes
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
         }`}
       >
-        <a href="/downloads/resumo.pdf" download className={buttonClasses}>
+        <a
+          href="/downloads/resumo.pdf"
+          download
+          className={buttonClasses}
+        >
           Baixar Resumo Completo
         </a>
 
@@ -219,6 +252,8 @@ export default function Resumo({ darkMode, toggleTheme }) {
           Voltar para Artigos
         </Link>
       </div>
+
+      {/* Rodapé */}
       <Footer />
     </div>
   );
