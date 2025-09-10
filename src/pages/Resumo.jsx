@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ImagemDaHome from "../Img/ImagemDaHome.png";
 import Footer from '../components/Footer.jsx';
+
 export default function Resumo({ darkMode, toggleTheme }) {
   const [visibleSections, setVisibleSections] = useState({});
   const sectionsRef = useRef({});
@@ -69,9 +70,12 @@ export default function Resumo({ darkMode, toggleTheme }) {
         /* Mobile adjustments */
         @media (max-width: 768px) {
           .container-padding-mobile {
-            padding-top: 6rem !important;
+            padding-top: 9rem !important; /* espaço maior no topo */
             padding-left: 1.5rem !important;
             padding-right: 1.5rem !important;
+          }
+          h1 {
+            margin-top: 2rem !important; /* extra espaço só no título */
           }
           .content-section {
             margin-top: 3rem !important;

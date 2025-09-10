@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Footer from '../components/Footer.jsx';
+
 export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggleTheme }) {
   const [email, setEmail] = useState(user.email);
   const [senha, setSenha] = useState(user.senha);
@@ -103,7 +104,7 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
     <div
       ref={containerRef}
       onClick={(e) => e.stopPropagation()} // impede fechar edições ao clicar dentro do card
-      className={`min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 transition-colors duration-500 ${
+      className={`usuario-container min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 transition-colors duration-500 ${
         darkMode
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-gray-100"
           : "bg-gradient-to-br from-[#b3ddfe] to-[#71b7e6] text-gray-900"
@@ -157,6 +158,16 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
           .input-field { padding: 0.5rem 1rem; font-size: 1rem; }
         }
         .input-field:focus { box-shadow: 0 0 8px 2px #7c3aed; }
+
+        /* Mobile: mais respiro no topo */
+        @media (max-width: 768px) {
+          .usuario-container {
+            padding-top: 8rem !important; /* empurra conteúdo pra baixo */
+          }
+          .usuario-container > div:first-of-type {
+            margin-top: 2rem !important; /* card não fica colado no topo */
+          }
+        }
       `}</style>
 
       {/* Botão de alternar tema */}
@@ -314,7 +325,7 @@ export default function Usuario({ user, onLogout, onUserUpdate, darkMode, toggle
         </div>
       </div>
 
-      {/* Botões principais - AGORA ABAIXO NO MOBILE */}
+      {/* Botões principais */}
       <div className="flex flex-col sm:flex-row gap-3 mt-6 w-full max-w-md sm:max-w-lg justify-between">
         <button className="btn-gradient w-full sm:w-auto" onClick={onLogout}>
           Sair

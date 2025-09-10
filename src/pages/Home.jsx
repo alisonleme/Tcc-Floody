@@ -139,7 +139,7 @@ export default function Home({ darkMode }) {
           }
           @media (min-width: 769px) {
             .banner-fundo {
-              bottom: -500px !important; /* sobe um pouco no desktop */
+              bottom: -570px !important; /* sobe um pouco no desktop */
             }
           }
 
@@ -189,7 +189,7 @@ export default function Home({ darkMode }) {
       {/* Aqui diminuí a margin-top para subir os cards */}
       <div
         className={`flex flex-col justify-center items-center relative z-20 px-4 transition-all duration-700 ${
-          darkMode ? 'mt-14 sm:mt-16' : 'mt-2 sm:mt-0.01'
+          darkMode ? 'mt-14 sm:mt-75' : 'mt-75 sm:mt-75'
         }`}
       >
         <div
@@ -244,42 +244,42 @@ export default function Home({ darkMode }) {
           </button>
 
           {/* Cards */}
-          <div className="mt-10 flex flex-col space-y-6 max-w-screen-2xl w-full items-center sm:items-start px-2 sm:px-0">
-            {sections.map((item, i) => (
-              <div
-                key={i}
-                ref={(el) => (blocksRef.current[i] = el)}
-                className={`home-card flex flex-col sm:flex-row rounded-xl p-4 sm:p-8 items-center sm:items-start w-full max-w-5xl shadow-xl hover:shadow-2xl transform transition-all duration-1000 ease-in-out cursor-pointer hover:scale-[1.03] ${
-                  visibleBlocks.includes(i)
-                    ? 'opacity-100 translate-y-0 scale-100'
-                    : 'opacity-0 translate-y-10 scale-95'
-                }`}
-                style={{
-                  background: darkMode
-                    ? 'linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,41,59,0.75))'
-                    : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)',
-                  color: darkMode ? '#f8fafc' : '#1f2937',
-                  transitionDelay: visibleBlocks.includes(i) ? `${i * 200}ms` : '0ms',
-                }}
-              >
-                <Link
-                  to={item.link}
-                  className="mb-4 sm:mb-0 sm:mr-8 rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-white transition-transform duration-300 hover:scale-105"
-                  style={{ minWidth: '220px' }}
-                >
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="w-[220px] h-[50px] sm:w-[300px] sm:h-[80px] md:w-[350px] md:h-[100px] lg:w-[400px] lg:h-[120px] object-cover rounded-md"
-                  />
-                </Link>
-                <div className="text-center sm:text-left text-sm sm:text-base lg:text-lg font-semibold text-justify">
-                  <p className="mb-2 text-xl sm:text-2xl font-bold">{item.title}</p>
-                  <p>{item.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <div className="mt-20 flex flex-col space-y-6 max-w-screen-2xl w-full items-center sm:items-start px-2 sm:px-0">
+  {sections.map((item, i) => (
+    <div
+      key={i}
+      ref={(el) => (blocksRef.current[i] = el)}
+      className={`home-card flex flex-col sm:flex-row rounded-xl p-4 sm:p-8 items-center sm:items-start w-full max-w-5xl shadow-xl hover:shadow-2xl transform transition-all duration-1000 ease-in-out cursor-pointer hover:scale-[1.03] ${
+        visibleBlocks.includes(i)
+          ? 'opacity-100 translate-y-0 scale-100'
+          : 'opacity-0 translate-y-10 scale-95'
+      }`}
+      style={{
+        background: darkMode
+          ? 'linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,41,59,0.75))'
+          : 'linear-gradient(to bottom right, #d0e6f8cc, #a3cbeecc)',
+        color: darkMode ? '#f8fafc' : '#1f2937',
+        transitionDelay: visibleBlocks.includes(i) ? `${i * 200}ms` : '0ms',
+      }}
+    >
+      <Link
+        to={item.link}
+        className="mb-4 sm:mb-0 sm:mr-8 rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-white transition-transform duration-300 hover:scale-105"
+        style={{ minWidth: '220px' }}
+      >
+        <img
+          src={item.img}
+          alt={item.title}
+          className="w-[220px] h-[50px] sm:w-[300px] sm:h-[80px] md:w-[350px] md:h-[100px] lg:w-[400px] lg:h-[120px] object-cover rounded-md"
+        />
+      </Link>
+      <div className="text-center sm:text-left text-sm sm:text-base lg:text-lg font-semibold text-justify">
+        <p className="mb-2 text-xl sm:text-2xl font-bold">{item.title}</p>
+        <p>{item.text}</p>
+      </div>
+    </div>
+  ))}
+</div>
         </div>
       </div>
       <Footer />
