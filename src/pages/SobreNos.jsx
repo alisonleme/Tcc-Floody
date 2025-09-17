@@ -75,26 +75,16 @@ export default function SobreNos({ darkMode, toggleTheme }) {
       }`}
     >
       {/* Gradiente animado dos botões */}
-      <style>{`
-        @keyframes shimmer {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animated-button {
-          background: ${
-            darkMode
-              ? "linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))"
-              : "linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))"
-          };
-          background-size: 400% 400%;
-          animation: shimmer 6s ease infinite;
-          color: ${darkMode ? "#f8fafc" : "#1f2937"};
-          text-shadow: ${darkMode ? "0 0 6px rgba(0,0,0,0.7)" : "none"};
-          transition: all 0.7s ease-in-out;
-        }
-        .animated-button:hover { filter: brightness(1.15); }
-      `}</style>
+      <button
+  className={`animate-shimmer bg-[length:400%_400%] transition-all duration-700 ease-in-out hover:brightness-110 px-4 py-2 rounded-lg font-medium ${
+    darkMode
+      ? "bg-gradient-to-r from-purple-600/60 via-purple-900/60 to-blue-900/50 text-slate-50 shadow-[0_0_6px_rgba(0,0,0,0.7)]"
+      : "bg-gradient-to-r from-sky-400/70 via-sky-200/70 to-blue-500/70 text-gray-800"
+  }`}
+>
+  Botão animado
+</button>
+
 
       {/* Botão de alternar tema */}
       <button

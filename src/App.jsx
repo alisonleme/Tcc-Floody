@@ -34,6 +34,7 @@ export function App() {
 
   return (
     <Router>
+      <div className="animate-slideIn">
       {/* Cabeçalho fixo */}
       <div className="fixed top-0 left-0 w-full h-[120px] overflow-hidden z-50">
         <img
@@ -129,15 +130,10 @@ export function App() {
         <Route path="*" element={<Error404 />} />
       </Routes>
 
-      <style>{`
-        @keyframes slideIn {
-          from { transform: translateX(100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-        .animate-slideIn {
-          animation: slideIn 0.3s ease forwards;
-        }
-      `}</style>
+      
+  
+</div>
+
     </Router>
   );
 }
