@@ -33,74 +33,22 @@ export default function Resumo({ darkMode, toggleTheme }) {
     sectionsRef.current[key] = el;
   };
 
-  // Botões estilo Artigo.jsx
-  const buttonClasses =
-    "mt-4 px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button";
+  // Botões estilo animado (usando config Tailwind extendida)
+  const buttonClasses = `
+    mt-4 px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-500 transform 
+    hover:scale-105 hover:shadow-2xl animate-shimmer bg-[length:400%_400%]
+    ${darkMode ? "bg-shimmer-dark text-slate-50 drop-shadow-text-dark" : "bg-shimmer-light text-gray-800"}
+  `;
 
   return (
     <div
-      className={`container-padding-mobile min-h-screen flex flex-col items-center justify-start p-6 md:p-8 space-y-10 transition-colors duration-500 ${
-        darkMode
-          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-          : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
-      }`}
+      className={`pt-36 md:pt-8 min-h-screen flex flex-col items-center justify-start px-6 md:px-8 space-y-10 transition-colors duration-500 
+        ${
+          darkMode
+            ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
+            : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
+        }`}
     >
-      <style>{`
-        @keyframes shimmer {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animated-button {
-          background: ${
-            darkMode
-              ? "linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))"
-              : "linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))"
-          };
-          background-size: 400% 400%;
-          animation: shimmer 6s ease infinite;
-          color: ${darkMode ? "#f8fafc" : "#1f2937"};
-          text-shadow: ${darkMode ? "0 0 6px rgba(0,0,0,0.7)" : "none"};
-          transition: all 0.7s ease-in-out;
-        }
-        .animated-button:hover {
-          filter: brightness(1.15);
-        }
-
-        /* Mobile adjustments */
-        @media (max-width: 768px) {
-          .container-padding-mobile {
-            padding-top: 9rem !important; /* espaço maior no topo */
-            padding-left: 1.5rem !important;
-            padding-right: 1.5rem !important;
-          }
-          h1 {
-            margin-top: 2rem !important; /* extra espaço só no título */
-          }
-          .content-section {
-            margin-top: 3rem !important;
-            padding: 2.5rem 1rem !important;
-            font-size: 1rem !important;
-            line-height: 1.6 !important;
-            text-align: justify !important;
-          }
-          .action-buttons {
-            flex-direction: column !important;
-            width: 100%;
-            gap: 1rem !important;
-          }
-          .action-buttons > a {
-            width: 100%;
-            text-align: center;
-          }
-          img.resumo-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 1.5rem;
-          }
-        }
-      `}</style>
-
       {/* Botão de alternar tema */}
       <button
         onClick={toggleTheme}
@@ -126,9 +74,8 @@ export default function Resumo({ darkMode, toggleTheme }) {
 
       {/* Título */}
       <h1
-        className={`text-5xl font-bold text-center mb-6 transition-all duration-700 ${
-          darkMode ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]" : ""
-        }`}
+        className={`text-5xl font-bold text-center mb-6 transition-all duration-700 
+          ${darkMode ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]" : ""}`}
       >
         Resumo dos Artigos
       </h1>
@@ -137,22 +84,20 @@ export default function Resumo({ darkMode, toggleTheme }) {
       <img
         src={ImagemDaHome}
         alt="Imagem Resumo"
-        className="resumo-image w-full max-w-4xl rounded-3xl shadow-xl transform transition-transform duration-500 hover:scale-110 cursor-pointer"
+        className="w-full max-w-4xl rounded-3xl shadow-xl transform transition-transform duration-500 hover:scale-110 cursor-pointer"
       />
 
       {/* Conteúdo do resumo */}
       <div
         ref={setRef("conteudo")}
         data-section="conteudo"
-        className={`content-section p-8 rounded-3xl shadow-xl max-w-5xl space-y-6 leading-relaxed text-justify transition-all duration-1000 transform ${
-          darkMode
-            ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-gray-200"
-            : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
-        } ${
-          visibleSections.conteudo
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-10"
-        }`}
+        className={`p-8 rounded-3xl shadow-xl max-w-5xl space-y-6 leading-relaxed text-justify transition-all duration-1000 transform 
+          ${
+            darkMode
+              ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-gray-200"
+              : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
+          } 
+          ${visibleSections.conteudo ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
         <h2 className="text-3xl font-bold text-center mb-4">
           Soluções para os Impactos da Chuva Ácida e Aproveitamento da Água de
@@ -225,17 +170,10 @@ export default function Resumo({ darkMode, toggleTheme }) {
       <div
         ref={setRef("botoes")}
         data-section="botoes"
-        className={`action-buttons flex flex-col md:flex-row gap-6 mt-6 transition-all duration-1000 transform ${
-          visibleSections.botoes
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-10"
-        }`}
+        className={`flex flex-col md:flex-row gap-6 mt-6 transition-all duration-1000 transform 
+          ${visibleSections.botoes ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
       >
-        <a
-          href="/downloads/resumo.pdf"
-          download
-          className={buttonClasses}
-        >
+        <a href="/downloads/resumo.pdf" download className={buttonClasses}>
           Baixar Resumo Completo
         </a>
 

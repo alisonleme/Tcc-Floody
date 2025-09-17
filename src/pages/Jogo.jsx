@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Footer from '../components/Footer.jsx';
+
 export default function Jogo({ darkMode, toggleTheme }) {
   const [visibleSections, setVisibleSections] = useState([]);
   const sectionsRef = useRef([]);
@@ -33,61 +34,30 @@ export default function Jogo({ darkMode, toggleTheme }) {
   }, [darkMode]);
 
   const containerClasses = `flex flex-col items-center justify-start min-h-screen p-4 sm:p-6 transition-colors duration-700 ${
-    darkMode
-      ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-      : fundoClaro
+    darkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white" : fundoClaro
   }`;
 
   const sectionBaseClasses =
     "p-6 sm:p-8 md:p-10 rounded-3xl shadow-xl transition-opacity transition-transform duration-700 ease-in-out max-w-5xl w-full mb-12";
+
   const sectionBg = darkMode
     ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80"
     : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc]";
 
   const sectionTitleClasses = `text-2xl sm:text-3xl md:text-4xl font-bold mb-4 transition-colors duration-500 ${
-    darkMode
-      ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.6)]"
-      : "text-gray-900"
+    darkMode ? "text-white drop-shadow-text-dark" : "text-gray-900"
   }`;
 
   const paragraphClasses = `text-base sm:text-lg text-justify leading-relaxed transition-colors duration-500 ${
     darkMode ? "text-gray-200" : "text-gray-900"
   }`;
 
-  const buttonClasses = `mt-6 px-6 sm:px-8 py-3 sm:py-4 rounded-md font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button text-center text-base sm:text-lg`;
+  const buttonClasses = `mt-6 px-6 sm:px-8 py-3 sm:py-4 rounded-md font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animate-shimmer text-center text-base sm:text-lg ${
+    darkMode ? "bg-shimmer-dark text-white" : "bg-shimmer-light text-gray-900"
+  }`;
 
   return (
     <div className={containerClasses}>
-      <style>{`
-        @keyframes shimmer {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animated-button {
-          background: ${
-            darkMode
-              ? "linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))"
-              : "linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))"
-          };
-          background-size: 400% 400%;
-          animation: shimmer 6s ease infinite;
-          color: ${darkMode ? "#f8fafc" : "#1f2937"};
-          text-shadow: ${darkMode ? "0 0 6px rgba(0,0,0,0.7)" : "none"};
-          transition: all 0.7s ease-in-out;
-        }
-        .animated-button:hover {
-          filter: brightness(1.15);
-        }
-        .toggle-icon {
-          transition: transform 0.6s ease;
-          filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
-        }
-        .toggle-icon:hover {
-          transform: rotate(15deg) scale(1.1);
-        }
-      `}</style>
-
       {/* Botão alternar tema */}
       <button
         onClick={toggleTheme}
@@ -101,7 +71,7 @@ export default function Jogo({ darkMode, toggleTheme }) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill={darkMode ? "#ffffff" : "#374151"}
-          className="w-10 h-10 sm:w-12 sm:h-12 toggle-icon"
+          className="w-10 h-10 sm:w-12 sm:h-12 transition-transform duration-500 hover:rotate-15 hover:scale-110"
           role="img"
           aria-hidden="true"
         >
@@ -116,9 +86,7 @@ export default function Jogo({ darkMode, toggleTheme }) {
       {/* Título principal */}
       <h1
         className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-14 text-center select-none ${
-          darkMode
-            ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]"
-            : "text-gray-900"
+          darkMode ? "text-white drop-shadow-text-dark" : "text-gray-900"
         }`}
       >
         Jogo Floody
@@ -130,13 +98,12 @@ export default function Jogo({ darkMode, toggleTheme }) {
           title: "Nossa História",
           content:
             "Nosso jogo conta a história de 3 sobreviventes de enchentes em uma cidade antiga. Eles precisam resolver puzzles para ativar válvulas de drenagem e restaurar a cidade.",
-          ariaLabel: "Nossa História",
         },
         {
           title: "Gameplay",
           content: (
             <>
-              <div className="relative w-full mb-6" style={{ paddingBottom: "56.25%" }}>
+              <div className="relative w-full mb-6 aspect-video">
                 <iframe
                   src="https://www.youtube.com/embed/67Bi50_ORjI"
                   title="Gameplay Floody"
@@ -166,12 +133,11 @@ export default function Jogo({ darkMode, toggleTheme }) {
               </div>
             </>
           ),
-          ariaLabel: "Gameplay",
         },
         {
           title: "Trailer do Jogo",
           content: (
-            <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+            <div className="relative w-full aspect-video">
               <iframe
                 src="https://www.youtube.com/embed/f-nnv_9N6s8"
                 title="Trailer Floody"
@@ -182,16 +148,13 @@ export default function Jogo({ darkMode, toggleTheme }) {
               />
             </div>
           ),
-          ariaLabel: "Trailer do jogo",
         },
-      ].map(({ title, content, ariaLabel }, index) => (
+      ].map(({ title, content }, index) => (
         <section
           key={index}
           ref={(el) => (sectionsRef.current[index] = el)}
           className={`${sectionBaseClasses} ${sectionBg} ${
-            visibleSections.includes(index)
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-10"
+            visibleSections.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
           <h2 className={sectionTitleClasses}>{title}</h2>
@@ -202,7 +165,8 @@ export default function Jogo({ darkMode, toggleTheme }) {
           )}
         </section>
       ))}
-       <Footer />
+
+      <Footer />
     </div>
   );
 }

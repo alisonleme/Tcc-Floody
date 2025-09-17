@@ -10,7 +10,7 @@ import Servo from "../Img/Servo.png";
 import Jumper from "../Img/Jumper.png";
 import Modulo from "../Img/Modulo.png";
 import Pilha from "../Img/Pilha.png";
-import Footer from '../components/Footer.jsx';
+import Footer from "../components/Footer.jsx";
 
 export default function Material({ darkMode }) {
   const [materiais, setMateriais] = useState([]);
@@ -19,17 +19,17 @@ export default function Material({ darkMode }) {
 
   useEffect(() => {
     const itensMock = [
-      { id: 1, nome: "Bomba submersível", preco: 11.90, imagem: BombaPng },
+      { id: 1, nome: "Bomba submersível", preco: 11.9, imagem: BombaPng },
       { id: 2, nome: "Sensor de pH", preco: 193, imagem: SensorPng },
-      { id: 3, nome: "Protoboard - 3 Unidades", preco: 26.70, imagem: ProtoboardPng },
-      { id: 4, nome: "Módulo WiFi Bluetooth ESP32", preco: 64.90, imagem: ArduinoMat },
+      { id: 3, nome: "Protoboard - 3 Unidades", preco: 26.7, imagem: ProtoboardPng },
+      { id: 4, nome: "Módulo WiFi Bluetooth ESP32", preco: 64.9, imagem: ArduinoMat },
       { id: 5, nome: "Peneira", preco: 10.0, imagem: Peneira },
-      { id: 6, nome: " Display ", preco: 17, imagem: Display },
-      { id: 7, nome: "Cabornato de cálcio", preco: 20.50, imagem: Pastilha },
+      { id: 6, nome: "Display", preco: 17, imagem: Display },
+      { id: 7, nome: "Carbonato de cálcio", preco: 20.5, imagem: Pastilha },
       { id: 8, nome: "Servo motor", preco: 15.0, imagem: Servo },
-      { id: 9, nome: "Jumper (Fios) ", preco: 5.0, imagem: Jumper },
+      { id: 9, nome: "Jumper (Fios)", preco: 5.0, imagem: Jumper },
       { id: 10, nome: "Módulo relé 5V", preco: 7.0, imagem: Modulo },
-      { id: 11, nome: "Pilha AA ", preco: 8.0, imagem: Pilha },
+      { id: 11, nome: "Pilha AA", preco: 8.0, imagem: Pilha },
     ];
     setMateriais(itensMock);
   }, []);
@@ -45,35 +45,31 @@ export default function Material({ darkMode }) {
     return () => observer.disconnect();
   }, []);
 
-  const containerClasses = `flex flex-col items-center justify-start
-    h-screen overflow-y-auto pt-40 p-6 transition-all duration-700 ease-in-out
+  const containerClasses = `
+    flex flex-col items-center justify-start min-h-screen overflow-y-auto pt-40 p-6
+    transition-all duration-700 ease-in-out
     ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}
-    ${darkMode
-      ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
-      : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
+    ${
+      darkMode
+        ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white"
+        : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
     }`;
 
-  // Card grande - sem animação e hover
   const cardGrandeClasses = `p-6 rounded-3xl shadow-xl w-full max-w-6xl`;
-
-  // Cards pequenos - com animação e hover
   const cardPequenoClasses = `p-6 rounded-3xl shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out`;
-
   const cardBg = darkMode
     ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80"
     : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc]";
-
   const cardTextColor = darkMode
     ? "text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.7)]"
     : "text-gray-900";
-
   const cardPriceColor = darkMode
     ? "text-gray-300 drop-shadow-[0_0_4px_rgba(0,0,0,0.6)]"
     : "text-gray-800";
 
   return (
     <div ref={containerRef} className={containerClasses}>
-      {/* Card grande sem animação e hover */}
+      {/* Card grande */}
       <div className={`${cardGrandeClasses} ${cardBg}`}>
         <h1 className={`text-5xl font-bold text-center mb-8 ${cardTextColor}`}>
           Materiais
@@ -104,14 +100,6 @@ export default function Material({ darkMode }) {
         </div>
         <Footer />
       </div>
-
-      <style jsx>{`
-        @keyframes fadeSlide {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeSlide { animation: fadeSlide 0.8s ease forwards; }
-      `}</style>
     </div>
   );
 }

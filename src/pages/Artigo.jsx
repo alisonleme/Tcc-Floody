@@ -4,23 +4,21 @@ import Artigo1 from "../Img/image.png";
 import Artigo2 from "../Img/image copy.png";
 import Artigo3 from "../Img/image copy 2.png";
 import Footer from '../components/Footer.jsx';
+
 const artigos = [
   {
     img: Artigo1,
-    titulo:
-      "Chuvas Ácidas: Impactos Ambientais, Urbanos e a Importância de sua Análise",
+    titulo: "Chuvas Ácidas: Impactos Ambientais, Urbanos e a Importância de sua Análise",
     download: "/downloads/artigo1.pdf",
   },
   {
     img: Artigo2,
-    titulo:
-      "Educação Ambiental e Chuva Ácida: Uma Abordagem Didática no Ensino Médio",
+    titulo: "Educação Ambiental e Chuva Ácida: Uma Abordagem Didática no Ensino Médio",
     download: "/downloads/artigo2.pdf",
   },
   {
     img: Artigo3,
-    titulo:
-      "Tecnologias de Filtração e Radiação Ultravioleta para o Tratamento da Água de Chuva",
+    titulo: "Tecnologias de Filtração e Radiação Ultravioleta para o Tratamento da Água de Chuva",
     download: "/downloads/artigo3.pdf",
   },
 ];
@@ -40,7 +38,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
     return () => observer.disconnect();
   }, []);
 
-  const buttonClasses = `mt-6 md:mt-0 px-8 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl animated-button`;
+  const buttonClasses = `mt-6 md:mt-0 px-8 py-3 rounded-2xl font-semibold shadow-lg transition-transform duration-500 transform hover:scale-105 hover:shadow-2xl bg-gradient-to-r from-[#06B7F5] via-[#4AA2E2] to-[#06B7F5] text-gray-900`;
 
   return (
     <div
@@ -51,84 +49,6 @@ export default function Artigo({ darkMode, toggleTheme }) {
           : "bg-gradient-to-br from-blue-200 to-blue-400 text-gray-900"
       }`}
     >
-      <style>{`
-        @keyframes shimmer {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animated-button {
-          background: ${
-            darkMode
-              ? "linear-gradient(270deg, rgba(147,51,234,0.6), rgba(88,28,135,0.6), rgba(30,58,138,0.5))"
-              : "linear-gradient(270deg, rgba(113,183,230,0.7), rgba(179,221,254,0.7), rgba(74,144,226,0.7))"
-          };
-          background-size: 400% 400%;
-          animation: shimmer 6s ease infinite;
-          color: ${darkMode ? "#f8fafc" : "#1f2937"};
-          text-shadow: ${darkMode ? "0 0 6px rgba(0,0,0,0.7)" : "none"};
-          transition: all 0.7s ease-in-out;
-        }
-        .animated-button:hover {
-          filter: brightness(1.15);
-        }
-        .toggle-icon {
-          transition: transform 0.6s ease;
-          filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
-        }
-        .toggle-icon:hover {
-          transform: rotate(15deg) scale(1.1);
-        }
-
-        /* === RESPONSIVIDADE === */
-
-        /* Cards: empilhar no mobile e centralizar */
-        @media (max-width: 768px) {
-          .article-card {
-            flex-direction: column !important;
-            align-items: center !important;
-            text-align: center;
-            gap: 1rem !important;
-          }
-          .article-img {
-            width: 90% !important;
-            height: auto !important;
-            max-height: 220px;
-            border-radius: 1.5rem !important;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-          }
-          .article-text {
-            max-width: 100% !important;
-            font-size: 1.05rem !important;
-            line-height: 1.5;
-            padding: 0 0.5rem;
-          }
-          a.download-btn {
-            width: 70%;
-            margin: 0 auto;
-            margin-top: 1rem;
-          }
-        }
-
-        /* Botões finais: empilhar e largura 100% no mobile */
-        @media (max-width: 768px) {
-          .final-buttons {
-            flex-direction: column !important;
-            width: 100%;
-          }
-          .final-buttons > a,
-          .final-buttons > .link-button {
-            width: 100%;
-            text-align: center;
-            margin-bottom: 1rem;
-          }
-          .final-buttons > a:last-child,
-          .final-buttons > .link-button:last-child {
-            margin-bottom: 0;
-          }
-        }
-      `}</style>
-
       {/* Botão alternar tema */}
       <button
         onClick={toggleTheme}
@@ -141,7 +61,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill={darkMode ? "#ffffff" : "#374151"}
-          className="w-8 h-8 toggle-icon"
+          className="w-8 h-8 transition-transform duration-500 hover:rotate-15 hover:scale-110"
         >
           {darkMode ? (
             <path d="M12 3v1m0 16v1m8.485-9h1M3 12H2m15.364 6.364l.707.707M6.343 6.343l-.707-.707m12.728 12.728l-.707-.707M6.343 17.657l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z" />
@@ -155,11 +75,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
       <h1
         className={`text-5xl font-extrabold text-center mt-20 transition-all duration-700 ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        } ${
-          darkMode
-            ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]"
-            : "text-gray-900"
-        }`}
+        } ${darkMode ? "text-white drop-shadow-lg" : "text-gray-900"}`}
       >
         Artigos Utilizados
       </h1>
@@ -169,31 +85,23 @@ export default function Artigo({ darkMode, toggleTheme }) {
         {artigos.map((artigo, index) => (
           <div
             key={index}
-            className={`article-card flex flex-row md:flex-row items-center justify-between rounded-3xl p-6 shadow-xl cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl ${
+            className={`flex flex-col md:flex-row items-center justify-between rounded-3xl p-6 shadow-xl cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl ${
               darkMode
                 ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-white"
                 : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
             }`}
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transitionDelay: visible ? `${index * 150}ms` : "0ms",
-            }}
           >
-            <div className="flex items-center gap-6 flex-col md:flex-row">
+            <div className="flex flex-col md:flex-row items-center gap-6">
               <img
                 src={artigo.img}
                 alt={artigo.titulo}
                 loading="lazy"
-                className="article-img w-48 h-32 object-cover rounded-3xl shadow-md transition-transform duration-300 hover:scale-110"
+                className="w-48 h-32 md:w-64 md:h-40 object-cover rounded-3xl shadow-md transition-transform duration-300 hover:scale-110"
               />
               <p
-                className={`article-text font-semibold text-lg md:text-xl leading-relaxed max-w-xl ${
-                  darkMode
-                    ? "text-white drop-shadow-[0_0_4px_rgba(0,0,0,0.8)]"
-                    : "text-gray-900"
-                }`}
-                style={{ textAlign: "justify" }}
+                className={`font-semibold text-lg md:text-xl leading-relaxed max-w-xl ${
+                  darkMode ? "text-white drop-shadow-sm" : "text-gray-900"
+                } text-justify`}
               >
                 {artigo.titulo}
               </p>
@@ -202,7 +110,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
               href={artigo.download}
               download
               aria-label={`Baixar o artigo: ${artigo.titulo}`}
-              className={`${buttonClasses} download-btn`}
+              className={buttonClasses}
             >
               Fazer Download
             </a>
@@ -216,13 +124,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
           darkMode
             ? "bg-gradient-to-br from-gray-800/90 to-gray-700/80 text-white"
             : "bg-gradient-to-br from-[#d0e6f8cc] to-[#a3cbeecc] text-gray-900"
-        }`}
-        style={{
-          textAlign: "justify",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(20px)",
-          transitionDelay: visible ? `${artigos.length * 150}ms` : "0ms",
-        }}
+        } text-justify`}
       >
         <p className="text-lg md:text-xl mb-4">
           As imagens acima representam três artigos que foram pesquisados e utilizados como base teórica e de dados para o desenvolvimento do projeto Floody.
@@ -236,7 +138,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
       </div>
 
       {/* Botões finais */}
-      <div className="final-buttons flex flex-col md:flex-row items-center gap-6 mt-8 w-full max-w-5xl">
+      <div className="flex flex-col md:flex-row items-center gap-6 mt-8 w-full max-w-5xl">
         <a href="/downloads/todos-artigos.zip" download className={buttonClasses}>
           Baixar Todos os Artigos
         </a>
@@ -244,6 +146,7 @@ export default function Artigo({ darkMode, toggleTheme }) {
           Ver Página de Resumo
         </Link>
       </div>
+
       <Footer />
     </div>
   );
